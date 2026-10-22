@@ -1,0 +1,90 @@
+@import "tailwindcss" source(none);
+@source "../";
+
+@font-face {
+  font-family: 'Roobertvf';
+  src: url('/fonts/clay.com/647b16174b38dc95.woff2') format('woff2');
+  font-display: swap;
+  font-weight: 300 900;
+}
+
+@theme {
+  --color-clay-canvas: #FAF9F5;
+  --color-clay-warm: #F4F3F0;
+  --color-clay-surface: #FFFFFF;
+  --color-clay-border: #E5E3DE;
+  --color-clay-dark: #1B1A18;
+  --color-clay-text: #1B1A18;
+  --color-clay-muted: #6E6D67;
+
+  --color-clay-orange: #FF7714;
+  --color-clay-orange-dark: #B53D0A;
+  --color-clay-orange-light: #FFF3ED;
+  --color-clay-lime: #EEF773;
+  --color-clay-lime-dark: #102B03;
+
+  --color-fair: #15803D;
+  --color-fair-subtle: #DCFCE7;
+  --color-fair-border: #BBF7D0;
+
+  --color-warning: #D97706;
+  --color-warning-subtle: #FEF3C7;
+  --color-warning-border: #FDE68A;
+
+  --color-danger: #DC2626;
+  --color-danger-subtle: #FEE2E2;
+  --color-danger-border: #FECACA;
+
+  --color-anomaly: #395AFA;
+  --color-anomaly-subtle: #E0E7FF;
+  --color-anomaly-border: #C7D2FE;
+
+  --font-sans: 'Roobertvf', var(--font-sans), system-ui, sans-serif;
+  --font-display: var(--font-display), 'Roobertvf', var(--font-sans), sans-serif;
+}
+
+:root {
+  --background: #FAF9F5;
+  --surface: #FFFFFF;
+  --text-main: #1B1A18;
+  --text-muted: #6E6D67;
+}
+
+::selection {
+  background-color: #EEF773;
+  color: #1B1A18;
+}
+
+body {
+  background-color: #FAF9F5;
+  color: #1B1A18;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes ticker-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker-marquee 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-ticker:hover,
+.group:hover .animate-ticker {
+  animation-play-state: paused;
+}

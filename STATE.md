@@ -1,0 +1,215 @@
+# STATE.md — Living Context & Project Memory
+
+> **PENTING UNTUK AI**: File ini adalah memori kerja proyek yang wajib dibaca saat memulai sesi baru dan wajib diperbarui sebelum mengakhiri sesi pengerjaan. Jangan biarkan file ini basi.
+
+---
+
+## 📌 Status Terkini (Current State)
+* **Tanggal Terakhir Diperbarui**: 2026-10-22
+* **Fase Saat Ini**: **Fase A — First Draft (19 Okt – 1 Nov 2026)** — High-Fidelity Clay Style Landing Page & Design System Benchmark Active.
+* **Fokus Pengerjaan**: Implementasi landing page tolok ukur desain (*design benchmark*) platform HargaKu berpatokan 100% pada **"Design System — Clay.com Foundations"** (Node `Q0Rb5J` di `HargaKu.pen`).
+
+---
+
+## ✅ Fitur & Tahapan yang Sudah Selesai (Completed)
+- [x] Perumusan ide awal produk dan verifikasi sumber data di [`HargaKu_Rangkuman_Ide.md`](HargaKu_Rangkuman_Ide.md).
+- [x] Perumusan aturan lomba dan batasan teknis di [`SKILL.md`](SKILL.md).
+- [x] Ekstraksi & Sinkronisasi Living Docs **Design System — Clay.com Foundations** (Node `Q0Rb5J`):
+  - [x] [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) dimutakhirkan dengan spek resmi: Warm Stone Canvas (`#FAF9F5` / `#F4F3F0`), Clay Orange (`#FF7714`), Clay Electric Lime (`#EEF773`), Deep Charcoal (`#1B1A18`), Hairline Border (`#E5E3DE`).
+  - [x] Integrasi font **Roobert Variable Font (`Roobertvf`)** mencakup seluruh bobot (300 s.d. 900) via `src/app/fonts.ts` dan `@font-face` di `globals.css`. Fallback system-ui telah sepenuhnya digantikan oleh Roobertvf asli.
+- [x] Audit Anti-Slop & Redesign Visual Landing Page (`antislop-ui` & `design-taste-frontend`):
+  - [x] **Bobot Tipografi Judul**: Mengubah seluruh headline utama (Hero `h1`, Panggung Rantai Pasok `h2`, Peta Pasar `h2`, Tabel Komoditas `h2`, dan Closing CTA `h2`) dari `font-bold` ke **`font-medium` (500)** dengan `-tracking-[0.02em]`. Memberikan kesan editorial berwibawa khas Roobert, bukan template AI generik tebal.
+  - [x] **Integrasi Phosphor Icons**: Memasang `@phosphor-icons/react` dan mengganti seluruh emotikon/karakter mentah (seperti `🔍`, `→`, dll.) dengan ikon SVG Phosphor presisi (`MagnifyingGlass`, `Plant`, `Warehouse`, `Storefront`, `ShieldCheck`, `Clock`, `MapPin`, `NavigationArrow`, `TrendDown`, `TrendUp`, `Minus`, `ArrowRight`, `MegaphoneSimple`, `List`, `X`, `CheckCircle`, `WarningCircle`).
+  - [x] **Eliminasi Patchwork AI-Slop Warna-Warni**: Menghapus kartu blok warna pelangi (peach, lime, dan blue bertumpuk) dan menyatukannya ke dalam permukaan elevated white card (`#FFFFFF`) bergaris rambut (`#E5E3DE`) di atas kanvas warm stone (`#FAF9F5`). Warna aksen difungsikan secara terarah pada titik fokus (badge status, tombol aksi, dan indikator).
+- [x] Implementasi **High-Fidelity Clay Style Landing Page** (Node `Deldf` / Node `D0aYEW`, `i3mCkW`, `FOD9T`, `jMAPK`, `dxvJG`, `gHczi` di `HargaKu.pen`):
+  - [x] **Master Navbar (`Navbar.tsx`)**:
+    - Kotak 28x28px Lime `#EEF773` dengan border tebal 1.5px `#1B1A18` & huruf "H" bold.
+    - Teks "HargaKu" bold `#1B1A18` + dot "." bold `#FF7714`.
+    - Navigasi link (Harga, Cek Harga, Peta, Lapor Harga, Keranjang, Tentang).
+    - Tombol B2 Signature Hero "Cek Harga" (`bg-[#EEF773] text-[#1B1A18] outline-[#1B1A18]`).
+  - [x] **Hero Section 2-Column Split Layout (`ClayHeroSection.tsx`)**:
+    - Redesign hero section menjadi format **2-Kolom Berdampingan (Kiri-Kanan)** sesuai standar modern SaaS:
+      - **Kolom Kiri**: Live eyebrow status badge dengan pulsing green dot, display headline hero `font-medium` (500) `text-[36px] sm:text-[44px] lg:text-[48px] xl:text-[52px]` ber-tracking tight, subjudul persuasif, dual CTA taktil (B2 Signature Lime Button `[ Mulai Cek Harga Wajar ]` dengan offset shadow hitam + White Outline Button `[ Peta 5 Pasar ]`), serta strip metrik kepercayaan 3 pilar (*5 Pasar Tradisional*, *06:00 WIB Update Harian*, *Standar HAP Bapanas*).
+      - **Kolom Kanan**: Kartu panggung interaktif elevated white (`bg-white outline outline-1 outline-[#E5E3DE] rounded-[24px] shadow-[0_12px_40px_rgba(0,0,0,0.06)]`) dilengkapi pemilih komoditas instan (Cabai Merah, Bawang Merah, Daging Sapi, Minyak Curah), segmented switcher tab taktil `[ Kalkulator Takaran ]` vs `[ Komparasi 5 Pasar ]`, micro-bar konteks pasar termurah riil, serta footer transparansi PIHPS.
+    - Ekstraksi dataset dan tipe ke `src/components/landing/hero-data.ts` sehingga ukuran file `ClayHeroSection.tsx` tetap ringkas (~180 baris, mematuhi batas Anti-God-File < 250 baris).
+    - Fluid adaptivity pada `ClayCalculatorInstrument.tsx` dan `ClayMarketRankings.tsx` (`w-full`) agar dapat mengisi kontainer secara responsif di semua ukuran layar.
+  - [x] **Konsistensi Global Desain Landing Page (Audit Visual & Layout Stability)**:
+    - **Penyelarasan Grid Kontainer (`max-w-[1240px]`)**: Seluruh elemen mulai dari `Navbar`, `ClayHeroSection`, `ClaySupplyChainSection`, `ClayMarketMapSection`, `ClayCommodityTableSection`, hingga `Footer` kini seragam menggunakan `max-w-[1240px]` dan padding `px-4 sm:px-8 lg:px-12`. Tepi kiri dan kanan kartu sekarang sejajar 100% tanpa offset.
+    - **Konsistensi Eyebrow Pill**: Seluruh section (`Hero`, `Rantai Pasok`, `Peta Pasar`, `Tabel Komoditas`, `Closing CTA`) kini menggunakan pill badge standar yang konsisten (`bg-white` / `bg-[#FAF9F5]`, outline `[#E5E3DE]`, rounded-full, status dot berwarna, teks `#1B1A18`).
+    - **Konsistensi Semantic Badge Status**: Badge status "Wajar" di tabel ranking pasar diperbarui dari abu-abu (`#EBEAE5`) menjadi hijau standar (`#DCFCE7` / `#15803D`) yang selaras 100% dengan badge kalkulator dan tabel komoditas.
+    - **Konsistensi Takaran Chips**: Chip takaran aktif kini menggunakan token resmi Clay Orange Light (`bg-[#FFF3ED] text-[#FF7714] outline-[#FF7714]`) sesuai `docs/DESIGN_SYSTEM.md` Section 4.2.
+    - **Eliminasi AI Slop Hijau & Buletan Pulsing**:
+      - Menghapus buletan hijau (*pulsing dot*) pada seluruh eyebrow pill badge di Hero dan seluruh section panggung. Eyebrow kini tampil murni tipografi taktil bersih di dalam pill putih/warm stone.
+      - Menghapus total kotak alert pastel hijau (`bg-[#F0FDF4]`, stroke `outline-[#BBF7D0]`, teks `text-[#166534]`, dan ikon centang hijau) pada instrumen kalkulator takaran. Digantikan dengan kartu netral Warm Stone (`bg-[#FAF9F5] outline-[#E5E3DE]`), harga angka Deep Charcoal `#1B1A18`, dan badge status menggunakan signature Clay Electric Lime (`#EEF773` text `#1B1A18`) atau Warm Amber jika tinggi.
+      - Menghilangkan seluruh stroke dan teks hijau turunan generik pada tabel komparasi, micro-bar konteks, dan tabel komoditas, menggantikannya dengan palet resmi Clay Foundations (Charcoal `#1B1A18`, Warm Stone `#F4F3F0`, dan Electric Lime `#EEF773`).
+    - **Stabilitas Tinggi Kartu (Anti-Jitter Tab Switcher)**: Menambahkan micro-bar konteks komparasi pada tab 5 Pasar sehingga perpindahan antara tab "Kalkulator Takaran" dan "Komparasi 5 Pasar" memiliki tinggi yang seimbang dan tidak menyebabkan pergeseran layout (*zero layout shift*).
+    - **Full-Viewport Hero (Anti-Cutoff / Full Screen Fold)**: Menyetel Hero Section menggunakan `min-h-[calc(100vh-104px)] lg:min-h-[calc(100dvh-104px)]` dengan `flex flex-col justify-center` dan `items-center` sehingga panggung Hero memenuhi 100% tinggi layar pertama secara penuh tanpa terpotong (section berikutnya berada bersih di bawah *fold*).
+    - **Tipografi Editorial Seimbang (`text-balance`)**: Menghilangkan kata yatim (*orphan*) pada headline utama dan seluruh sub-judul section.
+  - [x] **Redesign Komposisi & Ritme Landing Page Pasca-Hero (`/antislop-ui` & `/design-taste-frontend`)**:
+    - **Eliminasi Templating "Card Inside Card"**: Mengganti pola pengulangan kartu putih melayang seragam pada kanvas menjadi komposisi editorial dengan variasi ritme (*tone steps*) dan konten bernas spesifik Kota Bogor.
+    - **Panggung Rantai Pasok (`ClaySupplyChainSection.tsx`)**: Menyelaraskan seluruh kanvas ke **Warm Stone (`#FAF9F5`)** dan kartu putih taktil (`#FFFFFF` outline `#E5E3DE`) agar menyatu utuh dengan ritme hangat Clay.com Foundations (menghilangkan bidang hitam pekat). Menampilkan narasi 3 simpul distribusi pangan (Cianjur/Garut -> Pasar Induk TU Kemang -> Lapak 5 Pasar), badge ikonik Phosphor (`Plant`, `Truck`, `Storefront`), serta instrumen audit persentase margin TPID (Petani 73%, Logistik 15%, Lapak 12% dalam ambang aman 37.1% < 40%).
+    - **Modularisasi Anti-God-File**: Mengekstraksi dataset statis `COMMODITIES` ke `commodity-table-data.ts` dan `BOGOR_MARKETS` ke `market-map-data.ts` sehingga seluruh file komponen di `src/components/landing/` berada di bawah 235 baris (patuh batasan < 250 baris).
+    - **Terminal Spasial 5 Pasar Tradisional (`ClayMarketMapSection.tsx`)**: Mengubah kartu gambar statis menjadi **Terminal Interaktif 5 Pasar Bogor** (Kebon Kembang, Anyar, Sukasari, Gunung Batu, Jambu Dua). Memilih pasar secara interaktif memperbarui koordinat peta, spesialisasi sentra komoditas, jam bongkar muat terbaik, dan daftar harga unggulan hari ini.
+    - **Buku Transparansi Komoditas Pokok (`ClayCommodityTableSection.tsx`)**: Menyajikan buku data terbuka (*open ledger*) tanpa pembungkus kartu ganda, dilengkapi filter kategori instan (`Semua`, `Cabai & Bawang`, `Beras & Pokok`, `Protein & Daging`, `Minyak Goreng`), live search input, komparasi HAP resmi Bapanas vs Rata-rata Kota vs Pasar Termurah, serta tren 7 hari.
+    - **Panggung Partisipasi Warga & Mockup Struk (`ClayClosingCtaSection.tsx`)**: Mengganti teks CTA generik dengan panggung aksi warga gotong royong pangan, jaminan privasi sanitasi otomatis EXIF GPS, dan simulasi taktil bukti nota struk belanja warga terverifikasi konsensus TPID.
+    - **Zero AI-Slop Color**: Menghilangkan seluruh warna, stroke, dan teks hijau pastel generik, menyelaraskan seluruh antarmuka ke palet resmi Clay Foundations (Charcoal `#1B1A18`, Warm Stone `#FAF9F5` / `#F4F3F0`, dan Electric Lime `#EEF773`).
+- [x] Desain Layar **02 · Dashboard Harga (High-Fidelity Clay Style)** (Node `UEPum` di `HargaKu.pen`, koordinat `x: 5329, y: 1950, w: 1440`):
+  - [x] **Master Navbar**: Tautan `Harga` aktif (`#1B1A18`, 600) + logo `HargaKu.` + tombol CTA `[ Cek Harga ]` Electric Lime.
+  - [x] **Header Row**: Eyebrow `PANTAUAN PANGAN HARIAN · KOTA BOGOR` (`#FF7714`), judul 36px font-medium Roobert, dan pill tactile live update `Diperbarui: 22 Okt 2026, 06:00 WIB` dengan Phosphor Clock icon (tanpa pulsating dot hijau AI-slop).
+  - [x] **Alert Banner (Lonjakan Harga)**: Panggung Clay Peach `#FFF3ED` + badge peringatan oranye `#FF7714` (deteksi lonjakan Cabai Merah Keriting +14.2% & alternatif Pasar Sukasari -8.2%) dan tautan komparasi.
+  - [x] **Filter & Search Bar**: Input pencarian komoditas, dropdown pemilih pasar (5 Pasar Bogor), dropdown urutan perubahan, toggle Mode Ringan (tabel hemat data), serta deretan pill chip kategori (`Semua (12)`, `Beras`, `Protein & Daging`, `Bumbu & Cabai`, `Sayur Mayur`, `Minyak & Gula`).
+  - [x] **Grid 12 Kartu Komoditas Tactile (4 kolom x 3 baris)**: Kartu putih `#FFFFFF` outline `#E5E3DE`, harga besar, unit takaran, badge persentase perubahan 7 hari, 14 mini bar sparkline fluktuasi harian dengan highlight status, dan footer sumber data + HAP acuan resmi.
+  - [x] **Tampilan Mode Ringan (Open Ledger Table)**: Format tabel terbuka alternatif untuk koneksi hemat data dan perbandingan cepat.
+  - [x] **Kartu Legenda & Keterangan Metodologi**: Pill status 4 warna (`Wajar`, `Agak Mahal`, `Terlalu Mahal`, `Murah`) dengan panduan batas toleransi HAP Bapanas dan etika perlindungan privasi pedagang lapak.
+  - [x] **Anti-God-File Compliance**: Seluruh file sub-komponen dashboard (`DashboardHeader.tsx`, `PriceSurgeAlertBanner.tsx`, `DashboardFilterBar.tsx`, `TactileCommodityCard.tsx`, `CommodityLedgerTable.tsx`, `StatusLegendCard.tsx`, `CommodityDashboardView.tsx`) di bawah 170 baris.
+  - [x] **Master Footer**: Footer konsisten 3 kolom dengan info inisiatif WIA 2026 dan badge simulasi data.
+  - [x] Verifikasi layout: Zero clipping issues, 100% responsif dalam kontainer 1440px.
+- [x] Desain Layar **03 · Detail Komoditas (High-Fidelity Clay Style)** (Node `vFtqh` di `HargaKu.pen`, koordinat `x: 7264, y: 1950, w: 1440`):
+  - [x] **Master Navbar**: Tautan `Harga` aktif (`#1B1A18`, 600) + logo `HargaKu.` + tombol CTA `[ Cek Harga ]` Electric Lime.
+  - [x] **Header & Breadcrumb (`CommodityBreadcrumb.tsx` & `CommodityHeroHeader.tsx`)**: `Harga › Detail Komoditas › [Nama Komoditas]`, judul 36px Roobertvf, pill status `Agak Mahal (+8.5%)`, dan dua tombol aksi taktil (`[ Cek Harga yang Kamu Terima ]` dan `[ Lapor Harga Lapak ]`).
+  - [x] **Hero Price**: Rp 62.000/kg (Rp 6.200/ons) dengan badge perubahan tren 7 hari di Bogor.
+  - [x] **Arsitektur 3 Lapis Harga (`ThreeLayerPriceCards.tsx`)**:
+    - Lapis 1 (Acuan Resmi Bapanas): Rp 55.000 – 57.000/kg (Batas toleransi Rp 60.000).
+    - Lapis 2 (Rerata Kota PIHPS): Rp 60.400/kg (Deviasi +9.8% di atas acuan).
+    - Lapis 3 (Data Lapak Warga 7 Hari): Rp 62.000/kg (24 laporan terverifikasi struk timbangan).
+  - [x] **Panggung Tren Fluktuasi 30 Hari (`PriceFluctuationChartCard.tsx`)**: Kanvas visual interaktif dengan batas toleransi resmi HAP (garis horizontal acuan), daily bars transisi dari abu-abu stabil menuju oranye dan lonjakan merah, serta sumbu tanggal harian.
+  - [x] **Panggung Perbandingan 5 Pasar Bogor (`MarketComparisonCard.tsx`)**: Bar komparasi horizontal taktil membandingkan harga Pasar Sukasari (Paling Hemat Rp 58k) hingga Pasar Kebon Kembang (Tertinggi Rp 64k).
+  - [x] **Tabel Laporan Terbaru Warga (`RecentCitizenReportsTable.tsx`)**: Tabel agregat per pasar dengan bukti nota/timbangan dan badge verifikasi TPID (tanpa menampilkan nama pedagang individu demi etika perlindungan lapak).
+  - [x] **Anti-God-File Compliance**: Seluruh file sub-komponen detail komoditas di `src/components/commodity-detail/` berada di bawah 155 baris (patuh batasan < 250 baris).
+- [x] Desain Layar **04 · Cek Harga Wajar (High-Fidelity Clay Style)** (Node `SWBPt` di `HargaKu.pen`, koordinat `x: 9235, y: 1950, w: 1440`):
+  - [x] **Master Navbar**: Tautan **`Cek Harga`** aktif (`#1B1A18`, 600) + logo `HargaKu.` + tombol CTA `[ Cek Harga ]` Electric Lime.
+  - [x] **Header Row (`PriceCheckHeader.tsx`)**: Eyebrow `VALIDASI HARGA BELANJA · KOTA BOGOR` (`#FF7714`), judul 36px Roobertvf medium, dan subjudul penjelas instan 3 lapis data resmi.
+  - [x] **Kartu Form Data Belanja (`PriceCheckForm.tsx`)**: Dropdown komoditas, input takaran dinamis (jumlah + satuan lapak: ons, 1/4 kg, 1/2 kg, 1 kg, liter), dropdown 5 pasar tradisional Bogor, dan input harga lapak dengan kalkulasi live normalisasi `≈ Rp 75.000/kg`.
+  - [x] **Kartu Hasil Evaluasi Kewajaran (`PriceEvaluationResultCard.tsx`)**: Status besar `▲ Agak Mahal` (+12.5% di atas acuan), rincian komparasi acuan vs lapak, saran tawar belanja praktis, dan tombol aksi ganda (`[ Lapor Harga Lapak Ini ]` & `[ Bandingkan 5 Pasar Lain ]`).
+  - [x] **Kartu Metodologi Evaluasi (`PriceMethodologyCard.tsx`)**: Panduan ambang batas kewajaran resmi (Wajar ±10%, Agak Mahal +10%–25%, Terlalu Mahal >+25%, Jauh Lebih Murah <-15%) serta pipeline data bertingkat.
+  - [x] **Kartu Edge Case (`PriceInsufficientDataCard.tsx`)**: Tampilan fallback transparan tanpa halusinasi data saat laporan belum mencukupi ambang batas minimum (3 laporan/7 hari), dengan tombol ajakan lapor warga.
+  - [x] **Orkestrasi Komponen (`PriceCheckerContainer.tsx` & `PriceCheckerWidget.tsx`)**: Client state interaktif yang langsung memvalidasi harga begitu nominal diketik atau unit diubah.
+  - [x] **Anti-God-File Compliance**: Seluruh file komponen di `src/components/price/` ramping dan berada di bawah 190 baris (patuh batasan < 250 baris).
+- [x] Desain Layar **05 · Peta Harga (High-Fidelity Clay Style)** (Node `Lt5wk` di `HargaKu.pen`, koordinat `x: 11103, y: 1950, w: 1440`):
+  - [x] **Master Navbar**: Tautan **`Peta`** aktif (`#1B1A18`, 600) + logo `HargaKu.` + tombol CTA `[ Cek Harga ]` Electric Lime.
+  - [x] **Header & Komoditas Selector**: Pemilih komoditas aktif (Cabai Rawit Merah, Bawang Merah, Beras Medium, Daging Sapi), indikator harga rata-rata kota, dan pill live update.
+  - [x] **Panggung Spasial 5 Pasar Tradisional**: Kanvas peta interaktif dengan 5 pin pasar berkode warna status harga (Sukasari: Termurah, Anyar: Wajar, Bogor: Wajar, Gunung Batu: Agak Mahal, Kebon Kembang: Tertinggi) dan popup card interaktif Pasar Sukasari (Rp 58.000/kg).
+  - [x] **Tabel Alternatif Aksesibilitas**: Tabel data harga dan alamat 5 pasar untuk pembaca layar dan koneksi hemat data.
+  - [x] **Master Footer**: Footer konsisten 3 kolom.
+- [x] Desain Layar **06 · Lapor Harga (High-Fidelity Clay Style)** (Node `mhYmm` di `HargaKu.pen`, koordinat `x: 12991, y: 1950, w: 1440`):
+  - [x] **Master Navbar**: Tautan **`Lapor Harga`** aktif (`#1B1A18`, 600) + logo `HargaKu.` + tombol CTA `[ Cek Harga ]` Electric Lime.
+  - [x] **Header & Subtitle**: `Kirim Laporan Harga Lapak Pasar` dengan subjudul edukasi crowdsourcing anti-hoax.
+  - [x] **Formulir Lapor Interaktif**: Pemilih komoditas, pasar, nominal harga yang dibeli, unit takaran normalisasi, kotak unggah foto bukti nota/timbangan berlabel *EXIF Sanitized*, dan persetujuan etika perlindungan privasi pedagang.
+  - [x] **Panel Pipeline Verifikasi & Tips**: Langkah pemfilteran otomatis (Sanitasi EXIF -> Deteksi Anomali MAD -> Konsensus Median 7 Hari) dan panduan foto yang sah.
+  - [x] **Kartu Feedback Pengiriman (Success State)**: Pratinjau ID laporan dan pesan penghargaan bagi kontribusi warga.
+  - [x] **Master Footer**: Footer konsisten 3 kolom.
+- [x] Desain Layar **07 · Keranjang Belanja (High-Fidelity Clay Style)** (Node `L5En3x` di `HargaKu.pen`, koordinat `x: 15097, y: 1950, w: 1440`):
+  - [x] **Master Navbar**: Tautan **`Keranjang`** aktif (`#1B1A18`, 600) + logo `HargaKu.` + tombol CTA `[ Cek Harga ]` Electric Lime.
+  - [x] **Header & Kalkulator Dapur**: Perencana belanja multi-item untuk keluarga (Beras, Cabai, Bawang, Daging, Minyak).
+  - [x] **Daftar Belanjaan Interaktif**: Kontrol kuantitas per item, harga satuan estimasi, subtotal instan, dan aksi hapus/tambah komoditas.
+  - [x] **Kartu Komparasi 5 Pasar**: Perbandingan total estimasi belanja di 5 pasar Bogor dengan visualisasi bar hemat belanja (Pasar Sukasari Termurah Rp 198.500 vs Pasar Kebon Kembang Rp 222.500).
+  - [x] **Callout Potensi Hemat**: Rekomendasi rute belanja hemat hingga Rp 24.000.
+  - [x] **Master Footer**: Footer konsisten 3 kolom.
+- [x] Desain Layar **08 · Tentang & Sumber Data (High-Fidelity Clay Style)** (Node `UxYAo` di `HargaKu.pen`, koordinat `x: 16801, y: 1950, w: 1440`):
+  - [x] **Master Navbar**: Tautan **`Tentang`** aktif (`#1B1A18`, 600) + logo `HargaKu.` + tombol CTA `[ Cek Harga ]` Electric Lime.
+  - [x] **Header & Deklarasi Transparansi**: `Tentang HargaKu & Sumber Data` dengan penegasan netralitas dan etika pangan publik.
+  - [x] **Matriks 6 Sumber Data Resmi**: Tabel komprehensif memuat HAP/HET Bapanas, PIHPS Bank Indonesia, Panel Pangan Bapanas, Laporan Warga Lapak, Data Disperindag TPID, dan Dataset Simulasi Demo.
+  - [x] **3 Langkah Metodologi Kewajaran**: Kartu penjelasan Hirarki Harga Pembanding, Formula Selisih & Status, serta Skor Kepercayaan Data.
+  - [x] **Batasan Prinsip Etika**: 5 poin perlindungan privasi pedagang pasar dan penegasan HargaKu bukan penentu sepihak harga lapak.
+  - [x] **Tim Pengembang & Inisiatif WIA 2026**: Kartu profil tim Agy untuk kompetisi Web In Action 2026.
+  - [x] **Master Footer**: Footer konsisten 3 kolom.
+- [x] Desain Layar **09 · Admin Console & CRUD Dashboard Terpadu (High-Fidelity Clay Style)** (Node `wiHah` di `HargaKu.pen`, koordinat `x: 18516, y: 1950, w: 1440`):
+  - [x] **Arsitektur Layout SaaS Sidebar Terpadu**:
+    - `AdminTopbar.tsx`: Header konsol dengan status live sync website publik, label petugas TPID Kota Bogor, dan tombol pintas ke website publik.
+    - `AdminSidebar.tsx`: Sidebar vertikal kiri taktil (240px desktop, drawer di mobile) dengan icon Phosphor, counter badge antrean dinamis, dan tombol reset data default.
+    - `AdminContainer.tsx`: Orchestrator modular 5 modul view dengan `AdminStoreProvider` terpusat.
+  - [x] **5 Modul Kerja Admin Lengkap**:
+    - 1. **Ringkasan Sistem (`AdminOverviewView.tsx`)**: 4 kartu metrik (Komoditas Aktif, Pasar Terdaftar, Antrean Moderasi, Kelengkapan Survei Hari Ini 06:00 WIB), peringatan status survei, dan pintasan aksi cepat.
+    - 2. **Katalog Komoditas Pangan CRUD (`AdminCommoditiesView.tsx` + `CommodityFormModal.tsx`)**: Tabel komoditas publik lengkap dengan filter kategori, pencarian, toggle aktif/nonaktif, penyesuaian harga acuan HAP/HET Bapanas, ambang toleransi %, dan modal form tambah/edit.
+    - 3. **Pasar Tradisional CRUD (`AdminMarketsView.tsx` + `MarketFormModal.tsx`)**: Tabel 5 pasar tradisional Bogor dengan koordinat GPS presisi untuk peta Leaflet, jam bongkar muat, sentra spesialisasi pangan, dan modal form tambah/edit.
+    - 4. **Entri Cepat Harga Resmi Harian (`AdminDailyPricesView.tsx`)**: Fast-entry matrix berbasis tabel per pasar untuk update harga survei pagi 06:00 WIB, dilengkapi kalkulasi instan deviasi vs acuan HAP, serta tombol simpan batch ke website publik.
+    - 5. **Moderasi Laporan Warga (`AdminReportsView.tsx`)**: Antrean laporan warga, pendeteksian anomali statistik MAD, preview foto nota berstempel *EXIF Sanitized*, dan tombol persetujuan/penolakan untuk agregat Lapis 3.
+  - [x] **Profil Petugas & Fitur Keluar (Logout)**:
+    - `AdminTopbar.tsx`: Avatar inisial (`HI`), nama petugas `Drs. Hendra Irawan`, role badge, dan dropdown menu akun admin.
+    - `AdminProfileModal.tsx`: Modal dialog tabbed (Biodata Petugas, NIP, email kedinasan, ganti kata sandi, dan audit log sesi aktif).
+    - Tombol Logout di Topbar dan Sidebar dengan konfirmasi sesi dan pembersihan token.
+  - [x] **Halaman & Sistem Login Admin (`/admin/login`) Selesai Diimplementasikan**:
+    - `src/lib/auth/admin-auth.ts`: Layanan autentikasi, pembuatan session token JWT mock, verifikasi kredensial kedinasan, dan persistensi sesi `hargaku_admin_session`.
+    - `src/components/admin/AdminLoginForm.tsx`: Form kartu masuk Clay Foundations mandiri dengan input email, password (toggle visibility mata), remember me, dan tombol **Isi Otomatis Kredensial Demo (1-Klik)** untuk juri/evaluator WIA 2026.
+    - `src/app/admin/login/page.tsx`: Rute mandiri layar penuh di luar layout website publik.
+    - `src/components/admin/AdminAuthGuard.tsx`: Route guard protektif yang memverifikasi sesi aktif; otomatis redirect ke `/admin/login` jika belum login, dan auto-redirect ke `/admin` jika sudah terautentikasi.
+    - Unit testing autentikasi `scripts/verify-admin-auth.mjs` teruji lulus 100% (TC-AUTH-01 s.d. TC-AUTH-04).
+  - [x] **State Management Persisten (`AdminStore`)**:
+    - Penyimpanan state reaktif dengan adapter browser `localStorage` (`hargaku_admin_store_v1`) sehingga seluruh perubahan CRUD tidak hilang saat refresh browser dan langsung siap terhubung ke backend API.
+    - Unit test reducer store (`scripts/verify-admin-store.mjs`) teruji 100% lulus (TC-ADM-01 s.d. TC-ADM-06).
+  - [x] **Kepatuhan Anti-God-File & Strict TypeScript**: Seluruh file sub-komponen admin berukuran antara 54 s.d. 263 baris (bebas god-file, zero `any`, 0 typecheck error, 0 build error).
+- [x] Verifikasi Kualitas & Definition of Done:
+  - [x] Strict TypeScript: `npm run typecheck` 100% bersih tanpa error (Zero `any`).
+  - [x] Unit Test Logic: `npm test` lulus 100% untuk TC-CW-01 s.d. TC-CW-07.
+  - [x] Production Build: `npm run build` sukses 100% mengkompilasi seluruh 10 rute Next.js 16 (`/`, `/dashboard`, `/komoditas/[slug]`, `/cek-harga`, `/peta`, `/lapor`, `/keranjang`, `/tentang`, `/admin`).
+  - [x] Anti-God-File: Seluruh komponen dipecah modular ≤ 250 baris per file.
+  - [x] Anti-Slop Audit: Palet konsisten Clay Foundations (Warm Stone `#FAF9F5`, Deep Charcoal `#1B1A18`, Clay Orange `#FF7714`, Electric Lime `#EEF773`), tanpa kartu hijau pastel generik dan tanpa pulsing dot.
+  - [x] Center-Aligned Floating Capsule Navbar: Menu navigasi diposisikan simetris di tengah dalam capsule pill tactile (`inline-flex shrink-0 rounded-full bg-white/90 outline outline-1 outline-[#E5E3DE] p-1`), dilengkapi **Magnetic Sliding Pill Indicator** konsentris pixel-perfect (`left-0`, `Math.round()`, `translate3d`), gap 4px konsentris sempurna di semua sisi tanpa offset asimetris.
+  - [x] Penyelarasan Margin Global (Navbar, Footer, & 9 Layar): Memindahkan padding `px-4 sm:px-8 lg:px-12` ke tag pembungkus luar (`header`, `section`, `footer`) dan menyeragamkan kontainer dalam `max-w-[1240px] mx-auto` sehingga seluruh logo, judul, tombol, dan tepi konten sejajar 100% tegak lurus tanpa offset 48px.
+  - [x] **Penyelarasan Floating Capsule Navbar (5 Menu Inti) & Aksesibilitas Halaman Tentang**:
+    - Menghapus tautan statis `Tentang` dari floating capsule navbar (`Navbar.tsx`) sehingga navbar kini murni berfokus pada 5 menu alat bantu interaktif (`Harga`, `Cek Harga`, `Peta`, `Lapor Harga`, `Keranjang`).
+    - Kapsul floating pill kini lebih ramping, proporsional, dan memiliki ruang napas lapang dengan feel aplikasi web modern (ala Linear/Raycast).
+    - Menambahkan titik akses interaktif cepat ke `/tentang`:
+      - **Top Running Marquee Ticker**: Badge disclaimer demo di paling atas kini berupa tautan interaktif yang langsung membuka `/tentang` saat diklik.
+      - **Footer Menu Utama**: Tautan eksplisit `Tentang & Sumber Data` di footer.
+      - **Mobile Drawer**: Tautan `Tentang & Sumber Data` di drawer navigasi layar HP.
+    - Memperbarui seluruh tautan rujukan resmi **PIHPS Bank Indonesia** dari domain lama menuju URL resmi Bank Indonesia: `https://www.bi.go.id/hargapangan` di `Footer.tsx` dan `AboutDataSourceCards.tsx`.
+  - [x] **Redesign & Deep Polish Halaman Tentang & Sumber Data (`/tentang`)**:
+    - Modularisasi komponen baru di `src/components/about/` mematuhi batas Anti-God-File (< 200 baris per file):
+      - `AboutHeroHeader.tsx`: Breadcrumb navigasi, pill status oranye, headline editorial Roobertvf, serta 4 jump-anchor pill (`#sumber-data`, `#metodologi`, `#etika-pedagang`, `#tim-pengembang`).
+      - `AboutDemoNotice.tsx`: Kartu deklarasi transparansi data prototipe WIA 2026 untuk 5 pasar tradisional Bogor.
+      - `AboutDataSourceCards.tsx`: Matriks 4 sumber data resmi (Bapanas HAP/HET Lapis 1, PIHPS BI Rerata Kota Lapis 2, Laporan Warga Lapak Lapis 3, TPID Pemkot Bogor) lengkap dengan frekuensi pembaruan dan link verifikasi eksternal.
+      - `AboutMethodologySection.tsx`: Diagram 3 lapis fallback waterfall, formula statistik MAD (Median Absolute Deviation) anti-sabotase angka ekstrem, serta 4 kartu ambang batas toleransi status kewajaran.
+      - `AboutEthicsPrinciples.tsx`: 5 pilar etika perlindungan pedagang (Anti-Doxxing Lapak, Sanitasi EXIF, Praduga Baik Kualitas Pangan, Non-Coercive Compass, Netralitas Publik Non-Komersial).
+      - `AboutTeamAndTechStack.tsx`: Profil tim inisiatif WIA 2026 UPN Veteran Jakarta, grid 6 tumpukan teknologi modern, serta dual action CTA button taktil.
+    - Sinkronisasi tautan deep-link di `Footer.tsx` langsung menuju anchor section terkait.
+  - [x] **Penyelarasan Footer Global (`Footer.tsx`)**:
+    - **Pembersihan Menu Utama**: Menghapus `Portal Moderasi TPID` dari Menu Utama agar navigasi publik tetap 100% fokus pada konsumen warga (`Harga Komoditas`, `Cek Harga Wajar`, `Peta Pasar`, `Lapor Harga`, `Keranjang Belanja`, `Tentang HargaKu`). Tautan portal moderasi dipindahkan secara diskret ke footnote bawah (`Portal Petugas TPID`).
+    - **Standardisasi Kolom Sumber Data**: Menghapus tautan internal semu (*Standar HAP/HET* dan *Metodologi Deviasi*) dan menggantinya murni dengan 4 rujukan website resmi pemerintah bereputasi (`.go.id`):
+      1. PIHPS Bank Indonesia (`https://www.bi.go.id/hargapangan`)
+      2. Panel Harga Bapanas (`https://panelharga.badanpangan.go.id`)
+      3. Badan Pangan Nasional (`https://badanpangan.go.id`)
+      4. Open Data Kota Bogor (`https://opendata.kotabogor.go.id`)
+    - **Sinkronisasi 5 Pasar Pilot**: Menyelaraskan daftar pasar dengan 5 pasar riil aplikasi (`Pasar Sukasari`, `Pasar Anyar`, `Pasar Kebon Kembang`, `Pasar Gunung Batu`, `Pasar Jambu Dua`) yang terhubung langsung ke rute interaktif `/peta`.
+  - [x] **Live Commodity Ticker Tape Marquee (`SimulationBadge.tsx`)**: Mengubah banner atas menjadi ticker pangan berjalan otomatis (*infinite marquee*) ala Bloomberg/bursa komoditas dengan dual track seamless loop (`translate3d(-50%, 0, 0)`), edge gradient masks fade-in/out, dan fitur auto-pause saat mouse hover.
+
+---
+
+## 🚧 Task Sedang Berjalan (In Progress)
+- [x] **Transformasi Penuh `/admin` Menjadi Standalone SaaS Admin Console**:
+  - [x] **Isolasi Layout Total (`PublicLayoutWrapper.tsx`)**: Rute `/admin*` terpisah 100% dari website publik (marquee running ticker, navbar konsumen, dan footer publik dinonaktifkan secara otomatis).
+  - [x] **Modul CRUD Lengkap & State Terpusat**:
+    - Ringkasan Metrik & Status Kesehatan Sistem (`AdminOverviewView.tsx`).
+    - CRUD Katalog Komoditas (`AdminCommoditiesView.tsx` + `CommodityFormModal.tsx`).
+    - CRUD Pasar Tradisional & Koordinat Leaflet (`AdminMarketsView.tsx` + `MarketFormModal.tsx`).
+    - Matriks Fast-Entry Harga Harian 06:00 WIB (`AdminDailyPricesView.tsx`).
+    - Moderasi Laporan Warga dengan Ambang Deviasi MAD 25% (`AdminReportsView.tsx`).
+  - [x] **Autentikasi & Route Guard Mandiri (`/admin/login` & `AdminAuthGuard.tsx`)**:
+    - Proteksi rute `/admin` dengan pengalihan otomatis ke `/admin/login` jika belum terautentikasi.
+    - Sesi token persisten `hargaku_admin_session` di localStorage dengan masa aktif 24 jam / 7 hari.
+  - [x] **Refactoring Identitas Admin & Pembersihan UI Login**:
+    - Menghapus persona "Drs. Hendra Irawan, M.Si" dan menggantinya dengan akun **"Admin"** murni (`admin@hargaku.id` / `admin`).
+    - Menghapus kotak demo akun otomatis di `/admin/login` sehingga formulir masuk bersih dan profesional ala SaaS modern.
+    - Mengubah tombol profil di topbar menjadi avatar foto bulat (`rounded-full`) dengan dropdown standar SaaS: `Pengaturan Akun (Settings)`, `Bantuan & Panduan (Help)`, dan `Keluar Sesi (Log out)`.
+    - Modal SOP & Bantuan Admin terintegrasi (`AdminHelpModal.tsx`).
+- [x] Seluruh 9 Layar Aplikasi dari `HargaKu.pen` telah selesai diimplementasikan:
+  - 01 · Landing Page (`/`)
+  - 02 · Dashboard Harga (`/dashboard`)
+  - 03 · Detail Komoditas (`/komoditas/[slug]`)
+  - 04 · Cek Harga Wajar (`/cek-harga`)
+  - 05 · Peta Harga 5 Pasar (`/peta`)
+  - 06 · Lapor Harga Warga (`/lapor`)
+  - 07 · Keranjang Belanja (`/keranjang`)
+  - 08 · Tentang & Sumber Data (`/tentang`)
+  - 09 · Portal Moderasi TPID (`/admin`)
+
+---
+
+## 🛑 Kendala & Blocker Aktif (Active Blockers / Issues)
+* *Tidak ada blocker aktif.* Seluruh styling kanvas `HargaKu.pen` (Clay.com Foundations) telah terpasang rapi, fungsional, dan teruji di Next.js 16.
+
+---
+
+## ⏭️ Langkah Selanjutnya (Next Immediate Actions)
+1. Setup Prisma PostgreSQL dan migrasi database schema sesuai [`docs/SCHEMA.md`](docs/SCHEMA.md).
+2. Hubungkan adapter live backend API saat database terpasang.

@@ -1,0 +1,168 @@
+'use client';
+
+import {
+  MagnifyingGlass,
+  Table,
+  SquaresFour,
+  CaretDown,
+} from '@phosphor-icons/react';
+
+export type DashboardCategoryFilter =
+  | 'ALL'
+  | 'BERAS'
+  | 'DAGING_TELUR'
+  | 'CABAI_BAWANG'
+  | 'SAYURAN'
+  | 'MINYAK_GULA';
+
+export type DashboardSort =
+  | 'CHANGE_DESC'
+  | 'PRICE_ASC'
+  | 'PRICE_DESC'
+  | 'NAME_ASC';
+
+interface Props {
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
+  selectedMarket: string;
+  onMarketChange: (market: string) => void;
+  selectedSort: DashboardSort;
+  onSortChange: (sort: DashboardSort) => void;
+  isLightMode: boolean;
+  onToggleLightMode: () => void;
+  selectedCategory: DashboardCategoryFilter;
+  onCategoryChange: (category: DashboardCategoryFilter) => void;
+  totalCount: number;
+}
+
+const CATEGORIES: Array<{ id: DashboardCategoryFilter; label: string }> = [
+  { id: 'ALL', label: 'Semua (12)' },
+  { id: 'BERAS', label: 'Beras' },
+  { id: 'DAGING_TELUR', label: 'Protein & Daging' },
+  { id: 'CABAI_BAWANG', label: 'Bumbu & Cabai' },
+  { id: 'SAYURAN', label: 'Sayur Mayur' },
+  { id: 'MINYAK_GULA', label: 'Minyak & Gula' },
+];
+
+export function DashboardFilterBar({
+  searchQuery,
+  onSearchChange,
+  selectedMarket,
+  onMarketChange,
+  selectedSort,
+  onSortChange,
+  isLightMode,
+  onToggleLightMode,
+  selectedCategory,
+  onCategoryChange,
+}: Props) {
+  return (
+    <div className="flex flex-col gap-4">
+      {/* Top Controls Row */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+        {/* Search Input */}
+        <div className="md:col-span-5 relative">
+          <MagnifyingGlass
+            size={16}
+            weight="bold"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C8B85]"
+          />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="Cari komoditas (cth: beras, telur, cabai)..."
+            className="w-full pl-9 pr-3.5 py-2.5 rounded-[10px] bg-white outline outline-1 outline-[#E5E3DE] text-[13px] text-[#1B1A18] placeholder:text-[#A8A29E] focus:outline-[#1B1A18] shadow-xs transition-all"
+          />
+        </div>
+
+        {/* Market Selector */}
+        <div className="md:col-span-3 relative">
+          <select
+            value={selectedMarket}
+            onChange={(e) => onMarketChange(e.target.value)}
+            className="w-full appearance-none pl-3.5 pr-8 py-2.5 rounded-[10px] bg-white outline outline-1 outline-[#E5E3DE] text-[13px] text-[#1B1A18] font-medium shadow-xs focus:outline-[#1B1A18] cursor-pointer"
+          >
+            <option value="ALL">Pasar: Semua Pasar (5 Pasar)</option>
+            <option value="kebon-kembang">Pasar Kebon Kembang</option>
+            <option value="pasar-anyar">Pasar Anyar</option>
+            <option value="sukasari">Pasar Sukasari</option>
+            <option value="gunung-batu">Pasar Gunung Batu</option>
+            <option value="jambu-dua">Pasar Jambu Dua</option>
+          </select>
+          <CaretDown
+            size={13}
+            weight="bold"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8C8B85] pointer-events-none"
+          />
+        </div>
+
+        {/* Sort Selector */}
+        <div className="md:col-span-2 relative">
+          <select
+            value={selectedSort}
+            onChange={(e) => onSortChange(e.target.value as DashboardSort)}
+            className="w-full appearance-none pl-3.5 pr-8 py-2.5 rounded-[10px] bg-white outline outline-1 outline-[#E5E3DE] text-[13px] text-[#1B1A18] font-medium shadow-xs focus:outline-[#1B1A18] cursor-pointer"
+          >
+            <option value="CHANGE_DESC">Urutkan: Perubahan Terbesar</option>
+            <option value="PRICE_ASC">Harga Terendah</option>
+            <option value="PRICE_DESC">Harga Tertinggi</option>
+            <option value="NAME_ASC">Nama A-Z</option>
+          </select>
+          <CaretDown
+            size={13}
+            weight="bold"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8C8B85] pointer-events-none"
+          />
+        </div>
+
+        {/* Light Mode / Table View Switch */}
+        <div className="md:col-span-2 flex items-center justify-end">
+          <button
+            type="button"
+            onClick={onToggleLightMode}
+            className={`inline-flex items-center gap-2 px-3 py-2 rounded-[10px] outline outline-1 text-[12px] font-medium transition-all ${
+              isLightMode
+                ? 'bg-[#1B1A18] text-white outline-[#1B1A18] shadow-xs'
+                : 'bg-white text-[#6E6D67] outline-[#E5E3DE] hover:bg-[#F4F3F0] hover:text-[#1B1A18]'
+            }`}
+            title="Beralih ke format tabel hemat data"
+          >
+            {isLightMode ? (
+              <>
+                <SquaresFour size={14} weight="bold" />
+                <span>Mode Kartu</span>
+              </>
+            ) : (
+              <>
+                <Table size={14} weight="bold" />
+                <span>Mode Ringan</span>
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Category Pills Row */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+        {CATEGORIES.map((cat) => {
+          const isActive = selectedCategory === cat.id;
+          return (
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => onCategoryChange(cat.id)}
+              className={`px-3.5 py-1.5 rounded-full text-[12px] font-medium whitespace-nowrap transition-all ${
+                isActive
+                  ? 'bg-[#1B1A18] text-white shadow-xs'
+                  : 'bg-white text-[#6E6D67] outline outline-1 outline-[#E5E3DE] hover:text-[#1B1A18] hover:bg-[#F4F3F0]'
+              }`}
+            >
+              {cat.label}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,105 @@
+'use client';
+
+import { CommodityDetail } from '@/types';
+
+interface Props {
+  detail: CommodityDetail;
+}
+
+export function ThreeLayerPriceCards({ detail }: Props) {
+  const hapPrice = detail.reference.priceHapHet;
+  const tolerancePrice = Math.round(hapPrice * 1.05);
+  const cityAvg = detail.currentPriceStats.cityAverage;
+  const deviationPercent = Number((((cityAvg - hapPrice) / hapPrice) * 100).toFixed(1));
+
+  const lowest = detail.currentPriceStats.lowestMarket.price;
+  const highest = detail.currentPriceStats.highestMarket.price;
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      {/* LAPIS 1: Acuan Resmi Bapanas */}
+      <div className="bg-white rounded-[16px] outline outline-1 outline-[#E5E3DE] p-5 sm:p-6 shadow-xs flex flex-col justify-between gap-4">
+        <div className="flex flex-col gap-3">
+          <span className="text-[11px] font-bold text-[#FF7714] uppercase tracking-wider">
+            LAPIS 1 · HARGA ACUAN RESMI ({detail.reference.type})
+          </span>
+
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-[24px] font-bold text-[#1B1A18] tabular-nums tracking-tight">
+              Rp {hapPrice.toLocaleString('id-ID')}
+            </span>
+            <span className="text-[13px] font-medium text-[#78716C]">
+              /{detail.unit}
+            </span>
+          </div>
+
+          <p className="text-[12px] text-[#6E6D67] leading-[18px]">
+            Bapanas RI · Berlaku sejak 01 Jun 2026 ({detail.reference.legalDoc || 'Perbadan Bapanas 2024'})
+          </p>
+        </div>
+
+        <div className="pt-3 border-t border-[#E5E3DE]">
+          <span className="inline-block text-[11px] font-bold px-2 py-0.5 rounded-[4px] bg-[#F4F3F0] text-[#1B1A18] outline outline-1 outline-[#E5E3DE]">
+            Batas Toleransi: Rp {tolerancePrice.toLocaleString('id-ID')}/{detail.unit}
+          </span>
+        </div>
+      </div>
+
+      {/* LAPIS 2: Rerata Kota PIHPS */}
+      <div className="bg-white rounded-[16px] outline outline-1 outline-[#E5E3DE] p-5 sm:p-6 shadow-xs flex flex-col justify-between gap-4">
+        <div className="flex flex-col gap-3">
+          <span className="text-[11px] font-bold text-[#FF7714] uppercase tracking-wider">
+            LAPIS 2 · RATA-RATA KOTA (PIHPS)
+          </span>
+
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-[24px] font-bold text-[#1B1A18] tabular-nums tracking-tight">
+              Rp {cityAvg.toLocaleString('id-ID')}
+            </span>
+            <span className="text-[13px] font-medium text-[#78716C]">
+              /{detail.unit}
+            </span>
+          </div>
+
+          <p className="text-[12px] text-[#6E6D67] leading-[18px]">
+            Bank Indonesia · Agregat Pasar Kebon Kembang &amp; Pasar Sukasari (06:00 WIB)
+          </p>
+        </div>
+
+        <div className="pt-3 border-t border-[#E5E3DE]">
+          <span className="inline-block text-[11px] font-bold px-2 py-0.5 rounded-[4px] bg-[#FEF3C7] text-[#92400E] outline outline-1 outline-[#FDE68A]">
+            Deviasi: {deviationPercent > 0 ? `+${deviationPercent}%` : `${deviationPercent}%`} di atas acuan
+          </span>
+        </div>
+      </div>
+
+      {/* LAPIS 3: Data Lapak Warga */}
+      <div className="bg-white rounded-[16px] outline outline-1 outline-[#E5E3DE] p-5 sm:p-6 shadow-xs flex flex-col justify-between gap-4">
+        <div className="flex flex-col gap-3">
+          <span className="text-[11px] font-bold text-[#FF7714] uppercase tracking-wider">
+            LAPIS 3 · DATA LAPAK WARGA (7 HARI)
+          </span>
+
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-[24px] font-bold text-[#1B1A18] tabular-nums tracking-tight">
+              Rp {cityAvg.toLocaleString('id-ID')}
+            </span>
+            <span className="text-[13px] font-medium text-[#78716C]">
+              /{detail.unit}
+            </span>
+          </div>
+
+          <p className="text-[12px] text-[#6E6D67] leading-[18px]">
+            {detail.currentPriceStats.citizenReportsCount || 24} Laporan warga terverifikasi · Kepercayaan Tinggi (Dilengkapi foto timbangan)
+          </p>
+        </div>
+
+        <div className="pt-3 border-t border-[#E5E3DE]">
+          <span className="inline-block text-[11px] font-bold px-2 py-0.5 rounded-[4px] bg-[#EEF773] text-[#1B1A18] outline outline-1 outline-[#1B1A18]">
+            Rentang lapak: Rp {lowest.toLocaleString('id-ID')} – {highest.toLocaleString('id-ID')}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}

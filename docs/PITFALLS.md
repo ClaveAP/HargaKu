@@ -1,0 +1,82 @@
+# PITFALLS.md — Known Framework Quirks, Anti-Patterns & Verified Fixes
+
+Dokumen ini adalah buku catatan "Jebakan Batman" (**Pitfall Vault**) proyek **HargaKu**. Semua bug aneh, keanehan framework (*framework quirks*), dan solusi terverifikasi wajib dicatat di sini agar AI dan tim tidak mengulangi kesalahan yang sama dua kali.
+
+---
+
+## 1. Context7 & Versioning Quirks
+
+### 1.1. Menginstal Dependensi Tanpa Mengecek Context7 MCP
+- **Gejala**: Import error, sintaks konfigurasi tidak terbaca (misal konfigurasi `tailwind.config.js` vs `@theme` di Tailwind v4, atau breaking change `cookies()` di Next.js 15/16).
+- **Penyebab**: Menggunakan pola kode lama dari ingatan training data AI tanpa mencocokkan rilis library versi terbaru.
+- **Solusi Terverifikasi**:
+  * AI **WAJIB** memanggil tool Context7 MCP (`resolve-library-id` dan `query-docs`) sebelum menulis file konfigurasi atau memasang package baru.
+
+---
+
+## 2. Logika Crowdsourcing & Statistik Pangan
+
+### 2.1. Manipulasi Harga Ekstrem / Outlier pada Laporan Warga
+- **Gejala**: Harga rata-rata komoditas tiba-tiba melonjak gila-gilaan karena ada 1 pengguna iseng memasukkan harga cabai Rp 1.000.000 / kg.
+- **Penyebab**: Menggunakan fungsi rata-rata aritmatika biasa (`MEAN`), yang sangat rapuh terhadap angka ekstrem.
+- **Solusi Terverifikasi**:
+  1. Selalu gunakan **MEDIAN** (nilai tengah) dari laporan warga terverifikasi dalam rentang 7 hari terakhir.
+  2. Terapkan filter **Median Absolute Deviation (MAD)** atau buang otomatis laporan yang deviasinya > 300% dari harga acuan HAP/HET saat input form.
+
+### 2.2. Kebocoran Lokasi Presisi & Privasi Foto Laporan Warga
+- **Gejala**: Foto laporan nota belanja warga yang diunggah menyimpan koordinat GPS rumah pelapor di dalam metadata EXIF file JPEG.
+- **Penyebab**: Mengunggah raw image file langsung ke direktori publik tanpa sanitasi metadata.
+- **Solusi Terverifikasi**:
+  * Gunakan library pemroses gambar (misal `sharp`) di server-side sebelum file disimpan:
+  ```typescript
+  // Otomatis buang seluruh metadata EXIF dan re-encode ke WebP/JPEG bersih
+  await sharp(fileBuffer).rotate().strip().toFile(destinationPath);
+  ```
+
+---
+
+## 3. Database, Prisma & Timezone Quirks
+
+### 3.1. Kesalahan Pergeseran Tanggal Harian (*Timezone Offset UTC vs WIB*)
+- **Gejala**: Harga yang dicatat untuk tanggal hari ini muncul di tanggal kemarin atau dua data muncul di hari yang sama saat query grafik.
+- **Penyebab**: JavaScript `new Date()` menggunakan UTC secara default, sedangkan pergantian hari pasar di Indonesia mengacu pada WIB (`UTC+7`).
+- **Solusi Terverifikasi**:
+  * Gunakan tipe data `DATE` murni (tanpa time component) untuk `recorded_date`, atau normalize string tanggal menjadi format `YYYY-MM-DD` berzona waktu `Asia/Jakarta` sebelum query ke database.
+
+### 3.2. Prisma Client Connection Exhaustion pada Next.js Hot Reload
+- **Gejala**: Error `PrismaClientInitializationError: Can't reach database server` setelah beberapa kali edit file di mode dev.
+- **Penyebab**: Setiap file Next.js di-reload oleh bundler, instance `new PrismaClient()` baru dibuat tanpa mendaur ulang instance lama.
+- **Solusi Terverifikasi**:
+  * Buat singleton global Prisma di `src/lib/prisma.ts`:
+  ```typescript
+  import { PrismaClient } from '@prisma/client';
+
+  const globalForPrisma = global as unknown as { prisma: PrismaClient };
+
+  export const prisma = globalForPrisma.prisma || new PrismaClient();
+
+  if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+  ```
+
+---
+
+## 4. Format Angka Rupiah & Tabular Font Layout Shift
+
+### 4.1. Layout Shift (CLS) saat Angka Harga Beranimasi
+- **Gejala**: Card komoditas bergetar atau teks bergoyang saat harga berubah atau saat rendering client-side.
+- **Penyebab**: Font proporsional default memiliki lebar digit angka berbeda-beda (angka `1` lebih sempit dari angka `8`).
+- **Solusi Terverifikasi**:
+  * Selalu pasang utility class `tabular-nums` dari Tailwind pada elemen yang menampilkan nominal mata uang Rupiah.
+
+### 4.2. Error Module Not Found pada Arbitrary Tailwind Background Image di Turbopack/Webpack
+- **Gejala**: `Error: Module not found: Can't resolve '...'` di dalam `globals.css` saat `next dev` atau `next build`.
+- **Penyebab**: Class Tailwind arbitrer untuk background image diekstrak ke dalam CSS oleh Tailwind v4 compiler (yang secara agresif men-scan file markdown dokumentasi), sehingga memicu CSS loader Webpack/Turbopack mencoba mencari path tersebut sebagai modul lokal JavaScript relatif terhadap file `globals.css`.
+- **Solusi Terverifikasi**:
+  * Hindari class arbitrer Tailwind background image untuk aset di folder `public/`.
+  * Gunakan inline style langsung:
+  ```tsx
+  style={{ backgroundImage: "url('/images/hero-backdrop.jpg')" }}
+  ```
+  * Batasi jangkauan scan Tailwind v4 di `src/app/globals.css` dengan `source(none)` dan `@source "../"` agar hanya men-scan folder `src/`.
+  * Bersihkan cache `.next` (`rm -rf .next`).
+
