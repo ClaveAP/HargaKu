@@ -12,6 +12,12 @@
 ---
 
 ## ✅ Fitur & Tahapan yang Sudah Selesai (Completed)
+- [x] Initial commit & sinkronisasi repositori GitHub (`https://github.com/ClaveAP/HargaKu.git`):
+  - [x] Pembuatan `.gitignore` komprehensif: memfilter seluruh mockup gambar desain mentah root, folder preview tangkapan layar, file `.pen`, PDF ukuran besar, cache, secrets `.env*.local`, dan `.vercel/`.
+  - [x] Push branch `main` ke remote GitHub `ClaveAP/HargaKu`.
+- [x] Deployment ke Vercel Production:
+  - [x] Berhasil terdeploy dan berstatus Live di domain produksi: `https://hargaku-eight.vercel.app` (dan domain deployment `https://hargaku-nue65g0hx-trias-aldi-prasetias-projects.vercel.app`).
+  - [x] Verifikasi HTTP response 200 OK dan Next.js static prerender active.
 - [x] Perumusan ide awal produk dan verifikasi sumber data di [`HargaKu_Rangkuman_Ide.md`](HargaKu_Rangkuman_Ide.md).
 - [x] Perumusan aturan lomba dan batasan teknis di [`SKILL.md`](SKILL.md).
 - [x] Ekstraksi & Sinkronisasi Living Docs **Design System — Clay.com Foundations** (Node `Q0Rb5J`):
