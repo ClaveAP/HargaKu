@@ -60,3 +60,4 @@ webflow-icons-400-0.ttf
 
 # Redundant root images directory (clean assets are served from /public/images/)
 /images/
+.vercel
