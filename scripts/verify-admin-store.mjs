@@ -134,6 +134,30 @@ const stateRejected = adminStoreReducer(initialState, {
 assert.equal(stateRejected.reports.find((r) => r.id === 'REP-01')?.status, 'REJECTED');
 console.log('✓ TC-ADM-06 passed: APPROVE_REPORT and REJECT_REPORT status changed');
 
+// TC-ADM-06B: Tambah Laporan Warga Baru (Real-time sync dari /lapor)
+const newReport = {
+  id: 'REP-TEST-NEW',
+  commodityName: 'Bawang Merah Brebes',
+  marketName: 'Pasar Baru',
+  reportedPrice: 35000,
+  unit: '1 kg',
+  normalizedPricePerKg: 35000,
+  officialHapPrice: 36500,
+  cityAvgPrice: 34000,
+  diffPercent: 2.9,
+  submittedAt: 'Baru saja',
+  hasPhoto: true,
+  status: 'PENDING',
+  exifSanitized: true,
+};
+const stateWithReport = adminStoreReducer(initialState, {
+  type: 'ADD_REPORT',
+  payload: newReport,
+});
+assert.equal(stateWithReport.reports.length, initialState.reports.length + 1);
+assert.equal(stateWithReport.reports[0].id, 'REP-TEST-NEW');
+console.log('✓ TC-ADM-06B passed: ADD_REPORT successfully queued report');
+
 // TC-ADM-07: Update Profil Admin
 const stateProfile = adminStoreReducer(initialState, {
   type: 'UPDATE_PROFILE',

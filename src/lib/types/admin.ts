@@ -19,8 +19,10 @@ export interface AdminCommodity {
 
 export interface AdminMarket {
   id: string;
+  regionId?: string;
   name: string;
   slug: string;
+  city: string;
   district: string;
   address: string;
   latitude: number;
@@ -99,6 +101,7 @@ export type AdminAction =
         entries: Array<{ commodityId: string; price: number }>;
       };
     }
+  | { type: 'ADD_REPORT'; payload: AdminReport }
   | { type: 'APPROVE_REPORT'; payload: string }
   | { type: 'REJECT_REPORT'; payload: { id: string; reason?: string } }
   | { type: 'REQUEST_REPORT_INFO'; payload: { id: string; note: string } }

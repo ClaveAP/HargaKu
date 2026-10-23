@@ -88,6 +88,12 @@ export function adminStoreReducer(state: AdminState, action: AdminAction): Admin
       return { ...state, dailyPrices: nextDaily };
     }
 
+    case 'ADD_REPORT':
+      return {
+        ...state,
+        reports: [action.payload, ...state.reports],
+      };
+
     case 'APPROVE_REPORT':
       return {
         ...state,

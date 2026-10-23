@@ -6,6 +6,7 @@ import type {
   AdminUserProfile,
   AdminState,
 } from '../types/admin.ts';
+import { MOCK_MARKETS } from '../mock/markets.data.ts';
 
 export const DEFAULT_ADMIN_USER: AdminUserProfile = {
   id: 'admin_01',
@@ -187,84 +188,46 @@ export const INITIAL_COMMODITIES: AdminCommodity[] = [
   },
 ];
 
-export const INITIAL_MARKETS: AdminMarket[] = [
-  {
-    id: 'kebon-kembang',
-    name: 'Pasar Kebon Kembang',
-    slug: 'pasar-kebon-kembang',
-    district: 'Sentral',
-    address: 'Jl. Dewi Sartika',
-    latitude: -6.5925,
-    longitude: 106.7905,
-    operatingHours: '04:00 – 14:00 WIB',
-    specialty: 'Sentra Grosir Cabai & Sayur Mayur',
-    isActive: true,
-  },
-  {
-    id: 'pasar-anyar',
-    name: 'Pasar Anyar',
-    slug: 'pasar-anyar',
-    district: 'Sentral',
-    address: 'Jl. Pabaton',
-    latitude: -6.5912,
-    longitude: 106.7923,
-    operatingHours: '04:30 – 15:00 WIB',
-    specialty: 'Sentra Bumbu Dapur & Bawang',
-    isActive: true,
-  },
-  {
-    id: 'sukasari',
-    name: 'Pasar Sukasari',
-    slug: 'pasar-sukasari',
-    district: 'Wilayah Timur',
-    address: 'Jl. Siliwangi',
-    latitude: -6.6082,
-    longitude: 106.8055,
-    operatingHours: '03:30 – 12:00 WIB',
-    specialty: 'Sentra Daging Sapi & Unggas Segar',
-    isActive: true,
-  },
-  {
-    id: 'gunung-batu',
-    name: 'Pasar Gunung Batu',
-    slug: 'pasar-gunung-batu',
-    district: 'Wilayah Barat',
-    address: 'Jl. Gunung Batu',
-    latitude: -6.5898,
-    longitude: 106.7789,
-    operatingHours: '05:00 – 14:00 WIB',
-    specialty: 'Sentra Hasil Bumi Tradisional',
-    isActive: true,
-  },
-  {
-    id: 'jambu-dua',
-    name: 'Pasar Jambu Dua',
-    slug: 'pasar-jambu-dua',
-    district: 'Wilayah Utara',
-    address: 'Jl. Pajajaran Utara',
-    latitude: -6.5712,
-    longitude: 106.8041,
-    operatingHours: '04:00 – 14:30 WIB',
-    specialty: 'Sentra Ikan Basah & Sembako',
-    isActive: true,
-  },
-];
+export const INITIAL_MARKETS: AdminMarket[] = MOCK_MARKETS.map((m) => ({
+  id: m.id,
+  regionId: m.regionId || 'reg_jabar',
+  name: m.name,
+  slug: m.slug,
+  city: m.city,
+  district: m.district,
+  address: `${m.name}, ${m.district}, ${m.city}`,
+  latitude: m.latitude,
+  longitude: m.longitude,
+  operatingHours: '04:00 – 14:00 WIB',
+  specialty: 'Sentra Pangan Tradisional',
+  isActive: m.isActive,
+}));
 
-export const INITIAL_DAILY_PRICES: Record<string, DailyPriceRecord> = {
-  'kebon-kembang_cabai-merah-keriting': { marketId: 'kebon-kembang', commodityId: 'cabai-merah-keriting', price: 48000, recordedDate: '2026-10-23' },
-  'kebon-kembang_bawang-merah-brebes': { marketId: 'kebon-kembang', commodityId: 'bawang-merah-brebes', price: 34000, recordedDate: '2026-10-23' },
-  'kebon-kembang_cabai-rawit-merah': { marketId: 'kebon-kembang', commodityId: 'cabai-rawit-merah', price: 64000, recordedDate: '2026-10-23' },
-  'pasar-anyar_bawang-merah-brebes': { marketId: 'pasar-anyar', commodityId: 'bawang-merah-brebes', price: 33000, recordedDate: '2026-10-23' },
-  'pasar-anyar_minyak-goreng-curah': { marketId: 'pasar-anyar', commodityId: 'minyak-goreng-curah', price: 16000, recordedDate: '2026-10-23' },
-  'pasar-anyar_cabai-rawit-merah': { marketId: 'pasar-anyar', commodityId: 'cabai-rawit-merah', price: 62000, recordedDate: '2026-10-23' },
-  'sukasari_daging-sapi-murni': { marketId: 'sukasari', commodityId: 'daging-sapi-murni', price: 134000, recordedDate: '2026-10-23' },
-  'sukasari_daging-ayam-broiler': { marketId: 'sukasari', commodityId: 'daging-ayam-broiler', price: 36000, recordedDate: '2026-10-23' },
-  'sukasari_cabai-rawit-merah': { marketId: 'sukasari', commodityId: 'cabai-rawit-merah', price: 58000, recordedDate: '2026-10-23' },
-  'gunung-batu_cabai-merah-keriting': { marketId: 'gunung-batu', commodityId: 'cabai-merah-keriting', price: 53000, recordedDate: '2026-10-23' },
-  'gunung-batu_bawang-merah-brebes': { marketId: 'gunung-batu', commodityId: 'bawang-merah-brebes', price: 36000, recordedDate: '2026-10-23' },
-  'jambu-dua_minyak-goreng-curah': { marketId: 'jambu-dua', commodityId: 'minyak-goreng-curah', price: 16500, recordedDate: '2026-10-23' },
-  'jambu-dua_cabai-rawit-merah': { marketId: 'jambu-dua', commodityId: 'cabai-rawit-merah', price: 63000, recordedDate: '2026-10-23' },
-};
+function generateInitialDailyPrices(): Record<string, DailyPriceRecord> {
+  const records: Record<string, DailyPriceRecord> = {};
+  const today = '2026-10-23';
+
+  for (const m of INITIAL_MARKETS) {
+    for (const c of INITIAL_COMMODITIES) {
+      const charCodeSum = (m.id + c.id).split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+      const variancePct = ((charCodeSum % 15) - 6) / 100;
+      const basePrice = Math.round((c.hapHetPrice * (1 + variancePct)) / 100) * 100;
+      const prevPrice = Math.round((c.hapHetPrice * (1 + variancePct - 0.02)) / 100) * 100;
+
+      records[`${m.id}_${c.id}`] = {
+        marketId: m.id,
+        commodityId: c.id,
+        price: basePrice,
+        previousPrice: prevPrice,
+        recordedDate: today,
+      };
+    }
+  }
+
+  return records;
+}
+
+export const INITIAL_DAILY_PRICES: Record<string, DailyPriceRecord> = generateInitialDailyPrices();
 
 export const INITIAL_ADMIN_STATE: AdminState = {
   currentUser: DEFAULT_ADMIN_USER,
