@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import type { AdminMarket } from '@/lib/types/admin';
+import { MOCK_REGIONS } from '@/lib/mock/regions.data';
 import { X } from '@phosphor-icons/react';
 
 interface MarketFormModalProps {
@@ -147,6 +148,21 @@ export function MarketFormModal({
               placeholder="Contoh: Pasar Induk Kramat Jati"
               className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E3DE] bg-[#FAF9F5] focus:bg-white text-sm text-[#1B1A18] focus:outline-[#1B1A18]"
             />
+          </div>
+
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-[#1B1A18]">Provinsi / Koridor Wilayah Acuan</label>
+            <select
+              value={regionId}
+              onChange={(e) => setRegionId(e.target.value)}
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E3DE] bg-[#FAF9F5] focus:bg-white text-sm text-[#1B1A18] focus:outline-[#1B1A18] cursor-pointer"
+            >
+              {MOCK_REGIONS.map((r) => (
+                <option key={r.id} value={r.id}>
+                  [{r.island}] {r.name} · {r.logisticsCostPct > 0 ? `+${r.logisticsCostPct}% Logistik Laut` : 'Sentra Dasar (1.00x)'}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="grid grid-cols-2 gap-3">

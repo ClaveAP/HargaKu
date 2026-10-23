@@ -12,6 +12,13 @@
 ---
 
 ## ✅ Fitur & Tahapan yang Sudah Selesai (Completed)
+- [x] **Rombak Entri Harga Harian & Selector Wilayah Multi-Pulau Admin (Zero Hardcode)**:
+  - [x] **Search Bar & Autocomplete Pasar**: Mengganti native `<select>` kaku di [`AdminDailyPricesView.tsx`](src/components/admin/AdminDailyPricesView.tsx) dengan search bar interaktif yang memfilter pasar berdasarkan nama, kota, kecamatan, dan provinsi dengan tag koridor pulau (contoh: `[KALIMANTAN] Pasar Segiri · Kota Samarinda`).
+  - [x] **Filter Tab Koridor Wilayah Pulau**: Menambahkan tab koridor pulau (`ISLAND_TABS`: `Semua`, `Jawa`, `Sumatera`, `Kalimantan`, `Sulawesi`, `Bali-Nusra`, `Maluku-Papua`) yang memfilter pasar secara dinamis.
+  - [x] **Akses Cepat Geser Horisontal (Scrollable / Swipeable Track)**: Mengubah akses cepat menjadi baris horizontal dengan `overflow-x-auto scrollbar-none` yang dapat di-swipe mulus tanpa tombol `< >` dan dinamis menampilkan pasar-pasar di koridor pulau aktif (menghapus hardcode 5 pasar lama).
+  - [x] **Banner Konteks Dampak Publik**: Menampilkan kartu konteks identitas pasar, koridor pulau, dan penyesuaian ongkir kargo laut terhadap HAP Bapanas.
+  - [x] **Ekstraksi Sub-Komponen Anti-God-File**: Memisahkan form matriks harga ke [`DailyPriceTable.tsx`](src/components/admin/DailyPriceTable.tsx) sehingga ukuran kedua file tetap di bawah batas soft limit.
+  - [x] **Integrasi Dropdown Provinsi Pasar (`MarketFormModal.tsx`)**: Menambahkan pemilih `Provinsi / Koridor Wilayah Acuan` (`MOCK_REGIONS`) pada form tambah/edit pasar sehingga pasar baru otomatis terhubung ke `regionId` yang valid dan tidak lagi terkunci default ke DKI Jakarta.
 - [x] **Penyempurnaan Konsol Admin: Eliminasi Kolom Berdesakan & Anti-Clipping Tombol Aksi**:
   - [x] **Penghapusan Kolom `Sentra Spesialisasi`**: Menghapus kolom spesialisasi dari tabel utama [`AdminMarketsView.tsx`](src/components/admin/AdminMarketsView.tsx) sesuai instruksi pengguna untuk mencegah tampilan padat dan berdesakan (*visual crowding*). Input spesialisasi tetap utuh dan aman dikelola melalui modal formulir pasar.
   - [x] **Distribusi Ulang Lebar 5 Kolom Proporsional**: Mengalokasikan 100% lebar tabel `table-fixed` ke 5 kolom bersih: `Pasar & Wilayah (36%)`, `Titik GPS (24%)`, `Jam Operasional (20%)`, `Status Peta (10%)`, dan `Aksi (10% min-w-[100px])`.

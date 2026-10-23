@@ -157,4 +157,14 @@ Seluruh antarmuka **MANDATORI** menggunakan font **Roobert** (`Roobertvf` variab
   * `Aksi`: `w-[10%] min-w-[100px] text-right pr-6`
 * **Jarak Aman Kolom Aksi (`pr-6`)**: Seluruh cell dan header kolom "Aksi" wajib memiliki padding kanan minimal `pr-6` (24px) agar tombol `[Edit]` dan `[Hapus]` memiliki ruang bernapas yang cukup dan garis tepi (*border stroke*) tidak pernah terpotong oleh batas kontainer kartu ber-`overflow-hidden`.
 
+### 6.5. Entri Cepat Harga Resmi Harian & Sinkronisasi Multi-Wilayah
+* **Filter Koridor Pulau (`ISLAND_TABS`)**: Memungkinkan pemilihan koridor wilayah nusantara (`Semua`, `Jawa`, `Sumatera`, `Kalimantan`, `Sulawesi`, `Bali-Nusra`, `Maluku-Papua`) yang menyaring daftar pasar secara reaktif.
+* **Search Bar & Autocomplete Pasar**: Menggantikan native dropdown `<select>` dengan input pencarian responsif lengkap dengan tag pulau dan kota (contoh: `[KALIMANTAN] Pasar Segiri · Kota Samarinda`).
+* **Akses Cepat Geser Horisontal (Scrollable / Swipeable Track)**:
+  * Menggunakan `flex items-center gap-2 overflow-x-auto scrollbar-none` (tanpa tombol panah `< >` dan tanpa pembungkusan baris/wrap).
+  * Menampilkan pasar-pasar aktif secara dinamis sesuai koridor pulau yang sedang dipilih.
+* **Kartu Konteks Dampak Publik**: Menampilkan identitas pasar, nama provinsi publik, indeks biaya logistik kargo laut (disparitas HAP), dan keterangan keterhubungan live dengan website publik.
+* **Modal Pasar Multi-Wilayah (`MarketFormModal.tsx`)**: Wajib menyertakan pemilih `Provinsi / Wilayah Pangan` (`MOCK_REGIONS`) agar setiap pasar baru otomatis terpetakan ke `regionId` yang valid.
+
+
 
