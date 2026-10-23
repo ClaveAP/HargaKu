@@ -12,6 +12,11 @@
 ---
 
 ## ✅ Fitur & Tahapan yang Sudah Selesai (Completed)
+- [x] **Penyempurnaan Konsol Admin: Eliminasi Kolom Berdesakan & Anti-Clipping Tombol Aksi**:
+  - [x] **Penghapusan Kolom `Sentra Spesialisasi`**: Menghapus kolom spesialisasi dari tabel utama [`AdminMarketsView.tsx`](src/components/admin/AdminMarketsView.tsx) sesuai instruksi pengguna untuk mencegah tampilan padat dan berdesakan (*visual crowding*). Input spesialisasi tetap utuh dan aman dikelola melalui modal formulir pasar.
+  - [x] **Distribusi Ulang Lebar 5 Kolom Proporsional**: Mengalokasikan 100% lebar tabel `table-fixed` ke 5 kolom bersih: `Pasar & Wilayah (36%)`, `Titik GPS (24%)`, `Jam Operasional (20%)`, `Status Peta (10%)`, dan `Aksi (10% min-w-[100px])`.
+  - [x] **Pelapangan Margin Kolom Aksi (`pr-6`)**: Menambahkan padding kanan `pr-6` (24px) pada header dan cell tombol aksi di tabel pasar ([`AdminMarketsView.tsx`](src/components/admin/AdminMarketsView.tsx)) dan tabel komoditas ([`AdminCommoditiesView.tsx`](src/components/admin/AdminCommoditiesView.tsx)). Tombol `[Edit]` dan `[Hapus]` (termasuk ikon trash) memiliki ruang bernapas longgar dan tidak lagi terpotong garis batas kontainer kartu.
+  - [x] **Sinkronisasi Living Docs**: Memutakhirkan [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) Bagian 6.4 dan [`STATE.md`](STATE.md).
 - [x] **Penyelarasan Navbar: True Center & Pelapangan Jarak Horisontal**:
   - [x] Mengunci menu utama navigasi tengah (`Harga` · `Cek Harga` · `Peta` · `Lapor Harga` · `Keranjang`) pada posisi presisi tengah layar horizontal menggunakan teknik **Absolute Center** (`absolute left-1/2 -translate-x-1/2`), sehingga 100% simetris sempurna di sumbu tengah layar dan tidak lagi terdorong ke kiri oleh tombol kanan.
   - [x] Memperlebar kontainer navbar dari `max-w-[1240px]` menjadi `max-w-[1400px]` agar logo HargaKu di kiri dan tombol asisten + selector wilayah di kanan lebih tersebar (*spread out*) secara proporsional dan tidak terkesan berdesak-desakan di tengah.
@@ -228,7 +233,16 @@
 ---
 
 ## 🚧 Task Sedang Berjalan (In Progress)
-- [x] **Transformasi Penuh `/admin` Menjadi Standalone SaaS Admin Console**:
+- [x] **Sinkronisasi Penuh Dua Arah (Admin Console 🔁 Web Publik) & Pasar Dinamis**:
+  - [x] **Arsitektur Sinkronisasi Real-Time (`useLiveCatalog.ts` & `AdminStoreProvider`)**:
+    - `AdminStoreProvider` diangkat ke root layout (`PublicLayoutWrapper.tsx`) menjadi *Single Source of Truth* bersama seluruh halaman web publik.
+    - Hook reaktif `useLiveCatalog()` otomatis mengkomputasi ringkasan komoditas harian (`CommoditySummary[]`), daftar pasar dinamis (`Market[]`), dan preset peringkat pasar terkalibrasi harga lapak dari matriks harian admin.
+    - Perubahan data komoditas, pasar, atau entri harga di `/admin` seketika langsung tercermin di Landing Page, Dashboard Harga (`/dashboard`), Peta Pasar (`/peta`), dan Cek Harga Wajar (`/cek-harga`).
+    - Laporan warga di `/lapor` otomatis terkirim dan masuk antrean Moderasi Laporan `/admin` secara nyata dengan evaluasi otomatis MAD (±25%).
+  - [x] **Dinamis & Skalabel (Tanpa Batasan 5 Pasar)**:
+    - Menghapus batasan kaku "5 Pasar" di seluruh salinan teks dan logika aplikasi menjadi fleksibel (*unlimited scalable markets*).
+    - Dropdown pemilih pasar di Dashboard dan Peta otomatis merender seluruh pasar terdaftar di sistem.
+    - Tombol tab di Hero Landing Page diselaraskan menjadi `Komparasi Antar Pasar` dan peringkat pasar memuat seluruh pasar aktif.
   - [x] **Isolasi Layout Total (`PublicLayoutWrapper.tsx`)**: Rute `/admin*` terpisah 100% dari website publik (marquee running ticker, navbar konsumen, dan footer publik dinonaktifkan secara otomatis).
   - [x] **Modul CRUD Lengkap & State Terpusat**:
     - Ringkasan Metrik & Status Kesehatan Sistem (`AdminOverviewView.tsx`).
@@ -239,6 +253,24 @@
   - [x] **Autentikasi & Route Guard Mandiri (`/admin/login` & `AdminAuthGuard.tsx`)**:
     - Proteksi rute `/admin` dengan pengalihan otomatis ke `/admin/login` jika belum terautentikasi.
     - Sesi token persisten `hargaku_admin_session` di localStorage dengan masa aktif 24 jam / 7 hari.
+  - [x] **Pemberantasan Label Kaku "5 Pasar" & Modernisasi Dialog Konfirmasi In-App**:
+    - Mengganti subdeskripsi dinamis di sidebar admin (`AdminSidebar.tsx`) dari label jumlah kaku `${markets.length} pasar pantauan wilayah` menjadi fungsi murni **"Titik pantau & koordinat GPS"** dan komoditas menjadi **"Master data & batas harga"**, sehingga tidak lagi membingungkan pengguna seolah pasar dibatasi 5 titik.
+    - Mengeliminasi popup bawaan browser (`window.confirm` / "localhost says...") pada seluruh aksi admin (Reset Demo di `AdminSidebar`, Hapus Pasar di `AdminMarketsView`, dan Hapus Komoditas di `AdminCommoditiesView`), digantikan dengan modal in-app neo-brutalist profesional [`AdminConfirmModal.tsx`](src/components/admin/AdminConfirmModal.tsx).
+    - Memutakhirkan saran tindakan asisten pangan dari "Bandingkan di 5 Pasar" menjadi "Bandingkan Antar Pasar".
+  - [x] **Sinkronisasi Total Dataset Nasional ke Admin Store (Pemberantasan Bogor-Centric Mock)**:
+    - Mengupgrade `AdminMarket` dengan field `city` dan `regionId`.
+    - Mengisi `INITIAL_MARKETS` dengan seluruh 68 pasar tradisional di 21 provinsi dari `markets.data.ts` (Jawa Barat, DKI Jakarta, Jawa Tengah, Jawa Timur, Sumatera Utara, Bali, dsb.), bukan lagi hanya 5 pasar Kota Bogor.
+    - Menghasilkan matriks entri harga harian awal deterministik (`INITIAL_DAILY_PRICES`) untuk seluruh pasar dan komoditas nasional.
+    - Memperbarui `use-live-catalog.ts` dan `PetaContainer.tsx`: menghapus fallback hardcoded `Kota Bogor` dan `isBogor`, kini dinamis mengikuti `selectedRegion` dari navbar.
+    - Memperbarui `AdminMarketsView.tsx` dan `MarketFormModal.tsx` dengan filter kota/wilayah dan input kota, serta `AdminDailyPricesView.tsx` dengan pemilih pasar nasional.
+    - Melakukan migrasi localStorage ke key `hargaku_admin_store_v3` agar browser pengguna otomatis mendapatkan seluruh 68 pasar nasional tanpa tertahan mock 5 pasar lama.
+  - [x] **Filter Koridor Wilayah (Pulau), Pagination 10 Item, & Perbaikan Stroke Terpotong**:
+    - Mengganti filter kaku per kota/kabupaten di tabel pasar admin menjadi **Filter Koridor Wilayah / Pulau** (`Semua Wilayah`, `Jawa`, `Sumatera`, `Kalimantan`, `Sulawesi`, `Bali-Nusra`, `Maluku-Papua`) menggunakan `flex-wrap` murni, sehingga tidak ada gestur slider horizontal sempit yang memotong teks atau menelan klik pengguna.
+    - Mengimplementasikan komponen paginasi profesional [`AdminPagination.tsx`](src/components/admin/AdminPagination.tsx) dengan batas 10 pasar per halaman (`ITEMS_PER_PAGE = 10`), indikator nomor halaman ringkas (`1`, `2`, `3`, `...`, `7`), tombol ellipsis interaktif berpopover (`...` dapat diklik untuk memilih langsung halaman `4, 5, 6`), tombol prev/next, dan reset otomatis ke halaman 1 saat pencarian/filter berubah.
+    - Menjamin **Zero Layout Shift** & persistensi visual konsisten: footer paginasi tidak pernah hilang meski item ≤ 10 (seperti Kalimantan/Sulawesi), kolom tabel dikunci permanen dengan `table-fixed` & lebar persentase pasti, serta tinggi kartu tabel distabilkan dengan `min-h-[520px]`.
+    - Menyeragamkan arsitektur tabel & filter pada `AdminCommoditiesView.tsx` agar identik 100% dengan `AdminMarketsView.tsx`.
+    - Memberantas seluruh penggunaan `outline outline-1` yang terpotong di sudut melengkung/container scroll pada `AdminReportQueue.tsx`, `AdminReportInspector.tsx`, dan `AdminMetricCards.tsx`, digantikan dengan `border border-...` dan padding container yang proporsional sehingga stroke kartu dan badge bulat 100% utuh tanpa garis patah.
+    - Memutakhirkan [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) Bab 6.
   - [x] **Refactoring Identitas Admin & Pembersihan UI Login**:
     - Menghapus persona "Drs. Hendra Irawan, M.Si" dan menggantinya dengan akun **"Admin"** murni (`admin@hargaku.id` / `admin`).
     - Menghapus kotak demo akun otomatis di `/admin/login` sehingga formulir masuk bersih dan profesional ala SaaS modern.
@@ -249,7 +281,7 @@
   - 02 · Dashboard Harga (`/dashboard`)
   - 03 · Detail Komoditas (`/komoditas/[slug]`)
   - 04 · Cek Harga Wajar (`/cek-harga`)
-  - 05 · Peta Harga 5 Pasar (`/peta`)
+  - 05 · Peta Interaktif Spasial Pasar Nusantara (`/peta`)
   - 06 · Lapor Harga Warga (`/lapor`)
   - 07 · Keranjang Belanja (`/keranjang`)
   - 08 · Tentang & Sumber Data (`/tentang`)

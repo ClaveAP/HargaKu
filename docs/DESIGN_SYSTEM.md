@@ -104,10 +104,10 @@ Seluruh antarmuka **MANDATORI** menggunakan font **Roobert** (`Roobertvf` variab
   * Headline display hero `font-medium` (500) `text-[42px] sm:text-[52px]` dengan `tracking-tight`.
   * Sub-headline `text-[16px]` penjelasan nilai produk.
   * Tombol CTA utama (Clay Lime B2 atau Clay Orange B1) + Tombol sekunder dengan ikon Phosphor.
-  * Strip metrik kepercayaan (*Proof points*: 5 pasar tradisional Kota Bogor, update harian 06:00 WIB, inisiatif data publik gratis).
+  * Strip metrik kepercayaan (*Proof points*: Pasar-pasar tradisional terdaftar, update harian 06:00 WIB, inisiatif data publik gratis).
 * **Layout Kanan (Live Interactive Instrument)**:
   * Kartu elevated white `bg-white rounded-[24px] outline outline-1 outline-[#E5E3DE] shadow-[0_12px_40px_rgba(0,0,0,0.06)]`.
-  * Header pemilih komoditas cepat & toggle tab instrumen (Kalkulator Takaran vs. Komparasi 5 Pasar).
+  * Header pemilih komoditas cepat & toggle tab instrumen (Kalkulator Takaran vs. Komparasi Antar Pasar).
   * Komponen kalkulator takaran langsung berinteraksi dengan dataset pasar real-time tanpa reload.
 
 
@@ -124,3 +124,37 @@ Seluruh antarmuka **MANDATORI** menggunakan font **Roobert** (`Roobertvf` variab
 * **Master Footer**:
   * Background: `#FAF9F5` dengan border-top 1px `#E5E3DE`.
   * Grid: Kolom Brand Info (Logo, deskripsi Bogor, copyright 2026), Transparansi Data, Fitur Warga, dan Legal/Kontak.
+
+---
+
+## 6. Admin Portal Component Specs & Integrity Rules
+
+### 6.1. Filter Koridor Wilayah (Island Corridor Tabs)
+* **Kategori Tab**: `Semua Wilayah`, `Jawa`, `Sumatera`, `Kalimantan`, `Sulawesi`, `Bali-Nusra`, `Maluku-Papua`.
+* **Layout**: `flex flex-wrap items-center gap-1.5`. Dilarang menggunakan overflow slider sempit yang memotong stroke teks atau memicu gesture swipe yang menelan aksi klik pengguna.
+* **Token Tab**:
+  * Aktif: `bg-[#1B1A18] text-white border-[#1B1A18] shadow-xs`.
+  * Inaktif: `bg-white text-[#706E6A] border-[#E5E3DE] hover:bg-[#FAF9F5] hover:text-[#1B1A18]`.
+
+### 6.2. Pagination Kontrol Data Tabel & Interactive Ellipsis
+* **Limit Standar**: 10 item per halaman (`ITEMS_PER_PAGE = 10`) untuk mencegah tabel data panjang tak terbatas.
+* **Komponen**: `AdminPagination.tsx`.
+* **State Reset**: Mengubah pencarian teks atau filter wilayah pulau wajib mengembalikan halaman ke `page 1`.
+* **Tombol Nomor Halaman**: `w-8 h-8 rounded-xl font-semibold border text-xs`.
+* **Interactive Ellipsis Popover (`...`)**: Jika jumlah halaman melampaui batas (misal: `1 2 3 ... 7`), tombol `...` dapat diklik untuk memunculkan bubble popover interaktif (`PILIH HALAMAN`) yang berisi tombol nomor halaman tersembunyi (`4, 5, 6`), sehingga pengguna dapat langsung melompat ke halaman manapun tanpa harus menekan tombol satu per satu. Popup dilengkapi backdrop click-outside untuk menutup secara otomatis.
+
+### 6.3. Stroke & Border Integrity (Anti-Clipping Rule)
+* **Larangan Penggunaan `outline outline-1`**: `outline` pada elemen bersudut lengkung (`rounded-[16px]`, `rounded-[24px]`) menyebabkan artefak visual terpotong di tepi container scroll (`overflow-y-auto` / `overflow-x-auto`).
+* **Standar Wajib**: Selalu gunakan `border border-[#E5E3DE]` atau `border border-[#1B1A18]` dengan padding kontainer minimal `p-1` agar garis batas 100% utuh dan tidak terpotong subpixel.
+
+### 6.4. Tabel Data Admin & Alokasi Kolom Bebas Sesak (Anti-Crowding & Anti-Clipping Aksi)
+* **Penyederhanaan Kolom Pasar Tradisional**: Menghapus kolom "Sentra Spesialisasi" dari tabel utama untuk mencegah kepadatan visual (*visual crowding*). Detail spesialisasi tetap dapat dikelola via modal form edit.
+* **Alokasi Lebar Kolom Tabel Pasar (`table-fixed`)**:
+  * `Pasar & Wilayah`: `w-[36%] min-w-[220px]`
+  * `Titik GPS`: `w-[24%] min-w-[170px]`
+  * `Jam Operasional`: `w-[20%] min-w-[140px]`
+  * `Status Peta`: `w-[10%] min-w-[90px]`
+  * `Aksi`: `w-[10%] min-w-[100px] text-right pr-6`
+* **Jarak Aman Kolom Aksi (`pr-6`)**: Seluruh cell dan header kolom "Aksi" wajib memiliki padding kanan minimal `pr-6` (24px) agar tombol `[Edit]` dan `[Hapus]` memiliki ruang bernapas yang cukup dan garis tepi (*border stroke*) tidak pernah terpotong oleh batas kontainer kartu ber-`overflow-hidden`.
+
+

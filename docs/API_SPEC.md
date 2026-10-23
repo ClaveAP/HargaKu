@@ -276,7 +276,7 @@ Mengirimkan pesan obrolan belanja/anggaran dan menerima respons terstruktur berb
   "reply": "Bawang Merah Rp 40.000/kg tergolong Agak Mahal di Jawa Barat. Rata-rata acuan pasar harian saat ini adalah Rp 34.000/kg (terdapat indikasi mark-up sekitar +17.6%). Coba tawar mendekati Rp 34.000 - Rp 36.000 atau cek Pasar Anyar.",
   "intent": "PRICE_CHECK",
   "suggestedActions": [
-    { "label": "Bandingkan 5 Pasar", "href": "/komoditas/bawang-merah" },
+    { "label": "Bandingkan Antar Pasar", "href": "/komoditas/bawang-merah" },
     { "label": "Hitung Keranjang Belanja", "href": "/keranjang" }
   ],
   "referencedCommodities": [
