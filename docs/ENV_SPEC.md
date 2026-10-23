@@ -20,6 +20,7 @@ Dokumen ini adalah spesifikasi resmi seluruh variabel lingkungan (**Environment 
 | `JWT_SECRET` | **Wajib** | Backend / Server | Kunci rahasia minimal 32 karakter untuk menandatangani token sesi login admin/moderator |
 | `UPLOAD_DIR` | Opsional | Backend / Server | Lokasi penyimpanan sementara foto laporan warga di filesystem lokal (`./public/uploads/reports`) |
 | `RATE_LIMIT_MAX_REPORTS` | Opsional | Backend / Server | Batas maksimal laporan warga per hash IP per hari (Default: `10`) |
+| `GEMINI_API_KEY` | Opsional | Backend / Server | API Key Google Gemini (AI Studio / Vertex AI) untuk powering endpoint Asisten Pangan AI (`POST /api/v1/assistant/chat`) |
 
 ---
 
@@ -45,6 +46,9 @@ JWT_SECRET="ganti_dengan_random_string_aman_minimal_32_karakter"
 # Upload & Rate Limiting
 UPLOAD_DIR="./public/uploads/reports"
 RATE_LIMIT_MAX_REPORTS=10
+
+# AI Assistant Integration (Backend Gemini Service)
+GEMINI_API_KEY="AIzaSy_ganti_dengan_api_key_gemini_resmi"
 ```
 
 ---

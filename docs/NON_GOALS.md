@@ -35,6 +35,7 @@ Membangun aplikasi perlombaan sering gagal bukan karena kekurangan ide, melainka
 | **Styling Library** | Styled Components / Emotion | Tailwind CSS | Runtime CSS overhead dan sering konflik dengan Next.js Server Components. |
 | **UI Component Bloat** | Ant Design / MUI | Tailwind CSS + Lucide Icons (atau Radix headless jika perlu) | Styling bawaan AntD/MUI sulit di-override dan membuat bundle membengkak. |
 | **Database ORM** | Raw SQL queries tanpa ORM / TypeORM | Prisma ORM | Prisma menjamin *type-safety* end-to-end yang ketat antara DB dan TypeScript. |
+| **Geospatial Library** | Google Maps API berbayar / Mapbox GL berat | **Leaflet.js** (OpenStreetMap / CartoDB) | Ringan, open-source tanpa billing credit card, kompatibel dengan Next.js client-side. |
 | **Setup Library Liar** | Instalasi paket tanpa verifikasi Context7 | **Context7 MCP** (`resolve-library-id` & `query-docs`) | Menghindari API deprecated atau breaking changes antar versi paket. |
 
 ---

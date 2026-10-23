@@ -5,13 +5,59 @@
 ---
 
 ## 📌 Status Terkini (Current State)
-* **Tanggal Terakhir Diperbarui**: 2026-10-22
-* **Fase Saat Ini**: **Fase A — First Draft (19 Okt – 1 Nov 2026)** — High-Fidelity Clay Style Landing Page & Design System Benchmark Active.
-* **Fokus Pengerjaan**: Implementasi landing page tolok ukur desain (*design benchmark*) platform HargaKu berpatokan 100% pada **"Design System — Clay.com Foundations"** (Node `Q0Rb5J` di `HargaKu.pen`).
+* **Tanggal Terakhir Diperbarui**: 2026-10-23
+* **Fase Saat Ini**: **Fase A — First Draft (19 Okt – 1 Nov 2026)** — Arsitektur Standarisasi Nasional HAP Bapanas + Penyesuaian Daerah Dinamis & Deteksi Mark-up Belanja Pangan Aktif.
+* **Fokus Pengerjaan**: Perluasan cakupan platform dari pilot tunggal Kota Bogor menjadi platform nasional dengan kemampuan penyesuaian daerah (multi-wilayah), melayani dua momen kunci belanja warga (Momen 1: Cek tren pra-belanja dari rumah; Momen 2: Cek kewajaran & deteksi mark-up pedagang saat di depan lapak pasar).
 
 ---
 
 ## ✅ Fitur & Tahapan yang Sudah Selesai (Completed)
+- [x] **Penyelarasan Navbar: True Center & Pelapangan Jarak Horisontal**:
+  - [x] Mengunci menu utama navigasi tengah (`Harga` · `Cek Harga` · `Peta` · `Lapor Harga` · `Keranjang`) pada posisi presisi tengah layar horizontal menggunakan teknik **Absolute Center** (`absolute left-1/2 -translate-x-1/2`), sehingga 100% simetris sempurna di sumbu tengah layar dan tidak lagi terdorong ke kiri oleh tombol kanan.
+  - [x] Memperlebar kontainer navbar dari `max-w-[1240px]` menjadi `max-w-[1400px]` agar logo HargaKu di kiri dan tombol asisten + selector wilayah di kanan lebih tersebar (*spread out*) secara proporsional dan tidak terkesan berdesak-desakan di tengah.
+  - [x] Mempertahankan kelancaran efek pill magnetik GPU-accelerated.
+- [x] **Polesan Tabel Peringkat Pasar (`PetaMarketRankTable.tsx`)**:
+  - [x] Memperbaiki clipping pada bulatan nomor peringkat (`1`): menambahkan padding kiri (`pl-3.5 sm:pl-4`) pada kolom tabel dan mengganti `outline` ke `border border-[#1B1A18]` sehingga lingkaran nomor utuh 100% tanpa kepotong container `overflow-x-auto`.
+  - [x] Menghilangkan redundansi nama pasar di subteks (dari `Medan Petisah · Pasar Petisah Sentral, Kota Medan` menjadi bersih `Medan Petisah, Kota Medan`).
+  - [x] Merapikan singkatan nanggung `6 lap.` menjadi `6 laporan` dan memperjelas ikon aksi navigasi maps.
+- [x] **Stabilisasi Layout Navbar & Penghapusan Badge Redundan**:
+  - [x] Menghapus badge abu-abu pulau & logistik (seperti `Sumatera +4%`, `Jawa`) dari tombol luar `RegionSelector.tsx`, mengurangi kepadatan visual dan duplikasi konteks.
+  - [x] Mengunci lebar tombol pill (`w-[145px] sm:w-[155px]` dengan `truncate`) agar posisi tombol di navbar **100% stabil dan tidak bergerak/bergeser (*zero layout shift*)** saat berganti antar nama provinsi pendek ("Bali") maupun panjang ("Sumatera Selatan", "Nusa Tenggara Barat").
+- [x] **Peta Interaktif Spasial Pasar Tradisional Berbasis Leaflet.js (Skala Nasional Multi-Wilayah)**:
+  - [x] **Watermark-Free Clean Map**: Mengganti tile layer CartoDB yang meminta API key berbayar dengan OpenStreetMap Standard resmi (`tile.openstreetmap.org`), 100% bebas watermark *"API KEY REQUIRED"*, gratis, cepat, dan stabil.
+  - [x] **Sinkronisasi Otomatis Antar-Provinsi (Zero Hardcode)**: Menghubungkan seluruh tampilan peta spasial ke `useRegion()`. Saat pengguna memilih provinsi di navbar (misal: Sumatera Barat, DKI Jakarta, Bali, Jawa Timur, Papua), peta otomatis terbang (*flyTo*) ke koordinat ibukota/sentra provinsi tersebut dengan transisi kamera halus.
+  - [x] **Dataset Multi-Wilayah Komprehensif (68 Pasar Tradisional di 21 Provinsi)**: Pemisahan modular dataset di [`src/lib/mock/markets-jawa.data.ts`](src/lib/mock/markets-jawa.data.ts) dan [`src/lib/mock/markets-outer.data.ts`](src/lib/mock/markets-outer.data.ts) yang digabung rapi di [`src/lib/mock/markets.data.ts`](src/lib/mock/markets.data.ts).
+  - [x] Komponen peta neo-brutalist reaktif di [`src/components/common/LeafletMarketMap.tsx`](src/components/common/LeafletMarketMap.tsx) menggunakan custom HTML pill marker (`L.divIcon`), navigasi halus `flyTo` saat pasar dipilih, dan popup detail interaktif.
+  - [x] Integrasi Leaflet pada Beranda di [`src/components/landing/ClayMarketMapSection.tsx`](src/components/landing/ClayMarketMapSection.tsx) dan Halaman Interior `/peta` di [`src/components/peta/PetaSpatialStage.tsx`](src/components/peta/PetaSpatialStage.tsx) & [`PetaContainer.tsx`](src/components/peta/PetaContainer.tsx).
+  - [x] Pemutakhiran dokumen pembatas [`docs/NON_GOALS.md`](docs/NON_GOALS.md) (memindahkan Leaflet.js ke in-scope) dan [`docs/PRD.md`](docs/PRD.md).
+  - [x] Verifikasi build & typecheck `npm run build` lulus 100% tanpa error (Exit code 0).
+- [x] **Modul 9: Asisten Pangan AI (Chatbot Konsultan Belanja & Anggaran Dapur)**:
+  - [x] Pemutakhiran spesifikasi [`docs/PRD.md`](docs/PRD.md) (Modul 9) dan kontrak API [`docs/API_SPEC.md`](docs/API_SPEC.md) (`POST /api/v1/assistant/chat`).
+  - [x] **Backend-Ready Fetcher Layer** di [`src/lib/api/assistant.api.ts`](src/lib/api/assistant.api.ts): implementasi fungsi `sendAssistantMessage` yang plug-and-play. Mendukung toggle `NEXT_PUBLIC_USE_MOCK` dan `NEXT_PUBLIC_API_URL` dengan fallback otomatis ke grounded engine lokal bila backend sedang offline.
+  - [x] Implementasi Asisten Engine Pintar di [`src/lib/assistant/assistant-engine.ts`](src/lib/assistant/assistant-engine.ts) & presets di [`src/lib/assistant/assistant-presets.ts`](src/lib/assistant/assistant-presets.ts) terhubung langsung ke data acuan wilayah aktif (`selectedRegion`).
+  - [x] Manajemen state obrolan terpusat di [`src/lib/store/assistant-store.tsx`](src/lib/store/assistant-store.tsx) dengan `messagesRef` stabil untuk mencegah *stale closure* riwayat obrolan.
+  - [x] Slide-over Drawer UI interaktif di [`src/components/assistant/AssistantDrawer.tsx`](src/components/assistant/AssistantDrawer.tsx) lengkap dengan format markdown bubble, chip komoditas tertaut, quick actions, indikator ketik animasi, dan chip rekomendasi pertanyaan instan.
+  - [x] **Eliminasi Redundansi Navbar**: Menggantikan tombol duplikat `Cek Harga` di kanan navbar menjadi tombol primer signature **`[ 💬 Tanya Asisten ]`** (`ChatCircleDots` fill) di [`src/components/layout/Navbar.tsx`](src/components/layout/Navbar.tsx) (desktop & mobile). Menghilangkan kesan "AI glitter/sparkle generik" dan menggantikannya dengan ikon balon obrolan belanja yang ramah dan humanis. Menu `Cek Harga` tetap bersih dan proporsional di menu pill tengah.
+  - [x] Verifikasi build `npm run build` lulus 100% tanpa error (Exit code 0).
+- [x] **Generalisasi Menyeluruh Seluruh Copywriting & Metadata (Anti-Bogor-Centric)**:
+  - [x] Humanisasi label acuan wilayah pada [`RegionSelector.tsx`](src/components/common/RegionSelector.tsx): Mengganti label teknis `Sentra 1.00x` dan `+6% Kapal` menjadi terminologi bahasa belanja yang ramah dan intuitif bagi masyarakat awam (**"Harga Dasar"** untuk sentra panen Jawa dan **"+6% Ongkir Kapal"** untuk luar Jawa), serta mengganti subtitle teknis `ZONA 1` menjadi konteks rantai pasok (*Sentra Produksi* vs *Jalur Kargo Laut*).
+  - [x] Perbaikan visual stroke selected item pada [`src/components/common/RegionSelector.tsx`](src/components/common/RegionSelector.tsx): mengganti `outline outline-1` menjadi `border border-[#1B1A18]` dan menambahkan horizontal padding `px-1` pada kontainer scroll agar garis border di keempat sudut melengkung tersambung mulus 100% tanpa clipping subpixel.
+  - [x] Mengubah seluruh penyebutan lokal yang sempit ("Kota Bogor", "warga Bogor", "5 pasar Bogor") menjadi terminologi umum nasional ("pasar tradisional di wilayah Anda", "konsumen cerdas", "pasar rakyat", "pantauan harian lapak wilayah", atau dinamis `{selectedRegion.name}`).
+  - [x] Memutakhirkan metadata SEO seluruh rute interior (`/peta`, `/keranjang`, `/lapor`, `/tentang`, `/admin`, `/admin/login`).
+  - [x] Menyinkronkan seluruh komponen presentasi beranda (`ClayHeroSection`, `ClaySupplyChainSection`, `ClayMarketMapSection`, `ClayCalculatorInstrument`, `ClayMarketRankings`, `ClayClosingCtaSection`, `Footer`) secara dinamis terhadap provinsi/koridor yang dipilih di top navbar.
+  - [x] Mensterilkan komponen interior (`PetaMarketRankTable`, `PetaSpatialStage`, `PriceInsufficientDataCard`, `LaporSuccessCard`, `LaporContainer`, `CartMarketComparisonCard`, `CommodityHeroHeader`, `CommodityLedgerTable`).
+  - [x] Menghilangkan bias pada konsol admin dan halaman tentang: TPID & Satgas Pangan Daerah, standar HAP Bapanas, dan PIHPS BI. Sisa teks Bogor hanya terdapat pada dataset pasar realistis Jawa Barat di `src/lib/mock/markets.data.ts` berdampingan dengan kota-kota lain di Indonesia.
+- [x] **Perumusan Arsitektur Standarisasi Nasional Berbasis Provinsi per Pulau**:
+  - [x] Pemutakhiran [`docs/PRD.md`](docs/PRD.md): Memasukkan latar belakang keluhan harga bahan pokok, eliminasi asimetri informasi tanpa harus datang ke pasar, perumusan dua momen kunci belanja (Pra-Belanja dari rumah & Saat di Lapak untuk deteksi mark-up pedagang sepihak), serta pemetaan acuan tingkat **Provinsi** yang dikelompokkan dalam **6 Koridor Pulau** (Jawa, Sumatera, Kalimantan, Sulawesi, Bali-Nusa Tenggara, Maluku-Papua) dengan transparansi toleransi biaya logistik laut.
+  - [x] Pemutakhiran [`docs/SCHEMA.md`](docs/SCHEMA.md): Penambahan entitas `regions` (Provinsi) dengan atribut koridor pulau (`island`), persentase biaya logistik kargo laut (`logistics_cost_pct`), zonasi Bapanas (`zone`), dan koefisien disparitas logistik harga (`disparity_index`).
+  - [x] Pemutakhiran [`docs/API_SPEC.md`](docs/API_SPEC.md): Penambahan parameter query `island` dan `search` pada endpoint `GET /api/v1/regions`, filter parameter `region` di seluruh endpoint komoditas, pasar, dan kalkulasi deteksi mark-up pada `POST /api/v1/price-check`.
+- [x] **Implementasi UI Region Selector Terpusat di Top Navbar (Anti-Redundansi)**:
+  - [x] Pembuatan Store Global Wilayah [`src/lib/store/region-store.tsx`](src/lib/store/region-store.tsx) dengan persistensi `localStorage`.
+  - [x] Dataset Multi-Provinsi Lintas 6 Koridor Pulau di [`src/lib/mock/regions.data.ts`](src/lib/mock/regions.data.ts) (Jawa: Jabar, DKI, Jateng, Jatim, Banten, DIY; Sumatera: Sumut, Sumsel, Sumbar, Riau, Lampung; Kalimantan: Kaltim, Kalbar, Kalsel; Sulawesi: Sulsel, Sulut; Bali-Nusra: Bali, NTB, NTT; Maluku-Papua: Papua, Maluku) dan pemetaan pasar tradisional di [`src/lib/mock/markets.data.ts`](src/lib/mock/markets.data.ts).
+  - [x] Komponen taktil [`src/components/common/RegionSelector.tsx`](src/components/common/RegionSelector.tsx) dilengkapi **Search Bar Mini** (`MagnifyingGlass` + auto-focus) dan **Chip Filter Pulau Cepat** (`Semua`, `Jawa +0%`, `Sumatera +6%`, `Kalimantan +12%`, `Sulawesi +8%`, `Bali-Nusra +8%`, `Maluku-Papua +25%`).
+  - [x] **Eliminasi Redundansi UI**: Menghapus tombol selector duplikat dari seluruh header halaman internal (`PriceCheckHeader.tsx`, `DashboardHeader.tsx`, `PetaHeader.tsx`, `CartHeader.tsx`, `LaporHeader.tsx`), sehingga `RegionSelector` terpusat bersih **eksklusif di Top Navbar (Desktop & Mobile)**.
+  - [x] Penyempurnaan logika evaluasi harga & deteksi mark-up di [`src/lib/price-logic.ts`](src/lib/price-logic.ts) serta kartu hasil evaluasi di [`src/components/price/PriceEvaluationResultCard.tsx`](src/components/price/PriceEvaluationResultCard.tsx).
+  - [x] Verifikasi build & typecheck Next.js 100% lulus tanpa error (`npm run build`).
 - [x] Initial commit & sinkronisasi repositori GitHub (`https://github.com/ClaveAP/HargaKu.git`):
   - [x] Pembuatan `.gitignore` komprehensif: memfilter seluruh mockup gambar desain mentah root, folder preview tangkapan layar, file `.pen`, PDF ukuran besar, cache, secrets `.env*.local`, dan `.vercel/`.
   - [x] Push branch `main` ke remote GitHub `ClaveAP/HargaKu`.

@@ -25,12 +25,28 @@ Dokumen ini adalah **Single Source of Truth (SSOT)** untuk seluruh struktur data
 
 ```mermaid
 erDiagram
+    REGIONS ||--o{ MARKETS : contains
+    REGIONS ||--o{ REFERENCE_PRICES : calibrates
     COMMODITIES ||--o{ REFERENCE_PRICES : has_reference
     COMMODITIES ||--o{ OFFICIAL_PRICES : tracked_in
     COMMODITIES ||--o{ CITIZEN_REPORTS : reported_as
     MARKETS ||--o{ OFFICIAL_PRICES : records_at
     MARKETS ||--o{ CITIZEN_REPORTS : submitted_at
     USERS ||--o{ CITIZEN_REPORTS : moderates
+
+    REGIONS {
+        string id PK
+        string name
+        string slug UK
+        string province
+        string island
+        string zone
+        int logistics_cost_pct
+        decimal disparity_index
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
 
     COMMODITIES {
         string id PK
@@ -46,6 +62,7 @@ erDiagram
 
     MARKETS {
         string id PK
+        string region_id FK
         string name
         string slug UK
         string city
@@ -60,7 +77,9 @@ erDiagram
     REFERENCE_PRICES {
         string id PK
         string commodity_id FK
+        string zone
         integer price_hap_het
+        decimal disparity_multiplier
         string reference_type
         string legal_doc_no
         date valid_from
@@ -107,7 +126,19 @@ erDiagram
 
 ## 3. Data Dictionary & Kamus Kolom
 
-### 3.1. Tabel `commodities`
+### 3.1. Tabel `regions`
+Menyimpan daftar wilayah acuan tingkat **Provinsi** yang dikelompokkan berdasarkan koridor pulau, zonasi Bapanas, dan persentase toleransi biaya logistik penyeberangan kargo laut.
+* `id` (VARCHAR/CUID, PK): ID unik wilayah provinsi.
+* `name` (VARCHAR(100), NOT NULL): Nama provinsi (misal: "Jawa Barat", "DKI Jakarta", "Jawa Timur", "Kalimantan Timur", "Sulawesi Selatan").
+* `slug` (VARCHAR(120), UNIQUE): URL slug wilayah (misal: `jawa-barat`).
+* `island` (VARCHAR(50), NOT NULL): Koridor pulau logistik (`JAWA`, `SUMATERA`, `KALIMANTAN`, `SULAWESI`, `BALI_NUSRA`, `MALUKU_PAPUA`).
+* `zone` (VARCHAR(20), NOT NULL, DEFAULT 'ZONA_1'): Zonasi pangan Bapanas (`ZONA_1`, `ZONA_2`, `ZONA_3`).
+* `logistics_cost_pct` (INTEGER, DEFAULT 0): Estimasi toleransi biaya logistik kargo laut resmi Bapanas (misal: 0% untuk Jawa, 6% Sumatera, 12% Kalimantan, 25% Papua).
+* `disparity_index` (DECIMAL(5, 3), DEFAULT 1.000): Koefisien pengali harga acuan dasar nasional (`1 + logistics_cost_pct / 100`).
+* `is_active` (BOOLEAN, DEFAULT true): Status keaktifan wilayah.
+* `created_at` / `updated_at` (TIMESTAMPTZ).
+
+### 3.2. Tabel `commodities`
 Menyimpan daftar bahan pokok strategis yang dipantau (12–15 komoditas).
 * `id` (VARCHAR/CUID, PK): ID unik komoditas.
 * `name` (VARCHAR(100), NOT NULL): Nama bahan pangan (misal: "Cabai Rawit Merah", "Minyak Goreng MinyaKita").
@@ -118,29 +149,33 @@ Menyimpan daftar bahan pokok strategis yang dipantau (12–15 komoditas).
 * `is_active` (BOOLEAN, DEFAULT true): Flag status aktif komoditas.
 * `created_at` / `updated_at` (TIMESTAMPTZ).
 
-### 3.2. Tabel `markets`
-Menyimpan daftar pasar tradisional pilot di Kota Bogor.
+### 3.3. Tabel `markets`
+Menyimpan daftar pasar tradisional yang berada di dalam wilayah cakupan.
 * `id` (VARCHAR/CUID, PK): ID unik pasar.
-* `name` (VARCHAR(100), NOT NULL): Nama pasar (misal: "Pasar Anyar", "Pasar Bogor/Kebon Kembang").
+* `region_id` (VARCHAR, FK ➔ `regions.id`, NOT NULL): Relasi ke wilayah kabupaten/kota.
+* `name` (VARCHAR(100), NOT NULL): Nama pasar (misal: "Pasar Anyar", "Pasar Kramat Jati").
 * `slug` (VARCHAR(120), UNIQUE): URL-friendly slug (`pasar-anyar`).
-* `city` (VARCHAR(50), DEFAULT 'Kota Bogor'): Nama kota.
+* `city` (VARCHAR(50), NOT NULL): Nama kota/kabupaten.
 * `district` (VARCHAR(100), NULL): Nama kecamatan.
 * `latitude` (DECIMAL(10, 7), NOT NULL): Koordinat lintang untuk peta Leaflet.
 * `longitude` (DECIMAL(10, 7), NOT NULL): Koordinat bujur untuk peta Leaflet.
 * `is_active` (BOOLEAN, DEFAULT true): Status aktif pasar dalam sistem.
+* `created_at` / `updated_at` (TIMESTAMPTZ).
 
-### 3.3. Tabel `reference_prices` (Lapis 1 — HAP / HET Resmi)
-Menyimpan ketetapan harga acuan dari Badan Pangan Nasional.
+### 3.4. Tabel `reference_prices` (Lapis 1 — Standarisasi Nasional HAP / HET Terkalibrasi)
+Menyimpan ketetapan harga acuan resmi dari Badan Pangan Nasional berdasarkan zonasi wilayah.
 * `id` (VARCHAR/CUID, PK): ID unik acuan harga.
 * `commodity_id` (VARCHAR, FK ➔ `commodities.id`): Relasi komoditas.
-* `price_hap_het` (INTEGER, NOT NULL): Nominal batas acuan dalam Rupiah.
+* `zone` (VARCHAR(20), NOT NULL, DEFAULT 'ZONA_1'): Zonasi wilayah regulasi Bapanas (`ZONA_1`, `ZONA_2`, `ZONA_3`).
+* `price_hap_het` (INTEGER, NOT NULL): Nominal batas acuan dalam Rupiah untuk zona tersebut.
+* `disparity_multiplier` (DECIMAL(4, 3), DEFAULT 1.000): Pengali penyesuaian disparitas wilayah.
 * `reference_type` (VARCHAR(20), NOT NULL): Tipe regulasi (`HAP` atau `HET`).
-* `legal_doc_no` (VARCHAR(150), NOT NULL): Nomor dasar hukum peraturan (misal: "Perbadan No 7 Tahun 2023").
+* `legal_doc_no` (VARCHAR(150), NOT NULL): Nomor dasar hukum peraturan (misal: "Perbadan No 17 Tahun 2023").
 * `valid_from` (DATE, NOT NULL): Tanggal mulai berlaku regulasi.
 * `valid_to` (DATE, NULL): Tanggal berakhir (NULL bila masih aktif).
 
-### 3.4. Tabel `official_prices` (Lapis 2 — Rata-rata Pasar Harian)
-Menyimpan harga survei harian resmi dari PIHPS BI atau Panel Bapanas.
+### 3.5. Tabel `official_prices` (Lapis 2 — Rata-rata Pasar Harian)
+Menyimpan harga survei harian resmi dari PIHPS BI atau Panel Bapanas di pasar daerah.
 * `id` (VARCHAR/CUID, PK): ID unik pencatatan harga.
 * `commodity_id` (VARCHAR, FK ➔ `commodities.id`): Relasi komoditas.
 * `market_id` (VARCHAR, FK ➔ `markets.id`): Relasi pasar tempat survei.
@@ -149,7 +184,7 @@ Menyimpan harga survei harian resmi dari PIHPS BI atau Panel Bapanas.
 * `recorded_date` (DATE, NOT NULL): Tanggal pencatatan harga (harian).
 * `created_at` (TIMESTAMPTZ, DEFAULT NOW()).
 
-### 3.5. Tabel `citizen_reports` (Lapis 3 — Crowdsourcing Warga)
+### 3.6. Tabel `citizen_reports` (Lapis 3 — Crowdsourcing Warga)
 Menyimpan laporan langsung dari warga di lapangan.
 * `id` (VARCHAR/CUID, PK): ID unik laporan warga.
 * `commodity_id` (VARCHAR, FK ➔ `commodities.id`): Relasi komoditas yang dilaporkan.
@@ -162,7 +197,7 @@ Menyimpan laporan langsung dari warga di lapangan.
 * `moderator_id` (VARCHAR, NULL, FK ➔ `users.id`): ID admin yang memoderasi.
 * `created_at` / `updated_at` (TIMESTAMPTZ).
 
-### 3.6. Tabel `users`
+### 3.7. Tabel `users`
 Akun internal tim moderator / admin HargaKu.
 * `id` (VARCHAR/CUID, PK).
 * `email` (VARCHAR(150), UNIQUE, NOT NULL).

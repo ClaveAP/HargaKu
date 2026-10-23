@@ -78,9 +78,45 @@ Semua response wajib dibungkus dalam format envelope konsisten:
 
 ## 3. Daftar Endpoint Publik
 
-### 3.1. `GET /api/v1/commodities`
-Mengambil daftar komoditas pangan yang dipantau beserta ringkasan harga rata-rata terkini.
+### 3.1. `GET /api/v1/regions`
+Mengambil daftar wilayah provinsi yang didukung oleh sistem dikelompokkan berdasarkan koridor 6 pulau, zonasi pangan Bapanas, dan estimasi biaya logistik laut.
 * **Query Params**:
+  * `island` (optional, string): Filter pulau (`JAWA`, `SUMATERA`, `KALIMANTAN`, `SULAWESI`, `BALI_NUSRA`, `MALUKU_PAPUA`).
+  * `search` (optional, string): Pencarian nama provinsi atau pulau.
+* **Response `data`**:
+```json
+[
+  {
+    "id": "reg_jabar",
+    "name": "Jawa Barat",
+    "slug": "jawa-barat",
+    "island": "JAWA",
+    "islandName": "Pulau Jawa",
+    "zone": "ZONA_1",
+    "logisticsCostPct": 0,
+    "disparityIndex": 1.000,
+    "isActive": true
+  },
+  {
+    "id": "reg_kaltim",
+    "name": "Kalimantan Timur",
+    "slug": "kalimantan-timur",
+    "island": "KALIMANTAN",
+    "islandName": "Pulau Kalimantan",
+    "zone": "ZONA_2",
+    "logisticsCostPct": 12,
+    "disparityIndex": 1.120,
+    "isActive": true
+  }
+]
+```
+
+---
+
+### 3.2. `GET /api/v1/commodities`
+Mengambil daftar komoditas pangan yang dipantau beserta ringkasan harga rata-rata terkini pada wilayah terpilih.
+* **Query Params**:
+  * `region` (optional, string, default: `kota-bogor`): Slug wilayah kabupaten/kota.
   * `category` (optional, string): Filter kategori (`BERAS`, `CABAI_BAWANG`, dll.).
 * **Response `data`**:
 ```json
@@ -95,7 +131,8 @@ Mengambil daftar komoditas pangan yang dipantau beserta ringkasan harga rata-rat
     "currentAvgPrice": 62500,
     "previousAvgPrice": 58000,
     "changePercentage": 7.76,
-    "hapHetPrice": 57000,
+    "nationalHapPrice": 57000,
+    "regionalAdjustedHap": 57000,
     "statusVsHap": "ABOVE_HAP",
     "lastUpdated": "2026-10-21T05:00:00.000Z"
   }
@@ -104,8 +141,10 @@ Mengambil daftar komoditas pangan yang dipantau beserta ringkasan harga rata-rat
 
 ---
 
-### 3.2. `GET /api/v1/commodities/:slug`
-Mengambil data detail satu komoditas beserta riwayat pergerakan harga 30 hari.
+### 3.3. `GET /api/v1/commodities/:slug`
+Mengambil data detail satu komoditas beserta riwayat pergerakan harga 30 hari di wilayah terpilih.
+* **Query Params**:
+  * `region` (optional, string, default: `kota-bogor`): Slug wilayah.
 * **Response `data`**:
 ```json
 {
@@ -115,15 +154,18 @@ Mengambil data detail satu komoditas beserta riwayat pergerakan harga 30 hari.
   "unit": "kg",
   "category": "CABAI_BAWANG",
   "reference": {
-    "priceHapHet": 57000,
+    "nationalHapHet": 57000,
+    "regionalAdjustedPrice": 57000,
+    "zone": "ZONA_1",
     "type": "HAP",
-    "legalDoc": "Perbadan No 7 Tahun 2023"
+    "legalDoc": "Perbadan No 17 Tahun 2023"
   },
   "currentPriceStats": {
+    "regionName": "Kota Bogor",
     "cityAverage": 62500,
-    "highestMarket": { "name": "Pasar Anyar", "price": 65000 },
-    "lowestMarket": { "name": "Pasar Merdeka", "price": 60000 },
-    "citizenReportsCount": 12
+    "highestMarket": { "name": "Pasar Kebon Kembang", "price": 65000 },
+    "lowestMarket": { "name": "Pasar Sukasari", "price": 58000 },
+    "citizenReportsCount": 24
   },
   "priceHistory": [
     { "date": "2026-10-15", "avgPrice": 59000 },
@@ -134,8 +176,10 @@ Mengambil data detail satu komoditas beserta riwayat pergerakan harga 30 hari.
 
 ---
 
-### 3.3. `GET /api/v1/markets`
-Mengambil daftar pasar tradisional di Kota Bogor untuk dropdown dan marker peta Leaflet.
+### 3.4. `GET /api/v1/markets`
+Mengambil daftar pasar tradisional pada wilayah terpilih untuk dropdown dan marker peta Leaflet.
+* **Query Params**:
+  * `region` (optional, string, default: `kota-bogor`): Slug wilayah kabupaten/kota.
 * **Response `data`**:
 ```json
 [
@@ -154,30 +198,32 @@ Mengambil daftar pasar tradisional di Kota Bogor untuk dropdown dan marker peta 
 
 ---
 
-### 3.4. `POST /api/v1/price-check` (Cek Harga Wajar — Fitur Inti)
-Mengevaluasi apakah harga yang ditawarkan di pasar wajar atau tidak.
+### 3.5. `POST /api/v1/price-check` (Cek Harga Wajar & Deteksi Mark-up)
+Mengevaluasi apakah harga yang ditawarkan di pasar wajar atau terdapat indikasi mark-up berlebih.
 * **Request Body**:
 ```json
 {
   "commodityId": "com_01",
+  "regionSlug": "kota-bogor",
   "marketId": "mkt_01",
-  "offeredPrice": 65000
+  "offeredPrice": 75000
 }
 ```
 * **Response `data`**:
 ```json
 {
-  "offeredPrice": 65000,
+  "offeredPrice": 75000,
   "comparisonPrice": 63000,
-  "diffPercentage": 3.17,
-  "status": "FAIR",
-  "statusLabel": "Wajar",
-  "statusBadgeColor": "emerald",
-  "advice": "Harga ini wajar dan sejalan dengan rata-rata transaksi di Pasar Anyar.",
+  "diffPercentage": 19.05,
+  "status": "SLIGHTLY_EXPENSIVE",
+  "statusLabel": "Agak Mahal (Potensi Mark-up)",
+  "statusBadgeColor": "amber",
+  "advice": "Harga ini lebih tinggi 19% dari rata-rata pasar setempat. Cobalah menawar mendekati Rp 63.000/kg atau cek alternatif pasar terdekat.",
   "confidenceLevel": "HIGH",
-  "confidenceReason": "Dihitung dari 5 laporan warga terverifikasi dalam 7 hari terakhir di pasar ini.",
+  "confidenceReason": "Dihitung dari 5 laporan warga terverifikasi dalam 7 hari terakhir di Pasar Anyar.",
   "layers": {
-    "lapis1HapHet": 57000,
+    "lapis1NationalHap": 57000,
+    "lapis1RegionalHap": 57000,
     "lapis2OfficialAvg": 64000,
     "lapis3CitizenMedian": 63000
   }
@@ -185,13 +231,13 @@ Mengevaluasi apakah harga yang ditawarkan di pasar wajar atau tidak.
 ```
 * **Nilai Status Kemungkinan**:
   * `FAIR` (Wajar, deviasi -10% s.d. +10%)
-  * `SLIGHTLY_EXPENSIVE` (Agak Mahal, deviasi +10.01% s.d. +25%)
-  * `OVERPRICED` (Terlalu Mahal, deviasi > +25%)
+  * `SLIGHTLY_EXPENSIVE` (Agak Mahal / Potensi Mark-up Moderat, deviasi +10.01% s.d. +25%)
+  * `OVERPRICED` (Terlalu Mahal / Mark-up Tinggi, deviasi > +25%)
   * `MUCH_CHEAPER` (Jauh Lebih Murah, deviasi < -15%)
 
 ---
 
-### 3.5. `POST /api/v1/reports` (Lapor Harga Warga)
+### 3.6. `POST /api/v1/reports` (Lapor Harga Warga)
 Mengirimkan laporan harga baru dari warga di pasar.
 * **Content-Type**: `multipart/form-data`
 * **Form Fields**:
@@ -206,6 +252,41 @@ Mengirimkan laporan harga baru dari warga di pasar.
   "reportId": "rep_987",
   "status": "PENDING",
   "message": "Terima kasih! Laporan Anda sedang ditinjau moderator dan akan segera memengaruhi acuan harga pasar."
+}
+```
+
+---
+
+### 3.7. `POST /api/v1/assistant/chat` (Konsultasi Asisten Pangan Cerdas)
+Mengirimkan pesan obrolan belanja/anggaran dan menerima respons terstruktur berbasis data acuan wilayah aktif.
+* **Request Body**:
+```json
+{
+  "message": "Bawang merah 40rb per kilo di pasar kemahalan gak?",
+  "regionId": "reg_jabar",
+  "conversationHistory": [
+    { "role": "user", "content": "..." },
+    { "role": "assistant", "content": "..." }
+  ]
+}
+```
+* **Response `data`**:
+```json
+{
+  "reply": "Bawang Merah Rp 40.000/kg tergolong Agak Mahal di Jawa Barat. Rata-rata acuan pasar harian saat ini adalah Rp 34.000/kg (terdapat indikasi mark-up sekitar +17.6%). Coba tawar mendekati Rp 34.000 - Rp 36.000 atau cek Pasar Anyar.",
+  "intent": "PRICE_CHECK",
+  "suggestedActions": [
+    { "label": "Bandingkan 5 Pasar", "href": "/komoditas/bawang-merah" },
+    { "label": "Hitung Keranjang Belanja", "href": "/keranjang" }
+  ],
+  "referencedCommodities": [
+    {
+      "id": "bawang-merah",
+      "name": "Bawang Merah",
+      "currentPrice": 34000,
+      "status": "SLIGHTLY_EXPENSIVE"
+    }
+  ]
 }
 ```
 
