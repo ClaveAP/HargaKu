@@ -53,9 +53,16 @@ export function PriceEvaluationResultCard({
       <div className="flex flex-col gap-4">
         {/* Eyebrow & Status Header */}
         <div className="flex flex-col gap-2">
-          <span className="text-[11px] font-bold text-[#78716C] uppercase tracking-wider">
-            Hasil Evaluasi Kewajaran
-          </span>
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold text-[#78716C] uppercase tracking-wider">
+              Hasil Evaluasi Kewajaran · {result.regionName || market?.city || 'Daerah'}
+            </span>
+            {result.markupDetected && (
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-[4px] bg-[#FEE2E2] text-[#991B1B] outline outline-1 outline-[#FECACA] uppercase">
+                {result.markupLabel || 'Potensi Mark-up'}
+              </span>
+            )}
+          </div>
 
           <div className="flex items-center gap-3 flex-wrap">
             <h3 className="text-[28px] sm:text-[32px] font-bold text-[#1B1A18] tracking-tight">
@@ -88,32 +95,33 @@ export function PriceEvaluationResultCard({
           </div>
 
           <div className="py-2.5 flex items-center justify-between gap-4">
-            <span className="text-[#78716C]">Harga pembanding acuan</span>
+            <span className="text-[#78716C]">Harga pembanding acuan daerah</span>
             <span className="font-bold text-[#1B1A18]">
               Rp {result.comparisonPrice.toLocaleString('id-ID')} / kg
             </span>
           </div>
 
           <div className="py-2.5 flex items-center justify-between gap-4">
-            <span className="text-[#78716C]">Sumber pembanding</span>
+            <span className="text-[#78716C]">Pasar rujukan &amp; sumber</span>
             <span className="font-medium text-[#6E6D67]">
-              Laporan Warga · {market?.name || 'Pasar Anyar'} (8 laporan)
+              Laporan Warga · {market?.name || 'Pasar Lokal'} (8 laporan terverifikasi)
             </span>
           </div>
 
           <div className="py-2.5 flex items-center justify-between gap-4">
-            <span className="text-[#78716C]">Tingkat kepercayaan data</span>
-            <span className="font-medium text-[#6E6D67]">
-              Tinggi (Struk timbangan terverifikasi)
+            <span className="text-[#78716C]">Standar HAP Nasional Bapanas</span>
+            <span className="font-mono font-medium text-[#6E6D67]">
+              Rp {(result.layers.lapis1NationalHap ?? result.layers.lapis1HapHet).toLocaleString('id-ID')} / kg
             </span>
           </div>
 
           <div className="py-2.5 flex items-center justify-between gap-4">
-            <span className="text-[#78716C]">Posisi terhadap HAP/HET Bapanas</span>
-            <span className="font-medium text-[#6E6D67]">
-              {result.offeredPrice > result.layers.lapis1HapHet
-                ? `Di atas batas acuan HAP (Rp ${result.layers.lapis1HapHet.toLocaleString('id-ID')})`
-                : `Sesuai batas acuan HAP (Rp ${result.layers.lapis1HapHet.toLocaleString('id-ID')})`}
+            <span className="text-[#78716C]">Acuan Disesuaikan ({result.regionName || 'Daerah'})</span>
+            <span className="font-medium text-[#1B1A18] text-right">
+              Rp {result.layers.lapis1HapHet.toLocaleString('id-ID')} / kg{' '}
+              <span className="text-[11px] text-[#8C8B85] font-normal block sm:inline">
+                ({result.offeredPrice > result.layers.lapis1HapHet ? 'Melebihi acuan pulau' : 'Sesuai acuan pulau'})
+              </span>
             </span>
           </div>
         </div>

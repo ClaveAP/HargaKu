@@ -21,7 +21,7 @@ export function PriceInsufficientDataCard() {
         <p className="text-[12px] text-[#6E6D67] leading-[19px]">
           Belum ada data pembanding yang cukup untuk komoditas dan pasar ini. HargaKu tidak
           pernah menebak-nebak angka harga. Bantu laporkan harga lapak yang Anda terima untuk
-          melengkapi referensi bersama sesama warga Bogor.
+          melengkapi referensi bersama sesama pembeli dan warga.
         </p>
       </div>
 

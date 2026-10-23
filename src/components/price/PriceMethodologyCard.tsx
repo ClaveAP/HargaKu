@@ -55,7 +55,7 @@ export function PriceMethodologyCard() {
       </div>
 
       <p className="text-[11px] text-[#8E8D86] leading-[16px] pt-1 border-t border-[#E5E3DE]">
-        <strong className="text-[#1B1A18] font-semibold">Hirarki sumber pembanding:</strong> Laporan Warga Lapak (≥3 laporan, 7 hari) → Rerata PIHPS Kota Bogor → Panel Harga Bapanas.
+        <strong className="text-[#1B1A18] font-semibold">Hirarki sumber pembanding:</strong> Laporan Warga Lapak (≥3 laporan, 7 hari) → Rerata Survei Pasar Resmi Daerah (PIHPS) → Standarisasi Nasional HAP/HET Bapanas (Zonasi Wilayah).
       </p>
     </div>
   );

@@ -5,11 +5,14 @@ export function evaluatePrice(
   comparisonPrice: number,
   layers: {
     lapis1HapHet: number;
+    lapis1NationalHap?: number;
+    lapis1RegionalHap?: number;
     lapis2OfficialAvg: number;
     lapis3CitizenMedian: number;
   },
   confidenceLevel: ConfidenceLevel = 'HIGH',
-  confidenceReason = 'Dihitung dari kombinasi survei pasar resmi dan median laporan warga Kota Bogor.'
+  confidenceReason?: string,
+  regionName: string = 'Wilayah Anda'
 ): PriceCheckResult {
   const diffPercentage = Number(
     (((offeredPrice - comparisonPrice) / comparisonPrice) * 100).toFixed(2)
@@ -18,33 +21,41 @@ export function evaluatePrice(
   let status: PriceCheckStatus;
   let statusLabel: string;
   let statusBadgeColor: 'emerald' | 'amber' | 'rose' | 'blue';
+  let markupDetected = false;
+  let markupLabel = 'Harga Sesuai Acuan';
   let advice: string;
 
   if (diffPercentage < -15) {
     status = 'MUCH_CHEAPER';
     statusLabel = 'Jauh Lebih Murah';
     statusBadgeColor = 'blue';
-    advice =
-      'Harga ini jauh di bawah rata-rata pasar. Pastikan memeriksa kesegaran mutu pangan dan ketepatan takaran timbangan.';
+    markupDetected = false;
+    markupLabel = 'Harga di Bawah Standar';
+    advice = `Harga berada jauh di bawah rata-rata pasar di ${regionName}. Pastikan memeriksa kesegaran mutu pangan dan akurasi timbangan pedagang.`;
   } else if (diffPercentage <= 10) {
     status = 'FAIR';
     statusLabel = 'Wajar';
     statusBadgeColor = 'emerald';
-    advice =
-      'Harga ini wajar dan sejalan dengan rata-rata transaksi harian di pasar Kota Bogor.';
+    markupDetected = false;
+    markupLabel = 'Harga Wajar & Transparan';
+    advice = `Harga ini wajar dan sejalan dengan rata-rata transaksi harian di ${regionName}.`;
   } else if (diffPercentage <= 25) {
     status = 'SLIGHTLY_EXPENSIVE';
-    statusLabel = 'Agak Mahal';
+    statusLabel = 'Agak Mahal / Potensi Mark-up';
     statusBadgeColor = 'amber';
-    advice =
-      'Harga sedikit lebih tinggi (+10% hingga +25%) dari rata-rata. Pertimbangkan menawar atau membandingkan kios terdekat.';
+    markupDetected = true;
+    markupLabel = 'Terindikasi Mark-up Moderat';
+    advice = `Harga lebih tinggi (+${diffPercentage}%) dari acuan wajar di ${regionName}. Cobalah menawar mendekati Rp ${comparisonPrice.toLocaleString('id-ID')}/kg atau bandingkan lapak sekitar.`;
   } else {
     status = 'OVERPRICED';
-    statusLabel = 'Terlalu Mahal';
+    statusLabel = 'Terlalu Mahal / Mark-up Tinggi';
     statusBadgeColor = 'rose';
-    advice =
-      'Harga melampaui toleransi wajar (> +25%). Disarankan mengecek kios lain atau pasar alternatif di sekitar.';
+    markupDetected = true;
+    markupLabel = 'Terindikasi Mark-up Spekulatif';
+    advice = `Harga melampaui toleransi wajar (> +25%). Pedagang mematok harga jauh di atas acuan di ${regionName}. Sangat disarankan menawar ke Rp ${comparisonPrice.toLocaleString('id-ID')}/kg atau pindah ke lapak lain.`;
   }
+
+  const defaultReason = confidenceReason || `Dihitung dari kombinasi survei resmi harian dan laporan warga di ${regionName}.`;
 
   return {
     offeredPrice,
@@ -53,10 +64,19 @@ export function evaluatePrice(
     status,
     statusLabel,
     statusBadgeColor,
+    markupDetected,
+    markupLabel,
     advice,
     confidenceLevel,
-    confidenceReason,
-    layers,
+    confidenceReason: defaultReason,
+    layers: {
+      lapis1HapHet: layers.lapis1HapHet,
+      lapis1NationalHap: layers.lapis1NationalHap ?? layers.lapis1HapHet,
+      lapis1RegionalHap: layers.lapis1RegionalHap ?? layers.lapis1HapHet,
+      lapis2OfficialAvg: layers.lapis2OfficialAvg,
+      lapis3CitizenMedian: layers.lapis3CitizenMedian,
+    },
+    regionName,
   };
 }
 
@@ -69,4 +89,3 @@ export function formatRupiah(amount: number): string {
     .format(amount)
     .replace('Rp', 'Rp ');
 }
-

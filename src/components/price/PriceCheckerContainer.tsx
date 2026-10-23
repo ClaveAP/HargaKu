@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { CommoditySummary, Market, PriceCheckResult } from '@/types';
 import { submitPriceCheck } from '@/lib/api/price-check.api';
+import { useRegion } from '@/lib/store/region-store';
 import { PriceCheckForm, TAKARAN_UNITS } from './PriceCheckForm';
 import { PriceEvaluationResultCard } from './PriceEvaluationResultCard';
 import { PriceMethodologyCard } from './PriceMethodologyCard';
@@ -21,6 +22,8 @@ export function PriceCheckerContainer({
   initialCommoditySlug,
   initialMarketId,
 }: Props) {
+  const { selectedRegion, regionMarkets } = useRegion();
+
   const [selectedCommodityId, setSelectedCommodityId] = useState<string>(
     () => {
       if (initialCommoditySlug) {
@@ -33,11 +36,21 @@ export function PriceCheckerContainer({
     }
   );
 
+  const activeMarkets = regionMarkets.length > 0 ? regionMarkets : initialMarkets;
+
   const [takaranAmount, setTakaranAmount] = useState<number>(2);
   const [selectedUnitId, setSelectedUnitId] = useState<string>('ons');
   const [selectedMarketId, setSelectedMarketId] = useState<string>(
-    () => initialMarketId || initialMarkets[0]?.id || ''
+    () => initialMarketId || activeMarkets[0]?.id || ''
   );
+
+  // If selected market is not in active region's markets, reset to first market of region
+  useEffect(() => {
+    if (activeMarkets.length > 0 && !activeMarkets.some((m) => m.id === selectedMarketId)) {
+      setSelectedMarketId(activeMarkets[0].id);
+    }
+  }, [activeMarkets, selectedMarketId]);
+
   // Default to Rp 15.000 for 2 ons (matching node SWBPt in pen app: Rp 15.000 per 2 ons = Rp 75.000/kg)
   const [rawPriceInput, setRawPriceInput] = useState<string>('Rp 15.000');
   const [loading, setLoading] = useState<boolean>(false);
@@ -89,6 +102,7 @@ export function PriceCheckerContainer({
       const res = await submitPriceCheck({
         commodityId: selectedCommodityId,
         marketId: selectedMarketId,
+        regionSlug: selectedRegion.slug,
         offeredPrice: normalizedPricePerKg,
       });
       setResult(res);
@@ -99,11 +113,11 @@ export function PriceCheckerContainer({
     }
   };
 
-  // Initial calculation on mount so the right card shows immediately
+  // Initial calculation on mount and when region changes
   useEffect(() => {
     executeEvaluation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCommodityId, normalizedPricePerKg, selectedMarketId]);
+  }, [selectedCommodityId, normalizedPricePerKg, selectedMarketId, selectedRegion.id]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -119,7 +133,7 @@ export function PriceCheckerContainer({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
         <PriceCheckForm
           commodities={initialCommodities}
-          markets={initialMarkets}
+          markets={activeMarkets}
           selectedCommodityId={selectedCommodityId}
           onCommodityChange={setSelectedCommodityId}
           takaranAmount={takaranAmount}
