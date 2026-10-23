@@ -13,8 +13,8 @@ export function AdminLoginShowcase() {
     {
       icon: Storefront,
       iconBg: 'bg-[#EEF773] text-[#1B1A18]',
-      title: '5 Pasar Tradisional Terhubung',
-      desc: 'Pemantauan serempak di Pasar Anyar, Kebon Kembang, Sukasari, Gunung Batu, dan Jambu Dua.',
+      title: 'Seluruh Pasar Tradisional Terhubung',
+      desc: 'Pemantauan serempak di Pasar Anyar, Kebon Kembang, Sukasari, Gunung Batu, Jambu Dua, dan pasar rakyat lainnya.',
     },
     {
       icon: Lightning,

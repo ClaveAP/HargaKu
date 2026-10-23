@@ -23,7 +23,7 @@ export function AdminMetricCards({
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
       {/* 1. Menunggu */}
-      <div className="p-4 sm:p-5 rounded-[18px] bg-white outline outline-1 outline-[#E5E3DE] shadow-xs flex flex-col justify-between gap-3">
+      <div className="p-4 sm:p-5 rounded-[18px] bg-white border border-[#E5E3DE] shadow-xs flex flex-col justify-between gap-3">
         <div className="flex items-center justify-between">
           <span className="text-[12px] font-semibold text-[#8E8D86]">
             Menunggu Review
@@ -36,7 +36,7 @@ export function AdminMetricCards({
       </div>
 
       {/* 2. Anomali */}
-      <div className="p-4 sm:p-5 rounded-[18px] bg-[#FFF3ED] outline outline-1 outline-[#FFD9C7] shadow-xs flex flex-col justify-between gap-3">
+      <div className="p-4 sm:p-5 rounded-[18px] bg-[#FFF3ED] border border-[#FFD9C7] shadow-xs flex flex-col justify-between gap-3">
         <div className="flex items-center justify-between">
           <span className="text-[12px] font-bold text-[#FF7714]">
             Peringatan Anomali
@@ -49,7 +49,7 @@ export function AdminMetricCards({
       </div>
 
       {/* 3. Disetujui */}
-      <div className="p-4 sm:p-5 rounded-[18px] bg-white outline outline-1 outline-[#E5E3DE] shadow-xs flex flex-col justify-between gap-3">
+      <div className="p-4 sm:p-5 rounded-[18px] bg-white border border-[#E5E3DE] shadow-xs flex flex-col justify-between gap-3">
         <div className="flex items-center justify-between">
           <span className="text-[12px] font-semibold text-[#8E8D86]">
             Disetujui Hari Ini
@@ -62,7 +62,7 @@ export function AdminMetricCards({
       </div>
 
       {/* 4. Dieliminasi */}
-      <div className="p-4 sm:p-5 rounded-[18px] bg-white outline outline-1 outline-[#E5E3DE] shadow-xs flex flex-col justify-between gap-3">
+      <div className="p-4 sm:p-5 rounded-[18px] bg-white border border-[#E5E3DE] shadow-xs flex flex-col justify-between gap-3">
         <div className="flex items-center justify-between">
           <span className="text-[12px] font-semibold text-[#8E8D86]">
             Dieliminasi / Spam

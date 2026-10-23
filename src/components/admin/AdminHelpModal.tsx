@@ -22,7 +22,7 @@ export function AdminHelpModal({ isOpen, onClose }: AdminHelpModalProps) {
     {
       icon: Lightning,
       title: 'Entri Harga Harian',
-      desc: 'Petugas lapangan menginput harga rata-rata komoditas dari 5 pasar tradisional setiap pagi pukul 06:00 – 08:00 WIB melalui menu Entri Harga Harian. Data langsung tersinkronisasi ke website publik.',
+      desc: 'Petugas lapangan menginput harga rata-rata komoditas dari seluruh pasar tradisional terdaftar setiap pagi pukul 06:00 – 08:00 WIB melalui menu Entri Harga Harian. Data langsung tersinkronisasi ke website publik.',
     },
     {
       icon: ShieldCheck,

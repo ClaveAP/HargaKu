@@ -58,9 +58,5 @@ function AdminWorkspace() {
 }
 
 export function AdminContainer() {
-  return (
-    <AdminStoreProvider>
-      <AdminWorkspace />
-    </AdminStoreProvider>
-  );
+  return <AdminWorkspace />;
 }

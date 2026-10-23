@@ -104,25 +104,43 @@ export function AdminDailyPricesView() {
         </div>
       )}
 
-      {/* Market Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1">
-        {activeMarkets.map((m) => {
-          const isSelected = m.id === selectedMarketId;
-          return (
-            <button
-              key={m.id}
-              type="button"
-              onClick={() => setSelectedMarketId(m.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-medium border transition-all shrink-0 ${
-                isSelected
-                  ? 'bg-[#1B1A18] text-white border-[#1B1A18] shadow-[1px_1px_0px_#1B1A18]'
-                  : 'bg-white text-[#706E6A] border-[#E5E3DE] hover:bg-[#FAF9F5]'
-              }`}
-            >
-              {m.name}
-            </button>
-          );
-        })}
+      {/* Market Selector Bar */}
+      <div className="bg-white border border-[#E5E3DE] rounded-[20px] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold text-[#1B1A18] shrink-0">Pilih Pasar:</span>
+          <select
+            value={selectedMarketId}
+            onChange={(e) => setSelectedMarketId(e.target.value)}
+            className="px-3.5 py-2 rounded-xl border border-[#E5E3DE] bg-[#FAF9F5] text-xs font-semibold text-[#1B1A18] focus:bg-white focus:outline-[#1B1A18] min-w-[220px]"
+          >
+            {activeMarkets.map((m) => (
+              <option key={m.id} value={m.id}>
+                {m.name} ({m.city || 'Nasional'})
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-[11px] text-[#A8A29E] font-medium mr-1 hidden md:inline">Akses Cepat:</span>
+          {activeMarkets.slice(0, 5).map((m) => {
+            const isSelected = m.id === selectedMarketId;
+            return (
+              <button
+                key={m.id}
+                type="button"
+                onClick={() => setSelectedMarketId(m.id)}
+                className={`px-3 py-1 rounded-full text-xs font-medium border transition-all shrink-0 ${
+                  isSelected
+                    ? 'bg-[#1B1A18] text-white border-[#1B1A18]'
+                    : 'bg-[#FAF9F5] text-[#706E6A] border-[#E5E3DE] hover:bg-white'
+                }`}
+              >
+                {m.name}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Fast-Entry Matrix Form */}

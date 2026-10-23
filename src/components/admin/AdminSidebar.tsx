@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import type { AdminModule } from '@/lib/types/admin';
 import { useAdminStore } from '@/lib/store/admin-store';
+import { AdminConfirmModal } from './AdminConfirmModal';
 import {
   ChartBar,
   ShieldCheck,
@@ -27,6 +28,8 @@ export function AdminSidebar({
   onCloseMobile,
 }: AdminSidebarProps) {
   const { commodities, markets, reports, resetToDefaultData } = useAdminStore();
+
+  const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
 
   const pendingReportsCount = reports.filter(
     (r) => r.status === 'PENDING' || r.status === 'ANOMALY'
@@ -57,13 +60,13 @@ export function AdminSidebar({
     {
       id: 'commodities',
       label: 'Katalog Komoditas',
-      description: `${commodities.length} komoditas dipantau`,
+      description: 'Master data & batas harga',
       icon: Plant,
     },
     {
       id: 'markets',
       label: 'Pasar Tradisional',
-      description: `${markets.length} pasar pantauan wilayah`,
+      description: 'Titik pantau & koordinat GPS',
       icon: Storefront,
     },
     {
@@ -75,13 +78,7 @@ export function AdminSidebar({
   ];
 
   const handleReset = () => {
-    if (
-      window.confirm(
-        'Kembalikan seluruh data komoditas, pasar, dan laporan ke dataset simulasi awal?'
-      )
-    ) {
-      resetToDefaultData();
-    }
+    setIsResetConfirmOpen(true);
   };
 
   const navContent = (
@@ -194,6 +191,17 @@ export function AdminSidebar({
           </div>
         </div>
       )}
+
+      <AdminConfirmModal
+        isOpen={isResetConfirmOpen}
+        onClose={() => setIsResetConfirmOpen(false)}
+        onConfirm={resetToDefaultData}
+        title="Kembalikan Dataset Awal?"
+        description="Seluruh perubahan data komoditas, pasar, dan laporan warga akan dikembalikan ke kondisi awal demonstrasi simulasi."
+        confirmLabel="Ya, Reset Data"
+        cancelLabel="Batal"
+        variant="warning"
+      />
     </>
   );
 }

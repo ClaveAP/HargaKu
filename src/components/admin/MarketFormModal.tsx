@@ -28,10 +28,12 @@ export function MarketFormModal({
 }: MarketFormModalProps) {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
+  const [city, setCity] = useState('DKI Jakarta');
+  const [regionId, setRegionId] = useState('reg_jakarta');
   const [district, setDistrict] = useState(STANDARD_DISTRICTS[0]);
   const [address, setAddress] = useState('');
-  const [latitude, setLatitude] = useState('-6.5925');
-  const [longitude, setLongitude] = useState('106.7905');
+  const [latitude, setLatitude] = useState('-6.2088');
+  const [longitude, setLongitude] = useState('106.8456');
   const [operatingHours, setOperatingHours] = useState('04:00 – 14:00 WIB');
   const [specialty, setSpecialty] = useState('');
   const [isActive, setIsActive] = useState(true);
@@ -41,6 +43,8 @@ export function MarketFormModal({
     if (initialData) {
       setName(initialData.name);
       setSlug(initialData.slug);
+      setCity(initialData.city || 'DKI Jakarta');
+      setRegionId(initialData.regionId || 'reg_jakarta');
       setDistrict(initialData.district);
       setAddress(initialData.address);
       setLatitude(initialData.latitude.toString());
@@ -52,10 +56,12 @@ export function MarketFormModal({
     } else {
       setName('');
       setSlug('');
+      setCity('DKI Jakarta');
+      setRegionId('reg_jakarta');
       setDistrict(STANDARD_DISTRICTS[0]);
       setAddress('');
-      setLatitude('-6.5925');
-      setLongitude('106.7905');
+      setLatitude('-6.2088');
+      setLongitude('106.8456');
       setOperatingHours('04:00 – 14:00 WIB');
       setSpecialty('');
       setIsActive(true);
@@ -93,8 +99,10 @@ export function MarketFormModal({
       id: initialData?.id || slug || `mkt_${Date.now()}`,
       name: name.trim(),
       slug: slug || name.toLowerCase().replace(/\s+/g, '-'),
-      district,
-      address: address.trim() || 'Pasar Tradisional',
+      city: city.trim() || 'DKI Jakarta',
+      regionId: regionId || 'reg_jakarta',
+      district: district.trim() || 'Sentral',
+      address: address.trim() || `${name.trim()}, ${city.trim()}`,
       latitude: latNum,
       longitude: lngNum,
       operatingHours: operatingHours.trim() || '04:00 – 14:00 WIB',
@@ -130,31 +138,38 @@ export function MarketFormModal({
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold text-[#1B1A18]">Nama Pasar Tradisional</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => handleNameChange(e.target.value)}
+              placeholder="Contoh: Pasar Induk Kramat Jati"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E3DE] bg-[#FAF9F5] focus:bg-white text-sm text-[#1B1A18] focus:outline-[#1B1A18]"
+            />
+          </div>
+
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-[#1B1A18]">Nama Pasar</label>
+              <label className="text-xs font-semibold text-[#1B1A18]">Kota / Kabupaten</label>
               <input
                 type="text"
-                value={name}
-                onChange={(e) => handleNameChange(e.target.value)}
-                placeholder="Contoh: Pasar Anyar"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                placeholder="Contoh: DKI Jakarta"
                 className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E3DE] bg-[#FAF9F5] focus:bg-white text-sm text-[#1B1A18] focus:outline-[#1B1A18]"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-[#1B1A18]">Kecamatan / Wilayah</label>
-              <select
+              <label className="text-xs font-semibold text-[#1B1A18]">Kecamatan / Distrik</label>
+              <input
+                type="text"
                 value={district}
                 onChange={(e) => setDistrict(e.target.value)}
-                className="w-full px-3 py-2.5 rounded-xl border border-[#E5E3DE] bg-[#FAF9F5] focus:bg-white text-sm text-[#1B1A18] focus:outline-[#1B1A18]"
-              >
-                {STANDARD_DISTRICTS.map((dist) => (
-                  <option key={dist} value={dist}>
-                    {dist}
-                  </option>
-                ))}
-              </select>
+                placeholder="Contoh: Kramat Jati"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E3DE] bg-[#FAF9F5] focus:bg-white text-sm text-[#1B1A18] focus:outline-[#1B1A18]"
+              />
             </div>
           </div>
 

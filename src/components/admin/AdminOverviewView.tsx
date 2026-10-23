@@ -100,7 +100,7 @@ export function AdminOverviewView({ onNavigate }: AdminOverviewViewProps) {
           <div className="mt-4">
             <div className="text-3xl font-medium text-[#1B1A18]">{activeMarkets}</div>
             <div className="text-xs text-[#706E6A] mt-1">
-              titik pantau pasar aktif
+              titik pantau pasar nusantara
             </div>
           </div>
         </div>
