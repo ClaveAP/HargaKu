@@ -10,7 +10,7 @@ export function MarketMapStage() {
             <div className="relative w-full max-w-sm aspect-square rounded-2xl overflow-hidden bg-white shadow-sm border border-yellow-200/60">
               <Image
                 src="/images/peta-pasar-clay.jpg"
-                alt="Model 3D Clay Peta Sebaran 5 Pasar Tradisional Kota Bogor"
+                alt="Model 3D Clay Peta Sebaran Pasar Tradisional"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 400px"
@@ -21,13 +21,13 @@ export function MarketMapStage() {
           <div className="lg:col-span-7 space-y-5">
             <div>
               <span className="text-[11px] font-bold text-yellow-800 uppercase tracking-wider">
-                Peta 5 Pasar Tradisional
+                Peta Pasar Tradisional
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-gray-950 mt-2 tracking-tight leading-tight">
                 Bandingkan harga pasar terdekat sebelum berangkat belanja.
               </h2>
               <p className="text-xs sm:text-sm text-gray-700 mt-2.5 leading-relaxed">
-                Tiap pasar di Kota Bogor memiliki keunggulan pasokan yang berbeda. Pantau sebaran harga komoditas strategis secara spasial untuk menentukan rute belanja yang paling hemat waktu dan ongkos.
+                Tiap pasar memiliki keunggulan pasokan yang berbeda. Pantau sebaran harga komoditas strategis secara spasial untuk menentukan rute belanja yang paling hemat waktu dan ongkos.
               </p>
             </div>
 
@@ -54,7 +54,7 @@ export function MarketMapStage() {
 
               <div className="flex items-center justify-between p-3.5 rounded-xl bg-white/90 border border-yellow-200/80 shadow-2xs">
                 <div>
-                  <div className="font-bold text-gray-950">Pasar Bogor (Sukasari)</div>
+                  <div className="font-bold text-gray-950">Pasar Sukasari</div>
                   <div className="text-[11px] text-gray-500">Sentra Daging Sapi &amp; Unggas Segar · 2.4 km</div>
                 </div>
                 <span className="px-3 py-1 rounded-full text-xs font-bold bg-white text-gray-900 border border-gray-200 tabular-nums">

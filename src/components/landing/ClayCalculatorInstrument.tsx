@@ -135,7 +135,7 @@ export function ClayCalculatorInstrument({
           {deviationPercent < 0
             ? `${Math.abs(deviationPercent).toFixed(1)}% lebih hemat`
             : `${deviationPercent.toFixed(1)}% lebih tinggi`}{' '}
-          dibanding harga rata-rata {commodityName} Kota Bogor (
+          dibanding harga acuan rata-rata {commodityName} (
           {formatRupiah(averagePricePerKg)}/kg). Penawaran ini mengacu pada pantauan harga lapak harian.
         </p>
       </div>

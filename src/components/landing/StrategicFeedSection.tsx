@@ -39,7 +39,7 @@ const FEED_DATA: FeedRow[] = [
   {
     name: 'Daging Sapi Murni',
     category: 'Daging & Telur',
-    lowestMarket: 'Pasar Bogor (Sukasari)',
+    lowestMarket: 'Pasar Sukasari',
     lowestPrice: 'Rp 135.000 / kg',
     cityAvg: 'Rp 138.000 / kg',
     trend: '0.0%',
@@ -91,7 +91,7 @@ export function StrategicFeedSection() {
             Pantauan Langsung Komoditas Pokok.
           </h2>
           <p className="text-xs sm:text-sm text-zinc-500 mt-1">
-            Survei harian terverifikasi dari 5 pasar tradisional utama Kota Bogor.
+            Survei harian terverifikasi dari pasar-pasar tradisional utama di wilayah Anda.
           </p>
         </div>
 

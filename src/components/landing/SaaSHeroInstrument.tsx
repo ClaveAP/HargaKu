@@ -24,7 +24,7 @@ const PRESETS: Record<string, Preset> = {
     hapPrice: 40000,
     markets: [
       { name: 'Pasar Kebon Kembang', price: 48000, diff: '-6.2%', isLowest: true },
-      { name: 'Pasar Bogor (Sukasari)', price: 50000, diff: '-2.3%' },
+      { name: 'Pasar Sukasari', price: 50000, diff: '-2.3%' },
       { name: 'Pasar Anyar', price: 51000, diff: '-0.4%' },
       { name: 'Pasar Gunung Batu', price: 53000, diff: '+3.5%' },
       { name: 'Pasar Jambu Dua', price: 54000, diff: '+5.4%' },
@@ -40,7 +40,7 @@ const PRESETS: Record<string, Preset> = {
     markets: [
       { name: 'Pasar Anyar', price: 34000, diff: '-6.8%', isLowest: true },
       { name: 'Pasar Kebon Kembang', price: 35500, diff: '-2.7%' },
-      { name: 'Pasar Bogor (Sukasari)', price: 36500, diff: '0.0%' },
+      { name: 'Pasar Sukasari', price: 36500, diff: '0.0%' },
       { name: 'Pasar Jambu Dua', price: 38000, diff: '+4.1%' },
       { name: 'Pasar Gunung Batu', price: 38500, diff: '+5.5%' },
     ],
@@ -56,7 +56,7 @@ const PRESETS: Record<string, Preset> = {
       { name: 'Pasar Gunung Batu', price: 13000, diff: '-3.7%', isLowest: true },
       { name: 'Pasar Kebon Kembang', price: 13200, diff: '-2.2%' },
       { name: 'Pasar Anyar', price: 13500, diff: '0.0%' },
-      { name: 'Pasar Bogor (Sukasari)', price: 13800, diff: '+2.2%' },
+      { name: 'Pasar Sukasari', price: 13800, diff: '+2.2%' },
       { name: 'Pasar Jambu Dua', price: 14000, diff: '+3.7%' },
     ],
   },
@@ -68,7 +68,7 @@ const PRESETS: Record<string, Preset> = {
     cityAvg: 138000,
     hapPrice: 140000,
     markets: [
-      { name: 'Pasar Bogor (Sukasari)', price: 135000, diff: '-2.2%', isLowest: true },
+      { name: 'Pasar Sukasari', price: 135000, diff: '-2.2%', isLowest: true },
       { name: 'Pasar Anyar', price: 137000, diff: '-0.7%' },
       { name: 'Pasar Kebon Kembang', price: 138000, diff: '0.0%' },
       { name: 'Pasar Gunung Batu', price: 140000, diff: '+1.4%' },
@@ -207,7 +207,7 @@ export function SaaSHeroInstrument() {
             </div>
 
             <p className="text-xs text-zinc-600 leading-relaxed pt-1">
-              {Math.abs(diffFromAvg).toFixed(1)}% {diffFromAvg <= 0 ? 'lebih hemat' : 'lebih tinggi'} dibandingkan rata-rata Kota Bogor (Rp {preset.cityAvg.toLocaleString('id-ID')}/kg).
+              {Math.abs(diffFromAvg).toFixed(1)}% {diffFromAvg <= 0 ? 'lebih hemat' : 'lebih tinggi'} dibandingkan rata-rata wilayah (Rp {preset.cityAvg.toLocaleString('id-ID')}/kg).
             </p>
           </div>
         </div>
@@ -216,7 +216,7 @@ export function SaaSHeroInstrument() {
           <div className="flex items-center justify-between">
             <div>
               <div className="text-[11px] font-semibold text-zinc-600 uppercase tracking-wider">
-                Sebaran 5 Pasar Kota Bogor
+                Sebaran Pasar Wilayah
               </div>
               <h4 className="text-xs text-zinc-500 mt-0.5">
                 Survei harian terverifikasi per pasar

@@ -111,7 +111,7 @@ export function SupplyChainStages() {
                 Status: Margin Sehat &amp; Wajar
               </div>
               <p className="text-[11px] text-emerald-800 leading-relaxed">
-                Akumulasi margin rantai pasok 37.1% berada dalam zona toleransi aman TPID Kota Bogor (maksimal 40%).
+                Akumulasi margin rantai pasok 37.1% berada dalam zona toleransi aman TPID (maksimal 40%).
               </p>
             </div>
           </div>

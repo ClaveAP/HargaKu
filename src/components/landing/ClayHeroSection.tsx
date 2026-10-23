@@ -14,8 +14,10 @@ import { COMMODITY_PRESETS, CommodityPreset } from './hero-data';
 import { ClayCalculatorInstrument } from './ClayCalculatorInstrument';
 import { ClayMarketRankings } from './ClayMarketRankings';
 import { formatRupiah } from '@/lib/price-logic';
+import { useRegion } from '@/lib/store/region-store';
 
 export function ClayHeroSection() {
+  const { selectedRegion } = useRegion();
   const [activePreset, setActivePreset] = useState<CommodityPreset>(
     COMMODITY_PRESETS[0]
   );
@@ -34,7 +36,7 @@ export function ClayHeroSection() {
           {/* Eyebrow Badge (No Dot) */}
           <div className="inline-flex items-center px-3.5 py-1.5 bg-white outline outline-1 outline-[#E5E3DE] -outline-offset-1 rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
             <span className="text-[12px] font-medium text-[#1B1A18] tracking-tight">
-              Transparansi Pangan Digital · Kota Bogor
+              Transparansi Pangan Digital · {selectedRegion.name} ({selectedRegion.islandName})
             </span>
           </div>
 
@@ -45,9 +47,7 @@ export function ClayHeroSection() {
 
           {/* Subtitle */}
           <p className="text-[15px] sm:text-[16px] text-[#6E6D67] leading-[1.6] max-w-[540px]">
-            Platform pembanding harga pangan riil di 5 pasar tradisional Kota
-            Bogor. Konversi satuan takaran pedagang (ons, perempatan, kilo)
-            seketika dan hindari lonjakan harga tak wajar.
+            Platform acuan pangan nasional terkalibrasi daerah. Cek tren harga riil dari rumah sebelum berangkat belanja, dan deteksi potensi mark-up pedagang saat bertransaksi di {selectedRegion.name}.
           </p>
 
           {/* Dual CTAs */}
@@ -65,7 +65,7 @@ export function ClayHeroSection() {
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-[8px] bg-white text-[#1B1A18] font-medium text-[14px] outline outline-1 outline-[#E5E3DE] hover:bg-[#F4F3F0] transition-colors cursor-pointer"
             >
               <Storefront size={16} weight="bold" />
-              <span>Peta 5 Pasar</span>
+              <span>Peta Pasar Wilayah</span>
             </a>
           </div>
 
@@ -74,10 +74,10 @@ export function ClayHeroSection() {
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-1.5 text-[#1B1A18] font-medium text-[13px] sm:text-[14px]">
                 <Storefront size={16} className="text-[#FF7714]" weight="fill" />
-                <span>5 Pasar</span>
+                <span>Pasar Rakyat</span>
               </div>
               <span className="text-[11px] sm:text-[12px] text-[#8C8B85] leading-tight">
-                Kebon Kembang s/d Sukasari
+                Pantauan harian lapak
               </span>
             </div>
 
@@ -113,7 +113,7 @@ export function ClayHeroSection() {
                   Pilih Komoditas
                 </span>
                 <span className="text-[11px] font-medium text-[#6E6D67]">
-                  Kota Bogor · Riil Hari Ini
+                  {selectedRegion.name} · Riil Hari Ini
                 </span>
               </div>
 

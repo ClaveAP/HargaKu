@@ -38,7 +38,7 @@ const ROWS: TableRow[] = [
   {
     name: 'Daging Sapi Murni',
     quality: 'Paha belakang segar',
-    lowestMarket: 'Pasar Bogor (Sukasari)',
+    lowestMarket: 'Pasar Sukasari',
     lowestPrice: 'Rp 135.000 / kg',
     cityAvg: 'Rp 138.000 / kg',
     trend: '0.0% Stabil',
@@ -90,10 +90,10 @@ export function MarketTableStage() {
             Pantauan Komoditas Strategis
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-gray-950 mt-2 tracking-tight">
-            Harga Terkini Komoditas Pokok Kota Bogor
+            Harga Terkini Komoditas Pokok Pasar Wilayah
           </h2>
           <p className="text-xs sm:text-sm text-sky-900/80 mt-2 leading-relaxed">
-            Pantauan langsung dari 5 pasar utama hari ini: Pasar Kebon Kembang, Pasar Anyar, Pasar Bogor (Sukasari), Pasar Gunung Batu, dan Pasar Jambu Dua.
+            Pantauan langsung dari pasar-pasar tradisional utama: Pasar Kebon Kembang, Pasar Anyar, Pasar Sukasari, Pasar Gunung Batu, dan Pasar Jambu Dua.
           </p>
         </div>
 

@@ -16,7 +16,7 @@ export function ClayClosingCtaSection() {
         {/* Left: Narrative & Action */}
         <div className="w-full lg:w-[54%] flex flex-col items-start gap-6">
           <div className="inline-flex items-center px-3.5 py-1.5 bg-white outline outline-1 outline-[#E5E3DE] rounded-full text-[12px] font-medium text-[#1B1A18] shadow-xs">
-            <span>Partisipasi Warga Kota Bogor</span>
+            <span>Partisipasi Konsumen &amp; Warga Cerdas</span>
           </div>
 
           <h2 className="text-[32px] sm:text-[40px] lg:text-[44px] font-medium text-[#1B1A18] leading-[1.12] tracking-tight text-balance">
@@ -25,7 +25,7 @@ export function ClayClosingCtaSection() {
 
           <p className="text-[15px] sm:text-[16px] text-[#6E6D67] leading-[1.6] max-w-[540px]">
             Transparansi pangan terwujud karena warga saling berbagi fakta harga riil di lapangan.
-            Kirimkan foto timbangan atau nominal yang Anda bayar di 5 pasar tradisional Bogor
+            Kirimkan foto timbangan atau nominal yang Anda bayar di pasar tradisional wilayah Anda
             untuk membantu ribuan keluarga belanja lebih hemat.
           </p>
 

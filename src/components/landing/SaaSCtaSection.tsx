@@ -10,7 +10,7 @@ export function SaaSCtaSection() {
             Wujudkan transparansi pangan dari meja belanja kita.
           </h2>
           <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed">
-            Akses seluruh data pergerakan harga komoditas di 5 pasar tradisional Bogor secara terbuka, atau bagikan temuan harga riil dari lapak pedagang untuk membantu sesama warga.
+            Akses seluruh data pergerakan harga komoditas di pasar-pasar tradisional secara terbuka, atau bagikan temuan harga riil dari lapak pedagang untuk membantu sesama pembeli.
           </p>
         </div>
 

@@ -16,7 +16,7 @@ const MARKETS = [
     leadCommodity: 'Bawang Rp 34.000 / kg',
   },
   {
-    name: 'Pasar Bogor (Sukasari)',
+    name: 'Pasar Sukasari',
     spec: 'Sentra Daging Sapi & Unggas Segar',
     distance: '2.4 km dari pusat kota',
     leadCommodity: 'Daging Rp 135.000 / kg',
@@ -37,7 +37,7 @@ export function MarketIntelligenceSection() {
           <div className="relative w-full max-w-md aspect-square rounded-2xl overflow-hidden border border-zinc-200/80 bg-zinc-50 shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
             <Image
               src="/images/peta-pasar-clay.jpg"
-              alt="Model Topografi Pasar Tradisional Kota Bogor"
+              alt="Model Topografi Pasar Tradisional"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 450px"
@@ -51,7 +51,7 @@ export function MarketIntelligenceSection() {
               Bandingkan harga pasar terdekat sebelum berangkat belanja.
             </h2>
             <p className="text-xs sm:text-sm text-zinc-500 leading-relaxed">
-              Tiap pasar di Kota Bogor memiliki dinamika pasokan yang berbeda. Pantau sebaran harga komoditas strategis secara spasial untuk menentukan rute belanja yang paling hemat waktu dan ongkos.
+              Tiap pasar memiliki dinamika pasokan yang berbeda. Pantau sebaran harga komoditas strategis secara spasial untuk menentukan rute belanja yang paling hemat waktu dan ongkos.
             </p>
           </div>
 

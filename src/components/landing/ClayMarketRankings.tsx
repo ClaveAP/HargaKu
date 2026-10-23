@@ -29,7 +29,7 @@ export function ClayMarketRankings({
     <div className="w-full flex flex-col gap-3.5">
       <div className="w-full flex items-center justify-between">
         <h3 className="text-[15px] font-medium text-[#1B1A18]">
-          Harga {commodityName} di 5 Pasar Bogor
+          Sebaran Harga Lapak · {commodityName}
         </h3>
         <span className="text-[12px] font-semibold text-[#6E6D67] tabular-nums">
           Rata-rata: {formatRupiah(averagePrice)}

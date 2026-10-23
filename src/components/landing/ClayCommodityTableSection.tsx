@@ -38,13 +38,12 @@ export function ClayCommodityTableSection() {
             </div>
 
             <h2 className="text-[32px] sm:text-[40px] font-medium text-[#1B1A18] leading-[1.15] tracking-tight max-w-[640px] text-balance">
-              Pantauan harga komoditas pokok 5 pasar hari ini.
+              Pantauan harga komoditas pokok hari ini.
             </h2>
           </div>
 
           <p className="text-[14px] sm:text-[15px] text-[#6E6D67] leading-[1.6] max-w-[480px]">
-            Data diagregasikan langsung dari survei harga harian lapak pedagang
-            Pasar Kebon Kembang, Pasar Anyar, Sukasari, Gunung Batu, dan Jambu Dua.
+            Data diagregasikan langsung dari survei harga harian lapak pasar tradisional terverifikasi dan standar acuan zonasi pangan Bapanas.
           </p>
         </div>
 

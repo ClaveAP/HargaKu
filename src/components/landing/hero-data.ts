@@ -28,7 +28,7 @@ export const COMMODITY_PRESETS: CommodityPreset[] = [
       },
       {
         rank: 2,
-        marketName: 'Pasar Bogor (Sukasari)',
+        marketName: 'Pasar Sukasari',
         price: 50000,
         diffPercent: -2.3,
         badge: { label: 'Wajar', bg: '#F4F3F0', text: '#1B1A18' },
@@ -80,7 +80,7 @@ export const COMMODITY_PRESETS: CommodityPreset[] = [
       },
       {
         rank: 3,
-        marketName: 'Pasar Bogor',
+        marketName: 'Pasar Jambu Dua',
         price: 35000,
         diffPercent: 0.0,
         badge: { label: 'Wajar', bg: '#F4F3F0', text: '#1B1A18' },
@@ -125,7 +125,7 @@ export const COMMODITY_PRESETS: CommodityPreset[] = [
       },
       {
         rank: 3,
-        marketName: 'Pasar Bogor',
+        marketName: 'Pasar Jambu Dua',
         price: 138000,
         diffPercent: 0.7,
         badge: { label: 'Wajar', bg: '#F4F3F0', text: '#1B1A18' },
@@ -170,7 +170,7 @@ export const COMMODITY_PRESETS: CommodityPreset[] = [
       },
       {
         rank: 3,
-        marketName: 'Pasar Bogor',
+        marketName: 'Pasar Jambu Dua',
         price: 17000,
         diffPercent: 1.2,
         badge: { label: 'Wajar', bg: '#F4F3F0', text: '#1B1A18' },

@@ -6,8 +6,11 @@ import {
   Truck,
   Storefront,
 } from '@phosphor-icons/react';
+import { useRegion } from '@/lib/store/region-store';
 
 export function ClaySupplyChainSection() {
+  const { selectedRegion } = useRegion();
+
   return (
     <section
       id="rantai-pasok"
@@ -18,7 +21,7 @@ export function ClaySupplyChainSection() {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="flex flex-col gap-4">
             <div className="inline-flex items-center px-3.5 py-1.5 bg-white outline outline-1 outline-[#E5E3DE] rounded-full text-[12px] font-medium text-[#1B1A18] w-fit shadow-xs">
-              <span>Anatomi Rantai Pasok Pangan Kota Bogor</span>
+              <span>Anatomi Rantai Pasok Pangan · {selectedRegion.name}</span>
             </div>
 
             <h2 className="text-[32px] sm:text-[40px] lg:text-[44px] font-medium text-[#1B1A18] leading-[1.12] tracking-tight max-w-[640px] text-balance">
@@ -28,8 +31,8 @@ export function ClaySupplyChainSection() {
 
           <p className="text-[14px] sm:text-[15px] text-[#6E6D67] leading-[1.6] max-w-[480px]">
             Harga komoditas sering melonjak bukan karena pasokan langka, melainkan
-            rantai distribusi yang tidak transparan. HargaKu memetakan 3 simpul
-            pangan Kota Bogor agar warga memahami pembagian margin yang sehat.
+            rantai distribusi yang tidak transparan. HargaKu memetakan simpul
+            pangan {selectedRegion.name} agar warga memahami pembagian margin yang sehat.
           </p>
         </div>
 
@@ -44,7 +47,7 @@ export function ClaySupplyChainSection() {
                   <span>01 · Hulu Petani</span>
                 </span>
                 <span className="text-[11px] font-medium text-[#8C8B85]">
-                  Cianjur &amp; Garut
+                  Sentra Kebun Petani
                 </span>
               </div>
 
@@ -76,7 +79,7 @@ export function ClaySupplyChainSection() {
                   <span>02 · Grosir Dini Hari</span>
                 </span>
                 <span className="text-[11px] font-medium text-[#8C8B85]">
-                  Pasar Induk TU Kemang · 02:00 WIB
+                  Pasar Induk Distribusi · 02:00 WIB
                 </span>
               </div>
 
@@ -105,7 +108,7 @@ export function ClaySupplyChainSection() {
               <div className="flex items-center justify-between">
                 <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#1B1A18] uppercase tracking-wider px-2 py-0.5 rounded-[4px] bg-[#EEF773] outline outline-1 outline-[#1B1A18]">
                   <Storefront size={13} weight="bold" />
-                  <span>03 · Lapak 5 Pasar Bogor</span>
+                  <span>03 · Meja Lapak Eceran</span>
                 </span>
                 <span className="text-[11px] font-medium text-[#8C8B85]">
                   05:00 WIB s/d Siang
@@ -120,8 +123,7 @@ export function ClaySupplyChainSection() {
               </div>
 
               <p className="text-[13px] text-[#6E6D67] leading-[20px]">
-                Harga riil di Pasar Kebon Kembang, Sukasari, Anyar, Gunung Batu,
-                dan Jambu Dua. Tambahan +Rp 6.000/kg untuk sewa lapak, sortir mutu, dan laba pedagang.
+                Harga riil di meja pedagang pasar tradisional. Tambahan wajar +Rp 6.000/kg menutup biaya sewa kios harian, risiko susut mutu sayur, dan laba bersih pedagang.
               </p>
             </div>
 

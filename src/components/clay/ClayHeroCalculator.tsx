@@ -19,7 +19,7 @@ const PRESETS: Record<string, CommodityPreset> = {
     cityAvg: 51200,
     markets: [
       { name: 'Pasar Kebon Kembang', price: 48000, diff: '-6.2%', tag: 'Termurah', tagColor: 'bg-emerald-50 text-emerald-800' },
-      { name: 'Pasar Bogor (Sukasari)', price: 50000, diff: '-2.3%', tag: 'Wajar', tagColor: 'bg-gray-100 text-gray-700' },
+      { name: 'Pasar Sukasari', price: 50000, diff: '-2.3%', tag: 'Wajar', tagColor: 'bg-gray-100 text-gray-700' },
       { name: 'Pasar Anyar', price: 51000, diff: '-0.4%', tag: 'Wajar', tagColor: 'bg-gray-100 text-gray-700' },
       { name: 'Pasar Gunung Batu', price: 53000, diff: '+3.5%', tag: 'Tinggi', tagColor: 'bg-amber-50 text-amber-800' },
       { name: 'Pasar Jambu Dua', price: 54000, diff: '+5.4%', tag: 'Tertinggi', tagColor: 'bg-rose-50 text-rose-800' },
@@ -33,7 +33,7 @@ const PRESETS: Record<string, CommodityPreset> = {
     markets: [
       { name: 'Pasar Anyar', price: 34000, diff: '-6.8%', tag: 'Termurah', tagColor: 'bg-emerald-50 text-emerald-800' },
       { name: 'Pasar Kebon Kembang', price: 35500, diff: '-2.7%', tag: 'Wajar', tagColor: 'bg-gray-100 text-gray-700' },
-      { name: 'Pasar Bogor (Sukasari)', price: 36500, diff: '0.0%', tag: 'Wajar', tagColor: 'bg-gray-100 text-gray-700' },
+      { name: 'Pasar Sukasari', price: 36500, diff: '0.0%', tag: 'Wajar', tagColor: 'bg-gray-100 text-gray-700' },
       { name: 'Pasar Jambu Dua', price: 38000, diff: '+4.1%', tag: 'Tinggi', tagColor: 'bg-amber-50 text-amber-800' },
       { name: 'Pasar Gunung Batu', price: 38500, diff: '+5.5%', tag: 'Tertinggi', tagColor: 'bg-rose-50 text-rose-800' },
     ],
@@ -44,7 +44,7 @@ const PRESETS: Record<string, CommodityPreset> = {
     unitWeightMultiplier: 4,
     cityAvg: 138000,
     markets: [
-      { name: 'Pasar Bogor (Sukasari)', price: 135000, diff: '-2.2%', tag: 'Termurah', tagColor: 'bg-emerald-50 text-emerald-800' },
+      { name: 'Pasar Sukasari', price: 135000, diff: '-2.2%', tag: 'Termurah', tagColor: 'bg-emerald-50 text-emerald-800' },
       { name: 'Pasar Anyar', price: 137000, diff: '-0.7%', tag: 'Wajar', tagColor: 'bg-gray-100 text-gray-700' },
       { name: 'Pasar Kebon Kembang', price: 138000, diff: '0.0%', tag: 'Wajar', tagColor: 'bg-gray-100 text-gray-700' },
       { name: 'Pasar Gunung Batu', price: 140000, diff: '+1.4%', tag: 'Wajar', tagColor: 'bg-gray-100 text-gray-700' },
@@ -61,7 +61,7 @@ const PRESETS: Record<string, CommodityPreset> = {
       { name: 'Pasar Anyar', price: 15800, diff: '-1.2%', tag: 'Wajar', tagColor: 'bg-gray-100 text-gray-700' },
       { name: 'Pasar Kebon Kembang', price: 16000, diff: '0.0%', tag: 'Wajar', tagColor: 'bg-gray-100 text-gray-700' },
       { name: 'Pasar Gunung Batu', price: 16200, diff: '+1.2%', tag: 'Wajar', tagColor: 'bg-gray-100 text-gray-700' },
-      { name: 'Pasar Bogor (Sukasari)', price: 16500, diff: '+3.1%', tag: 'Tinggi', tagColor: 'bg-amber-50 text-amber-800' },
+      { name: 'Pasar Sukasari', price: 16500, diff: '+3.1%', tag: 'Tinggi', tagColor: 'bg-amber-50 text-amber-800' },
     ],
   },
 };
@@ -184,7 +184,7 @@ export function ClayHeroCalculator() {
               </span>
             </div>
             <p className="text-xs text-emerald-900 leading-relaxed">
-              {Math.abs(diffPercent).toFixed(1)}% {isCheaper ? 'lebih murah' : 'lebih tinggi'} dibanding harga rata-rata Kota Bogor (Rp {preset.cityAvg.toLocaleString('id-ID')}/kg). Penawaran ini setara harga di {preset.markets[0].name}.
+              {Math.abs(diffPercent).toFixed(1)}% {isCheaper ? 'lebih murah' : 'lebih tinggi'} dibanding harga rata-rata wilayah (Rp {preset.cityAvg.toLocaleString('id-ID')}/kg). Penawaran ini setara harga di {preset.markets[0].name}.
             </p>
           </div>
         </div>
@@ -192,7 +192,7 @@ export function ClayHeroCalculator() {
         <div className="lg:col-span-6 space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-bold text-gray-950">
-              Harga {preset.name} di 5 Pasar Bogor
+              Sebaran Harga {preset.name} di Pasar Wilayah
             </h2>
             <span className="text-xs text-gray-500 tabular-nums">
               Rata-rata: Rp {preset.cityAvg.toLocaleString('id-ID')}

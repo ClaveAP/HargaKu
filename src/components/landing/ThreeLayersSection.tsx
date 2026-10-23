@@ -49,7 +49,7 @@ export function ThreeLayersSection() {
                 Survei Pasar Resmi
               </h3>
               <p className="text-xs text-zinc-500 mt-2 leading-relaxed">
-                Rata-rata survei berkala dari PIHPS Bank Indonesia dan Panel Pangan di pasar tradisional utama Kota Bogor untuk menangkap tren makro.
+                Rata-rata survei berkala dari PIHPS Bank Indonesia dan Panel Pangan di pasar tradisional utama daerah untuk menangkap tren makro.
               </p>
             </div>
           </div>
