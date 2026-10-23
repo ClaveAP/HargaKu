@@ -46,7 +46,7 @@ export function CartMarketComparisonCard({ items }: Props) {
           <div className="flex items-center gap-2.5">
             <Buildings size={20} weight="bold" className="text-[#1B1A18]" />
             <h2 className="text-[17px] font-bold text-[#1B1A18] tracking-tight">
-              Komparasi Total di 5 Pasar
+              Komparasi Total Pasar Wilayah
             </h2>
           </div>
           <span className="text-[11px] font-bold text-[#15803D] bg-[#DCFCE7] px-2.5 py-0.5 rounded-full outline outline-1 outline-[#86EFAC]">

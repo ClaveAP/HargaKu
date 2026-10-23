@@ -35,7 +35,7 @@ const DATA_SOURCES: DataSourceItem[] = [
     institution: 'Bank Sentral Republik Indonesia',
     badge: 'Bank Sentral',
     badgeClass: 'bg-[#FAF9F5] text-[#1B1A18] outline-[#E5E3DE]',
-    role: 'Lapis 2: Rerata Harian Pasar Tradisional Kota Bogor',
+    role: 'Lapis 2: Rerata Harian Pasar Tradisional Terkalibrasi Wilayah',
     cadence: 'Pembaruan Harian Pukul 06:00 – 09:00 WIB',
     description:
       'Survei harga harian terstandar langsung dari pasar-pasar tradisional strategis untuk mengukur tekanan inflasi pangan bergejolak (volatile foods).',
@@ -46,7 +46,7 @@ const DATA_SOURCES: DataSourceItem[] = [
   {
     id: 'crowdsourcing',
     name: 'Laporan Lapak Warga (Crowdsourcing)',
-    institution: 'Komunitas Warga & Pembeli Cerdas Bogor',
+    institution: 'Komunitas Konsumen & Pembeli Cerdas Indonesia',
     badge: 'Partisipasi Publik',
     badgeClass: 'bg-[#EEF773]/30 text-[#1B1A18] outline-[#D4DE4B]',
     role: 'Lapis 3: Harga Riil di Kios Lapak Harian',
@@ -59,15 +59,15 @@ const DATA_SOURCES: DataSourceItem[] = [
   },
   {
     id: 'tpid',
-    name: 'TPID & Disperindagkop Kota Bogor',
-    institution: 'Pemerintah Kota Bogor',
+    name: 'TPID & Dinas Perdagangan Daerah',
+    institution: 'Pemerintah Daerah & Satgas Pangan',
     badge: 'Pemerintah Daerah',
     badgeClass: 'bg-[#FAF9F5] text-[#1B1A18] outline-[#E5E3DE]',
-    role: 'Konteks Wilayah: Distribusi & Sentra 5 Pasar',
+    role: 'Konteks Wilayah: Distribusi & Sentra Pasar Daerah',
     cadence: 'Mingguan & Pemantauan Khusus Hari Besar',
     description:
-      'Data zonasi distribusi pangan, pasokan dari Pasar Induk TU Kemang, serta data intervensi operasi pasar murah untuk wilayah Kota Bogor.',
-    linkText: 'Lihat Peta 5 Pasar',
+      'Data zonasi distribusi pangan, pasokan dari pasar induk distribusi, serta data intervensi operasi pasar murah untuk stabilisasi harga daerah.',
+    linkText: 'Lihat Peta Pasar Wilayah',
     href: '/peta',
     icon: ChartLineUp,
   },

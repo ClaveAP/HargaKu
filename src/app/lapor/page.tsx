@@ -7,7 +7,7 @@ import { LaporContainer } from '@/components/lapor/LaporContainer';
 export const metadata: Metadata = {
   title: 'Kirim Laporan Harga Lapak · HargaKu',
   description:
-    'Laporkan harga pangan komoditas yang kamu temui di pasar tradisional Kota Bogor dengan privasi terjamin.',
+    'Laporkan harga pangan komoditas yang kamu temui di pasar tradisional dengan privasi terjamin.',
 };
 
 export default async function LaporPage() {

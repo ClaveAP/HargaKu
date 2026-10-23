@@ -5,7 +5,7 @@ import { CartContainer } from '@/components/cart/CartContainer';
 export const metadata: Metadata = {
   title: 'Kalkulator & Keranjang Belanja · HargaKu',
   description:
-    'Simulasi belanja dapur mingguan di 5 pasar tradisional Kota Bogor untuk menemukan pasar paling hemat.',
+    'Simulasi belanja dapur mingguan di pasar-pasar tradisional untuk menemukan pasar paling hemat di wilayah Anda.',
 };
 
 export default function KeranjangPage() {

@@ -54,8 +54,8 @@ export function AboutTeamAndTechStack() {
               <span className="font-semibold text-[#1B1A18]">Web Application</span>
             </div>
             <div className="flex items-center justify-between text-[12px]">
-              <span className="text-[#6E6D67]">Lokasi Riset Lapangan</span>
-              <span className="font-semibold text-[#1B1A18]">Kota Bogor, Jawa Barat</span>
+              <span className="text-[#6E6D67]">Cakupan Observasi &amp; Validasi</span>
+              <span className="font-semibold text-[#1B1A18]">Pasar Tradisional Nasional</span>
             </div>
             <div className="flex items-center justify-between text-[12px]">
               <span className="text-[#6E6D67]">Lisensi</span>

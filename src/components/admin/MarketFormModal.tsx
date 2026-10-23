@@ -11,13 +11,13 @@ interface MarketFormModalProps {
   onSave: (market: AdminMarket) => void;
 }
 
-const BOGOR_DISTRICTS = [
-  'Bogor Tengah',
-  'Bogor Timur',
-  'Bogor Barat',
-  'Bogor Utara',
-  'Bogor Selatan',
-  'Tanah Sareal',
+const STANDARD_DISTRICTS = [
+  'Wilayah Sentral / Pusat',
+  'Wilayah Utara',
+  'Wilayah Selatan',
+  'Wilayah Barat',
+  'Wilayah Timur',
+  'Kawasan Pasar Induk',
 ];
 
 export function MarketFormModal({
@@ -28,7 +28,7 @@ export function MarketFormModal({
 }: MarketFormModalProps) {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
-  const [district, setDistrict] = useState(BOGOR_DISTRICTS[0]);
+  const [district, setDistrict] = useState(STANDARD_DISTRICTS[0]);
   const [address, setAddress] = useState('');
   const [latitude, setLatitude] = useState('-6.5925');
   const [longitude, setLongitude] = useState('106.7905');
@@ -52,7 +52,7 @@ export function MarketFormModal({
     } else {
       setName('');
       setSlug('');
-      setDistrict(BOGOR_DISTRICTS[0]);
+      setDistrict(STANDARD_DISTRICTS[0]);
       setAddress('');
       setLatitude('-6.5925');
       setLongitude('106.7905');
@@ -94,7 +94,7 @@ export function MarketFormModal({
       name: name.trim(),
       slug: slug || name.toLowerCase().replace(/\s+/g, '-'),
       district,
-      address: address.trim() || 'Kota Bogor',
+      address: address.trim() || 'Pasar Tradisional',
       latitude: latNum,
       longitude: lngNum,
       operatingHours: operatingHours.trim() || '04:00 – 14:00 WIB',
@@ -143,13 +143,13 @@ export function MarketFormModal({
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-[#1B1A18]">Kecamatan</label>
+              <label className="text-xs font-semibold text-[#1B1A18]">Kecamatan / Wilayah</label>
               <select
                 value={district}
                 onChange={(e) => setDistrict(e.target.value)}
                 className="w-full px-3 py-2.5 rounded-xl border border-[#E5E3DE] bg-[#FAF9F5] focus:bg-white text-sm text-[#1B1A18] focus:outline-[#1B1A18]"
               >
-                {BOGOR_DISTRICTS.map((dist) => (
+                {STANDARD_DISTRICTS.map((dist) => (
                   <option key={dist} value={dist}>
                     {dist}
                   </option>
@@ -164,7 +164,7 @@ export function MarketFormModal({
               type="text"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              placeholder="Contoh: Jl. Pabaton, Bogor Tengah"
+              placeholder="Contoh: Jl. Merdeka No. 12"
               className="w-full px-3.5 py-2.5 rounded-xl border border-[#E5E3DE] bg-[#FAF9F5] focus:bg-white text-sm text-[#1B1A18] focus:outline-[#1B1A18]"
             />
           </div>

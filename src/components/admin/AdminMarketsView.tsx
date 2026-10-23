@@ -75,7 +75,7 @@ export function AdminMarketsView() {
             Kelola Pasar Tradisional
           </h1>
           <p className="text-sm text-[#706E6A]">
-            Atur data pasar tradisional di Kota Bogor untuk titik koordinat Leaflet dan komparasi harga.
+            Atur data pasar tradisional untuk titik koordinat peta spasial dan komparasi harga.
           </p>
         </div>
 

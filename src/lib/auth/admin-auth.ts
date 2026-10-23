@@ -35,7 +35,7 @@ export async function loginAdmin(
       trimmedEmail === DEFAULT_ADMIN_USER.email.toLowerCase()) &&
     (trimmedPassword === 'admin' ||
       trimmedPassword === 'admin123' ||
-      trimmedPassword === 'adminBogor2026!');
+      trimmedPassword === 'admin2026!');
 
   if (!isMatch) {
     return {

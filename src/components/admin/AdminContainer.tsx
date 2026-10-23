@@ -50,7 +50,7 @@ function AdminWorkspace() {
           HargaKu TPID Admin Console · Khusus Petugas Operasional &amp; Pengawas Pangan
         </span>
         <span className="font-mono text-[11px]">
-          Fase B · Pilot Kota Bogor
+          Fase Produksi Multi-Wilayah Nasional
         </span>
       </footer>
     </div>

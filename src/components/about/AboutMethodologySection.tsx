@@ -66,10 +66,10 @@ export function AboutMethodologySection() {
               </span>
             </div>
             <h4 className="text-[14px] font-bold text-[#1B1A18]">
-              Rerata Kota PIHPS BI
+              Rerata Wilayah PIHPS BI
             </h4>
             <p className="text-[12px] text-[#6E6D67] leading-relaxed">
-              Digunakan jika laporan warga lapak belum mencapai kuorum 3 laporan, mengacu pada survei resmi harian pedagang Kota Bogor.
+              Digunakan jika laporan warga lapak belum mencapai kuorum 3 laporan, mengacu pada survei resmi harian pedagang pasar tradisional daerah.
             </p>
           </div>
 

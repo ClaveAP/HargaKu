@@ -48,7 +48,7 @@ export function AdminOverviewView({ onNavigate }: AdminOverviewViewProps) {
                 Portal Pengawas Pangan
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-[#E5E3DE]" />
-              <span className="text-xs text-[#706E6A]">Kota Bogor</span>
+              <span className="text-xs text-[#706E6A]">Sentra Pantauan Pangan</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-[#1B1A18]">
               Pusat Kendali Operasional
@@ -100,7 +100,7 @@ export function AdminOverviewView({ onNavigate }: AdminOverviewViewProps) {
           <div className="mt-4">
             <div className="text-3xl font-medium text-[#1B1A18]">{activeMarkets}</div>
             <div className="text-xs text-[#706E6A] mt-1">
-              titik pantau di Kota Bogor
+              titik pantau pasar aktif
             </div>
           </div>
         </div>

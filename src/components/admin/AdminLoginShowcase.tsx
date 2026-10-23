@@ -57,7 +57,7 @@ export function AdminLoginShowcase() {
               HargaKu Console
             </span>
             <span className="text-[10px] text-[#A8A29E] tracking-wider uppercase">
-              TPID KOTA BOGOR
+              TPID &amp; PEMANTAU PASAR
             </span>
           </div>
         </div>
@@ -68,7 +68,7 @@ export function AdminLoginShowcase() {
             Portal Pengawas Pangan Daerah
           </span>
           <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-white leading-tight">
-            Pusat Kendali &amp; Stabilitas Harga Pangan Kota Bogor
+            Pusat Kendali &amp; Stabilitas Harga Pangan Daerah
           </h2>
           <p className="text-xs sm:text-sm text-[#A8A29E] leading-relaxed max-w-md">
             Satu pintu masuk untuk memperbarui harga resmi komoditas pasar harian, memoderasi laporan nota belanja warga, dan mengawal transparansi pangan.
@@ -109,7 +109,7 @@ export function AdminLoginShowcase() {
           <CheckCircle size={15} weight="fill" className="text-[#EEF773]" />
           <span className="text-[11px]">Sesi Dilindungi Enkripsi Token JWT</span>
         </div>
-        <span className="text-[10px] font-mono text-[#706E6A]">v1.2 Pilot Bogor</span>
+        <span className="text-[10px] font-mono text-[#706E6A]">v1.2 Produksi Terverifikasi</span>
       </div>
     </div>
   );

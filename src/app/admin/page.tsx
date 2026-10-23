@@ -5,7 +5,7 @@ import { AdminContainer } from '@/components/admin/AdminContainer';
 export const metadata: Metadata = {
   title: 'Admin Console & Moderasi TPID · HargaKu',
   description:
-    'Pusat kendali data pangan publik Kota Bogor: katalog komoditas, pasar tradisional, entri harga harian resmi, dan moderasi laporan warga.',
+    'Pusat kendali data pangan publik: katalog komoditas, pasar tradisional, entri harga harian resmi, dan moderasi laporan warga.',
 };
 
 export default function AdminPage() {

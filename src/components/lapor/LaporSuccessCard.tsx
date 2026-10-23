@@ -47,7 +47,7 @@ export function LaporSuccessCard({
             Terima Kasih Atas Kontribusimu!
           </h2>
           <p className="text-[13px] sm:text-[14px] text-[#6E6D67] max-w-[520px]">
-            Data harga lapakmu telah dicatat dan masuk ke antrean verifikasi konsensus TPID Kota Bogor.
+            Data harga lapakmu telah dicatat dan masuk ke antrean verifikasi konsensus TPID &amp; Pemantau Pasar.
           </p>
         </div>
       </div>

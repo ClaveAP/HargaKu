@@ -63,7 +63,7 @@ export function AdminSidebar({
     {
       id: 'markets',
       label: 'Pasar Tradisional',
-      description: `${markets.length} pasar di Kota Bogor`,
+      description: `${markets.length} pasar pantauan wilayah`,
       icon: Storefront,
     },
     {
@@ -77,7 +77,7 @@ export function AdminSidebar({
   const handleReset = () => {
     if (
       window.confirm(
-        'Kembalikan seluruh data komoditas, pasar, dan laporan ke dataset simulasi awal Kota Bogor?'
+        'Kembalikan seluruh data komoditas, pasar, dan laporan ke dataset simulasi awal?'
       )
     ) {
       resetToDefaultData();
@@ -153,12 +153,12 @@ export function AdminSidebar({
           type="button"
           onClick={handleReset}
           className="text-[11px] font-medium text-[#A8A29E] hover:text-[#1B1A18] transition-colors flex items-center gap-1.5 cursor-pointer"
-          title="Kembalikan data ke simulasi awal Kota Bogor"
+          title="Kembalikan data ke simulasi awal"
         >
           <ArrowsCounterClockwise size={13} weight="bold" />
           <span>Reset Demo</span>
         </button>
-        <span className="text-[10px] text-[#A8A29E] font-mono">Kota Bogor</span>
+        <span className="text-[10px] text-[#A8A29E] font-mono">Nasional</span>
       </div>
     </div>
   );

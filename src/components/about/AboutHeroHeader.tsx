@@ -18,7 +18,7 @@ export function AboutHeroHeader() {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white outline outline-1 outline-[#E5E3DE] shadow-xs">
           <span className="w-2 h-2 rounded-full bg-[#FF7714]" />
           <span className="text-[11px] font-bold text-[#1B1A18] uppercase tracking-wider">
-            Transparansi Pangan Publik · Kota Bogor
+            Transparansi Pangan Publik · Nasional &amp; Daerah
           </span>
         </div>
 

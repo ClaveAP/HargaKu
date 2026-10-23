@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { CommodityDetail } from '@/types';
 import { Check, MegaphoneSimple } from '@phosphor-icons/react';
+import { useRegion } from '@/lib/store/region-store';
 
 interface Props {
   detail: CommodityDetail;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function CommodityHeroHeader({ detail, changePercentage = 8.5 }: Props) {
+  const { selectedRegion } = useRegion();
   const isRising = changePercentage > 0;
   const isDropping = changePercentage < 0;
 
@@ -47,7 +49,7 @@ export function CommodityHeroHeader({ detail, changePercentage = 8.5 }: Props) {
           </div>
 
           <p className="text-[13px] sm:text-[14px] text-[#6E6D67]">
-            Kota Bogor · 5 Pasar Tradisional Pantauan · Diperbarui: 22 Okt 2026, 06:00 WIB
+            {selectedRegion.name} · Acuan {selectedRegion.islandName} (Bapanas) · Diperbarui: 22 Okt 2026, 06:00 WIB
           </p>
         </div>
 
@@ -93,7 +95,7 @@ export function CommodityHeroHeader({ detail, changePercentage = 8.5 }: Props) {
           >
             {isRising ? `▲ +${changePercentage}%` : isDropping ? `▼ ${changePercentage}%` : '— 0.0%'}
           </span>
-          <span className="text-[#78716C]">dibanding 7 hari lalu di Kota Bogor</span>
+          <span className="text-[#78716C]">dibanding 7 hari lalu di {selectedRegion.name}</span>
         </div>
       </div>
     </div>

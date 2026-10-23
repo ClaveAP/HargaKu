@@ -58,7 +58,7 @@ const TICKER_ITEMS = [
   },
   {
     type: 'info' as const,
-    text: 'PANTAUAN PANGAN HARIAN · 5 PASAR KOTA BOGOR · UPDATE 06:00 WIB',
+    text: 'PANTAUAN PANGAN HARIAN · PASAR TRADISIONAL INDONESIA · UPDATE 06:00 WIB',
   },
 ];
 

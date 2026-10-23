@@ -5,7 +5,7 @@ import { AdminLoginShowcase } from '@/components/admin/AdminLoginShowcase';
 export const metadata: Metadata = {
   title: 'Masuk Konsol Admin TPID · HargaKu',
   description:
-    'Portal autentikasi petugas Disperindag & TPID Kota Bogor untuk pengelolaan data komoditas dan moderasi.',
+    'Portal autentikasi petugas pemantau pasar & TPID untuk pengelolaan data komoditas dan moderasi.',
 };
 
 export default function AdminLoginPage() {

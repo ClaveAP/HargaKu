@@ -18,7 +18,7 @@ export function PriceSurgeAlertBanner() {
 
           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-[13px]">
             <span className="font-semibold text-[#1B1A18]">
-              Cabai Merah Keriting melonjak +14.2% dalam 7 hari di Pasar Bogor (Rp 51.200/kg).
+              Cabai Merah Keriting melonjak +14.2% dalam 7 hari di lapak pasar (Rp 51.200/kg).
             </span>
             <span className="hidden sm:inline text-[#8C8B85]">·</span>
             <span className="text-[#6E6D67]">
@@ -32,7 +32,7 @@ export function PriceSurgeAlertBanner() {
         href="/komoditas/cabai-merah-keriting"
         className="inline-flex items-center gap-1.5 text-[12px] font-bold text-[#FF7714] hover:text-[#B53D0A] transition-colors shrink-0"
       >
-        <span>Bandingkan 5 Pasar</span>
+        <span>Bandingkan Pasar</span>
         <ArrowRight size={13} weight="bold" />
       </Link>
     </div>

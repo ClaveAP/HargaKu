@@ -3,12 +3,14 @@
 import Link from 'next/link';
 import { CommoditySummary } from '@/types';
 import { ArrowRight } from '@phosphor-icons/react';
+import { useRegion } from '@/lib/store/region-store';
 
 interface Props {
   commodities: CommoditySummary[];
 }
 
 export function CommodityLedgerTable({ commodities }: Props) {
+  const { selectedRegion } = useRegion();
   return (
     <div className="w-full bg-white rounded-[16px] outline outline-1 outline-[#E5E3DE] shadow-xs overflow-hidden">
       <div className="overflow-x-auto">
@@ -55,7 +57,7 @@ export function CommodityLedgerTable({ commodities }: Props) {
                       {item.name}
                     </Link>
                     <div className="text-[11px] text-[#8C8B85]">
-                      {item.source || 'PIHPS'} · Kota Bogor
+                      {item.source || 'PIHPS'} · {selectedRegion.name}
                     </div>
                   </td>
 

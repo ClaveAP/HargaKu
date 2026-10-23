@@ -40,11 +40,11 @@ export function ThreeLayersExplainer() {
               </div>
               <h3 className="mt-4 font-bold text-gray-900 text-base">Lapis 2: Survei Pasar Resmi</h3>
               <p className="mt-2 text-xs sm:text-sm text-gray-600 leading-relaxed">
-                Rata-rata survei berkala dari PIHPS Bank Indonesia dan Panel Bapanas di pasar tradisional utama Kota Bogor.
+                Rata-rata survei berkala dari PIHPS Bank Indonesia dan Panel Bapanas di pasar-pasar tradisional daerah.
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-gray-200/60 text-[11px] font-medium text-blue-800">
-              Sumber: PIHPS BI Kota Bogor
+              Sumber: PIHPS Bank Indonesia
             </div>
           </div>
 

@@ -16,7 +16,7 @@ export function AboutDemoNotice() {
           </span>
         </div>
         <p className="text-[13px] text-[#6E6D67] leading-relaxed">
-          Selama masa evaluasi dan demonstrasi penjurian lomba, angka fluktuasi harga yang ditampilkan mengacu pada struktur harga survei resmi Badan Pangan Nasional (Bapanas) dan PIHPS Bank Indonesia, dikombinasikan dengan dataset simulasi crowdsourcing terkontrol untuk 5 pasar tradisional pilot Kota Bogor (<strong>Pasar Sukasari, Pasar Anyar, Pasar Kebon Kembang, Pasar Gunung Batu, dan Pasar Jambu Dua</strong>).
+          Selama masa evaluasi dan demonstrasi penjurian lomba, angka fluktuasi harga yang ditampilkan mengacu pada struktur harga survei resmi Badan Pangan Nasional (Bapanas) dan PIHPS Bank Indonesia, dikombinasikan dengan dataset simulasi crowdsourcing terkontrol untuk pasar-pasar tradisional di 6 koridor pulau percontohan nasional (<strong>Jawa, Sumatera, Kalimantan, Sulawesi, Bali-Nusra, dan Maluku-Papua</strong>).
         </p>
       </div>
     </div>

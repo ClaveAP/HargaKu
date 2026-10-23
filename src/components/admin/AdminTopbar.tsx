@@ -74,7 +74,7 @@ export function AdminTopbar({ onOpenMobileSidebar }: AdminTopbarProps) {
                 </span>
               </div>
               <span className="text-xs text-[#706E6A] hidden sm:inline">
-                Pusat Kendali Data Pangan Kota Bogor
+                Pusat Kendali Data Pangan Pasar Tradisional
               </span>
             </div>
           </div>

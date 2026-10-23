@@ -1,19 +1,22 @@
 'use client';
 
 import { CommodityDetail } from '@/types';
+import { useRegion } from '@/lib/store/region-store';
 
 interface Props {
   detail: CommodityDetail;
 }
 
 export function ThreeLayerPriceCards({ detail }: Props) {
-  const hapPrice = detail.reference.priceHapHet;
-  const tolerancePrice = Math.round(hapPrice * 1.05);
-  const cityAvg = detail.currentPriceStats.cityAverage;
-  const deviationPercent = Number((((cityAvg - hapPrice) / hapPrice) * 100).toFixed(1));
+  const { selectedRegion, calculateRegionalPrice } = useRegion();
+  const nationalHap = detail.reference.nationalHapHet ?? detail.reference.priceHapHet;
+  const regionalHap = calculateRegionalPrice(nationalHap);
+  const tolerancePrice = Math.round(regionalHap * 1.05);
+  const cityAvg = calculateRegionalPrice(detail.currentPriceStats.cityAverage);
+  const deviationPercent = Number((((cityAvg - regionalHap) / regionalHap) * 100).toFixed(1));
 
-  const lowest = detail.currentPriceStats.lowestMarket.price;
-  const highest = detail.currentPriceStats.highestMarket.price;
+  const lowest = Math.round(detail.currentPriceStats.lowestMarket.price * selectedRegion.disparityIndex);
+  const highest = Math.round(detail.currentPriceStats.highestMarket.price * selectedRegion.disparityIndex);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -21,12 +24,12 @@ export function ThreeLayerPriceCards({ detail }: Props) {
       <div className="bg-white rounded-[16px] outline outline-1 outline-[#E5E3DE] p-5 sm:p-6 shadow-xs flex flex-col justify-between gap-4">
         <div className="flex flex-col gap-3">
           <span className="text-[11px] font-bold text-[#FF7714] uppercase tracking-wider">
-            LAPIS 1 · HARGA ACUAN RESMI ({detail.reference.type})
+            LAPIS 1 · ACUAN {selectedRegion.islandName.toUpperCase()} ({detail.reference.type})
           </span>
 
           <div className="flex items-baseline gap-1.5">
             <span className="text-[24px] font-bold text-[#1B1A18] tabular-nums tracking-tight">
-              Rp {hapPrice.toLocaleString('id-ID')}
+              Rp {regionalHap.toLocaleString('id-ID')}
             </span>
             <span className="text-[13px] font-medium text-[#78716C]">
               /{detail.unit}
@@ -34,7 +37,7 @@ export function ThreeLayerPriceCards({ detail }: Props) {
           </div>
 
           <p className="text-[12px] text-[#6E6D67] leading-[18px]">
-            Bapanas RI · Berlaku sejak 01 Jun 2026 ({detail.reference.legalDoc || 'Perbadan Bapanas 2024'})
+            HAP Bapanas RI · Koridor logistik {selectedRegion.islandName} (+{selectedRegion.logisticsCostPct}% kargo laut) · {detail.reference.legalDoc || 'Perbadan No 17/2023'}
           </p>
         </div>
 
@@ -49,7 +52,7 @@ export function ThreeLayerPriceCards({ detail }: Props) {
       <div className="bg-white rounded-[16px] outline outline-1 outline-[#E5E3DE] p-5 sm:p-6 shadow-xs flex flex-col justify-between gap-4">
         <div className="flex flex-col gap-3">
           <span className="text-[11px] font-bold text-[#FF7714] uppercase tracking-wider">
-            LAPIS 2 · RATA-RATA KOTA (PIHPS)
+            LAPIS 2 · RATA-RATA {selectedRegion.name.toUpperCase()} (PIHPS)
           </span>
 
           <div className="flex items-baseline gap-1.5">

@@ -6,6 +6,7 @@ import { LaporFormCard } from './LaporFormCard';
 import { LaporVerificationCard } from './LaporVerificationCard';
 import { LaporSuccessCard } from './LaporSuccessCard';
 import { submitCitizenReport } from '@/lib/api/reports.api';
+import { useRegion } from '@/lib/store/region-store';
 
 interface Props {
   commodities: CommoditySummary[];
@@ -23,9 +24,12 @@ interface SubmittedReportState {
 }
 
 export function LaporContainer({ commodities, markets }: Props) {
+  const { regionMarkets } = useRegion();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submittedReport, setSubmittedReport] =
     useState<SubmittedReportState | null>(null);
+
+  const activeMarkets = regionMarkets.length > 0 ? regionMarkets : markets;
 
   const handleSubmit = async (data: {
     commodityId: string;
@@ -57,7 +61,7 @@ export function LaporContainer({ commodities, markets }: Props) {
       setSubmittedReport({
         reportId: res.data.reportId,
         commodityName: matchedCommodity?.name || 'Komoditas Pangan',
-        marketName: matchedMarket?.name || 'Pasar Bogor',
+        marketName: matchedMarket?.name || 'Pasar Tradisional',
         pricePerUnit: data.price,
         unitLabel: data.unit,
         normalizedPricePerKg: data.normalizedPrice,
@@ -88,7 +92,7 @@ export function LaporContainer({ commodities, markets }: Props) {
         ) : (
           <LaporFormCard
             commodities={commodities}
-            markets={markets}
+            markets={activeMarkets}
             isSubmitting={isSubmitting}
             onSubmit={handleSubmit}
           />

@@ -136,9 +136,9 @@ export const AVAILABLE_COMMODITIES_TO_ADD = [
 ];
 
 export const CART_MARKETS = [
-  { id: 'sukasari', name: 'Pasar Bogor (Sukasari)', district: 'Bogor Timur', mapsUrl: 'https://maps.google.com/?q=Pasar+Sukasari+Bogor' },
-  { id: 'pasar-anyar', name: 'Pasar Anyar', district: 'Bogor Tengah', mapsUrl: 'https://maps.google.com/?q=Pasar+Anyar+Bogor' },
-  { id: 'jambu-dua', name: 'Pasar Jambu Dua', district: 'Bogor Utara', mapsUrl: 'https://maps.google.com/?q=Pasar+Jambu+Dua+Bogor' },
-  { id: 'gunung-batu', name: 'Pasar Gunung Batu', district: 'Bogor Barat', mapsUrl: 'https://maps.google.com/?q=Pasar+Gunung+Batu+Bogor' },
-  { id: 'kebon-kembang', name: 'Pasar Kebon Kembang', district: 'Bogor Tengah', mapsUrl: 'https://maps.google.com/?q=Pasar+Kebon+Kembang+Bogor' },
+  { id: 'sukasari', name: 'Pasar Sukasari', district: 'Sentra Sayur & Bumbu', mapsUrl: 'https://maps.google.com/?q=Pasar+Tradisional' },
+  { id: 'pasar-anyar', name: 'Pasar Anyar', district: 'Sentra Pangan Utama', mapsUrl: 'https://maps.google.com/?q=Pasar+Tradisional' },
+  { id: 'jambu-dua', name: 'Pasar Pagi Terpadu', district: 'Sentra Daging & Unggas', mapsUrl: 'https://maps.google.com/?q=Pasar+Tradisional' },
+  { id: 'gunung-batu', name: 'Pasar Rakyat Komersial', district: 'Sentra Pangan Lokal', mapsUrl: 'https://maps.google.com/?q=Pasar+Tradisional' },
+  { id: 'kebon-kembang', name: 'Pasar Induk Distribusi', district: 'Grosir & Eceran Terpadu', mapsUrl: 'https://maps.google.com/?q=Pasar+Tradisional' },
 ];

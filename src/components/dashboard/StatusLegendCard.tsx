@@ -33,7 +33,7 @@ export function StatusLegendCard() {
       <div className="pt-3 border-t border-[#E5E3DE] flex items-start gap-2.5">
         <Info size={16} weight="bold" className="text-[#8C8B85] shrink-0 mt-0.5" />
         <p className="text-[12px] text-[#6E6D67] leading-[18px]">
-          Status dihitung berjenjang: <span className="font-medium text-[#1B1A18]">Laporan Warga Lapak → PIHPS Kota Bogor → Panel Harga Bapanas</span>.
+          Status dihitung berjenjang: <span className="font-medium text-[#1B1A18]">Laporan Warga Lapak → PIHPS Wilayah Terkalibrasi → Panel Harga Bapanas</span>.
           Indikator ini merupakan alat bantu keputusan belanja warga, bukan instrumen penentu harga lapak pedagang.
           Klik kartu komoditas untuk rincian tren historis dan perbandingan antar pasar.
         </p>

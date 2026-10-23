@@ -129,7 +129,7 @@ export function LaporFormCard({
         {/* Market */}
         <div className="flex flex-col gap-1.5">
           <label className="text-[12px] font-semibold text-[#1B1A18]">
-            Pasar Tradisional Bogor
+            Pasar Tradisional
           </label>
           <div className="relative">
             <select

@@ -9,7 +9,7 @@ import { AboutTeamAndTechStack } from '@/components/about/AboutTeamAndTechStack'
 export const metadata: Metadata = {
   title: 'Tentang & Sumber Data Resmi · HargaKu',
   description:
-    'Transparansi data pangan, metodologi evaluasi 3 lapis, filter anomali MAD, serta 5 prinsip etika perlindungan lapak pedagang pasar tradisional Kota Bogor.',
+    'Transparansi data pangan, metodologi evaluasi 3 lapis, filter anomali MAD, serta 5 prinsip etika perlindungan lapak pedagang pasar tradisional.',
 };
 
 export default function TentangPage() {

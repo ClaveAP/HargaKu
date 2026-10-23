@@ -1,5 +1,7 @@
 'use client';
 
+import { useRegion } from '@/lib/store/region-store';
+
 interface MarketPriceItem {
   name: string;
   price: number;
@@ -11,17 +13,18 @@ const MARKET_PRICES: MarketPriceItem[] = [
   { name: 'Pasar Gunung Batu', price: 59500, badge: 'Wajar' },
   { name: 'Pasar Jambu Dua', price: 61000, badge: 'Wajar' },
   { name: 'Pasar Anyar', price: 62500, badge: 'Agak Mahal' },
-  { name: 'Pasar Kebon Kembang (Bogor)', price: 64000, badge: 'Tertinggi' },
+  { name: 'Pasar Kebon Kembang', price: 64000, badge: 'Tertinggi' },
 ];
 
 export function MarketComparisonCard() {
-  const maxPrice = 65000;
+  const { selectedRegion, calculateRegionalPrice } = useRegion();
+  const maxPrice = calculateRegionalPrice(65000);
 
   return (
     <div className="bg-white rounded-[18px] outline outline-1 outline-[#E5E3DE] p-5 sm:p-6 shadow-xs flex flex-col justify-between gap-5">
       <div className="flex flex-col gap-0.5">
         <h3 className="text-[16px] font-bold text-[#1B1A18] tracking-tight">
-          Perbandingan di 5 Pasar Bogor
+          Perbandingan Pasar di {selectedRegion.name}
         </h3>
         <p className="text-[12px] text-[#6E6D67]">
           Harga rerata lapak hari ini (22 Okt 2026)
@@ -31,7 +34,8 @@ export function MarketComparisonCard() {
       {/* 5 Markets Horizontal Bar List */}
       <div className="flex flex-col gap-3.5">
         {MARKET_PRICES.map((m) => {
-          const widthPercent = Math.round((m.price / maxPrice) * 100);
+          const adjustedPrice = calculateRegionalPrice(m.price);
+          const widthPercent = Math.round((adjustedPrice / maxPrice) * 100);
 
           let badgeStyle = 'bg-[#F4F3F0] text-[#1B1A18] outline-[#E5E3DE]';
           if (m.badge === 'Paling Hemat') {
@@ -55,7 +59,7 @@ export function MarketComparisonCard() {
                 </div>
 
                 <span className="font-bold text-[#1B1A18] tabular-nums">
-                  Rp {m.price.toLocaleString('id-ID')}/kg
+                  Rp {adjustedPrice.toLocaleString('id-ID')}/kg
                 </span>
               </div>
 
