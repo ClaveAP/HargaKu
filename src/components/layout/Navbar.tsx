@@ -3,7 +3,9 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { List, X } from '@phosphor-icons/react';
+import { List, X, ChatCircleDots } from '@phosphor-icons/react';
+import { RegionSelector } from '@/components/common/RegionSelector';
+import { useAssistant } from '@/lib/store/assistant-store';
 
 const NAV_ITEMS = [
   { href: '/dashboard', label: 'Harga' },
@@ -14,6 +16,7 @@ const NAV_ITEMS = [
 ];
 
 export function Navbar() {
+  const { openAssistant } = useAssistant();
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const [activeHref, setActiveHref] = useState(pathname);
@@ -89,7 +92,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#FAF9F5]/90 backdrop-blur-md border-b border-[#E5E3DE] transition-all px-4 sm:px-8 lg:px-12">
-      <div className="max-w-[1240px] mx-auto h-[72px] flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto h-[72px] flex items-center justify-between relative">
         {/* Left: Brand */}
         <Link href="/" className="flex items-center gap-3 group shrink-0">
           <div className="w-7 h-7 rounded-[8px] bg-[#EEF773] outline outline-[1.5px] outline-[#1B1A18] -outline-offset-[0.75px] flex items-center justify-center font-bold text-[16px] text-[#1B1A18] shadow-xs transition-transform group-hover:scale-105">
@@ -103,11 +106,11 @@ export function Navbar() {
           </div>
         </Link>
 
-        {/* Center: Desktop Navigation Pill with Magnetic Slide */}
+        {/* Center: Desktop Navigation Pill with Magnetic Slide (True Center) */}
         <nav
           ref={navRef}
           onMouseLeave={() => setHoveredHref(null)}
-          className="relative hidden lg:inline-flex items-center p-1 rounded-full bg-white/90 backdrop-blur-xs outline outline-1 outline-[#E5E3DE] shadow-xs shrink-0"
+          className="absolute left-1/2 -translate-x-1/2 hidden lg:inline-flex items-center p-1 rounded-full bg-white/90 backdrop-blur-xs outline outline-1 outline-[#E5E3DE] shadow-xs"
         >
           {/* Subtle Hover Ghost Pill */}
           <span
@@ -152,30 +155,50 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Right CTA */}
-        <div className="hidden sm:flex items-center gap-4 shrink-0">
-          <Link
-            href="/cek-harga"
-            className="inline-flex items-center justify-center px-[18px] py-[9px] rounded-[8px] bg-[#EEF773] text-[#1B1A18] outline outline-1 outline-[#1B1A18] -outline-offset-1 text-[13px] font-semibold shadow-[0_2px_0_#1B1A18] hover:bg-[#dce663] active:translate-y-[1px] transition-all"
+        {/* Right CTA & Region Selector */}
+        <div className="hidden sm:flex items-center gap-2.5 shrink-0">
+          <RegionSelector variant="pill" />
+          <button
+            type="button"
+            onClick={() => openAssistant()}
+            className="inline-flex items-center justify-center gap-1.5 px-[16px] py-[9px] rounded-[8px] bg-[#EEF773] text-[#1B1A18] outline outline-1 outline-[#1B1A18] -outline-offset-1 text-[13px] font-semibold shadow-[0_2px_0_#1B1A18] hover:bg-[#dce663] active:translate-y-[1px] transition-all cursor-pointer"
           >
-            Cek Harga
-          </Link>
+            <ChatCircleDots size={16} weight="fill" className="text-[#1B1A18]" />
+            <span>Tanya Asisten</span>
+          </button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          aria-label={mobileOpen ? 'Tutup menu' : 'Buka menu'}
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="lg:hidden p-2 text-[#1B1A18] hover:text-[#FF7714] transition-colors"
-        >
-          {mobileOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
-        </button>
+        {/* Mobile Header Controls */}
+        <div className="flex sm:hidden items-center gap-2">
+          <button
+            type="button"
+            onClick={() => openAssistant()}
+            className="w-8 h-8 rounded-full bg-[#EEF773] outline outline-1 outline-[#1B1A18] flex items-center justify-center text-[#1B1A18] cursor-pointer shadow-xs"
+            title="Tanya Asisten Pangan"
+          >
+            <ChatCircleDots size={16} weight="fill" className="text-[#1B1A18]" />
+          </button>
+          <RegionSelector variant="compact" />
+          <button
+            type="button"
+            aria-label={mobileOpen ? 'Tutup menu' : 'Buka menu'}
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="p-2 text-[#1B1A18] hover:text-[#FF7714] transition-colors"
+          >
+            {mobileOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
       {mobileOpen && (
-        <div className="lg:hidden border-b border-[#E5E3DE] bg-[#FAF9F5] px-6 py-4 space-y-2 shadow-lg">
+        <div className="lg:hidden border-b border-[#E5E3DE] bg-[#FAF9F5] px-6 py-4 space-y-3 shadow-lg">
+          <div className="pb-2 border-b border-[#E5E3DE]">
+            <p className="text-[11px] font-bold text-[#8C8B85] uppercase tracking-wider mb-1.5">
+              Wilayah Acuan Belanja
+            </p>
+            <RegionSelector variant="card" />
+          </div>
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.label}
@@ -194,13 +217,17 @@ export function Navbar() {
             >
               Tentang &amp; Sumber Data
             </Link>
-            <Link
-              href="/cek-harga"
-              onClick={() => setMobileOpen(false)}
-              className="block w-full text-center px-4 py-2.5 rounded-[8px] bg-[#EEF773] text-[#1B1A18] outline outline-1 outline-[#1B1A18] text-[13px] font-semibold"
+            <button
+              type="button"
+              onClick={() => {
+                setMobileOpen(false);
+                openAssistant();
+              }}
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-[8px] bg-[#EEF773] text-[#1B1A18] outline outline-1 outline-[#1B1A18] text-[13px] font-semibold cursor-pointer"
             >
-              Cek Harga
-            </Link>
+              <ChatCircleDots size={17} weight="fill" className="text-[#1B1A18]" />
+              <span>Tanya Asisten Pangan</span>
+            </button>
           </div>
         </div>
       )}

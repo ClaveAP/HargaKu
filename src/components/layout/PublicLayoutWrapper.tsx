@@ -5,6 +5,9 @@ import { usePathname } from 'next/navigation';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SimulationBadge } from '@/components/ui/SimulationBadge';
+import { RegionProvider } from '@/lib/store/region-store';
+import { AssistantProvider } from '@/lib/store/assistant-store';
+import { AssistantDrawer } from '@/components/assistant/AssistantDrawer';
 
 interface PublicLayoutWrapperProps {
   children: React.ReactNode;
@@ -25,11 +28,14 @@ export function PublicLayoutWrapper({ children }: PublicLayoutWrapperProps) {
 
   // Standard public consumer website layout with marquee, navbar, and footer
   return (
-    <>
-      <SimulationBadge />
-      <Navbar />
-      <main className="flex-1">{children}</main>
-      <Footer />
-    </>
+    <RegionProvider>
+      <AssistantProvider>
+        <SimulationBadge />
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
+        <AssistantDrawer />
+      </AssistantProvider>
+    </RegionProvider>
   );
 }

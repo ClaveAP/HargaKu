@@ -19,8 +19,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-[13px] leading-[20px] text-[#6E6D67]">
-              Platform transparansi harga komoditas pangan tradisional berbasis data terverifikasi.
-              Membantu warga belanja cerdas dan mendukung stabilitas harga pangan Kota Bogor.
+              Platform transparansi harga komoditas pangan tradisional berbasis acuan nasional Bapanas terkalibrasi daerah. Membantu warga belanja cerdas dan mendeteksi mark-up harga di lapangan.
             </p>
             <div className="text-[12px] text-[#8C8B85]">
               © 2026 HargaKu. Kolaborasi Terbuka WIA 2026.
@@ -109,47 +108,47 @@ export function Footer() {
                 </li>
                 <li>
                   <a
-                    href="https://opendata.kotabogor.go.id"
+                    href="https://sp2kp.kemendag.go.id"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-[#1B1A18] transition-colors inline-flex items-center gap-1"
                   >
-                    <span>Open Data Kota Bogor</span>
+                    <span>SP2KP Kemendag</span>
                     <span className="text-[11px] text-[#8E8D86]">↗</span>
                   </a>
                 </li>
               </ul>
             </div>
 
-            {/* Pilot Kota Bogor */}
+            {/* Koridor Wilayah Pantauan */}
             <div className="space-y-3 min-w-[140px]">
               <div className="text-[11px] font-bold text-[#1B1A18] uppercase tracking-wider">
-                Pasar Pilot Bogor
+                Koridor Pantauan
               </div>
               <ul className="space-y-2 text-[13px] text-[#6E6D67]">
                 <li>
                   <Link href="/peta" className="hover:text-[#1B1A18] transition-colors">
-                    Pasar Sukasari
+                    Koridor Jawa (Jabar, DKI, Jatim, Jateng)
                   </Link>
                 </li>
                 <li>
                   <Link href="/peta" className="hover:text-[#1B1A18] transition-colors">
-                    Pasar Anyar
+                    Koridor Sumatera
                   </Link>
                 </li>
                 <li>
                   <Link href="/peta" className="hover:text-[#1B1A18] transition-colors">
-                    Pasar Kebon Kembang
+                    Koridor Kalimantan
                   </Link>
                 </li>
                 <li>
                   <Link href="/peta" className="hover:text-[#1B1A18] transition-colors">
-                    Pasar Gunung Batu
+                    Koridor Sulawesi
                   </Link>
                 </li>
                 <li>
                   <Link href="/peta" className="hover:text-[#1B1A18] transition-colors">
-                    Pasar Jambu Dua
+                    Koridor Bali, Nusa Tenggara, Maluku &amp; Papua
                   </Link>
                 </li>
               </ul>
@@ -172,7 +171,7 @@ export function Footer() {
             <Link
               href="/admin"
               className="text-[#8C8B85] hover:text-[#1B1A18] transition-colors underline decoration-[#E5E3DE] underline-offset-2"
-              title="Dashboard Moderasi Internal TPID Kota Bogor"
+              title="Dashboard Moderasi Internal TPID & Pemantau Pasar"
             >
               Portal Petugas TPID
             </Link>

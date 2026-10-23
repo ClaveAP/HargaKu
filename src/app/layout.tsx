@@ -6,7 +6,7 @@ import { PublicLayoutWrapper } from '@/components/layout/PublicLayoutWrapper';
 export const metadata: Metadata = {
   title: 'HargaKu — Tahu Harga Wajar Pasar Sebelum Melangkah Belanja',
   description:
-    'Platform transparansi komoditas pangan Kota Bogor. Bandingkan harga riil di 5 pasar tradisional, konversi takaran pedagang (ons, perempatan, kilo) secara instan, dan hindari spekulasi harga.',
+    'Platform transparansi komoditas pangan dengan standarisasi acuan nasional Bapanas terkalibrasi daerah. Cek tren harga riil dari rumah sebelum melangkah belanja dan deteksi potensi mark-up pedagang di lapak pasar.',
 };
 
 export default function RootLayout({
