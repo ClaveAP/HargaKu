@@ -112,7 +112,7 @@ export function LaporSuccessCard({
           className="w-full sm:w-auto flex-1 py-3 px-5 rounded-[12px] bg-[#1B1A18] hover:bg-[#32312E] text-white text-[13px] font-semibold flex items-center justify-center gap-2 transition-colors shadow-xs"
         >
           <MapPin size={16} weight="bold" />
-          <span>Cek Peta Harga 5 Pasar</span>
+          <span>Cek Peta Persebaran Pasar</span>
         </Link>
       </div>
     </div>

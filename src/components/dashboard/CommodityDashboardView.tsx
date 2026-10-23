@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { CommoditySummary } from '@/types';
+import { useLiveCatalog } from '@/lib/store/use-live-catalog';
 import {
   DashboardFilterBar,
   type DashboardCategoryFilter,
@@ -17,6 +18,9 @@ interface Props {
 }
 
 export function CommodityDashboardView({ initialCommodities }: Props) {
+  const { commodities: liveCommodities, markets: liveMarkets } = useLiveCatalog();
+  const currentCommodities = liveCommodities.length > 0 ? liveCommodities : initialCommodities;
+
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMarket, setSelectedMarket] = useState('ALL');
   const [selectedSort, setSelectedSort] = useState<DashboardSort>('CHANGE_DESC');
@@ -26,7 +30,7 @@ export function CommodityDashboardView({ initialCommodities }: Props) {
 
   // Filter and Sort Commodities
   const processedCommodities = useMemo(() => {
-    let list = [...initialCommodities];
+    let list = [...currentCommodities];
 
     // Filter by category
     if (selectedCategory !== 'ALL') {
@@ -75,7 +79,8 @@ export function CommodityDashboardView({ initialCommodities }: Props) {
         onToggleLightMode={() => setIsLightMode((prev) => !prev)}
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
-        totalCount={initialCommodities.length}
+        totalCount={currentCommodities.length}
+        markets={liveMarkets}
       />
 
       {/* Commodity Content Area: Cards Grid or Dense Ledger Table */}

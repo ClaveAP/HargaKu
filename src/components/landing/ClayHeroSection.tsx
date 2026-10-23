@@ -15,15 +15,22 @@ import { ClayCalculatorInstrument } from './ClayCalculatorInstrument';
 import { ClayMarketRankings } from './ClayMarketRankings';
 import { formatRupiah } from '@/lib/price-logic';
 import { useRegion } from '@/lib/store/region-store';
+import { useLiveCatalog } from '@/lib/store/use-live-catalog';
 
 export function ClayHeroSection() {
   const { selectedRegion } = useRegion();
-  const [activePreset, setActivePreset] = useState<CommodityPreset>(
-    COMMODITY_PRESETS[0]
+  const { presets: livePresets } = useLiveCatalog();
+  const presets = livePresets.length > 0 ? livePresets : COMMODITY_PRESETS;
+
+  const [selectedPresetId, setSelectedPresetId] = useState<string>(
+    COMMODITY_PRESETS[0].id
   );
   const [activeTab, setActiveTab] = useState<'kalkulator' | 'komparasi'>(
     'kalkulator'
   );
+
+  const activePreset =
+    presets.find((p) => p.id === selectedPresetId) || presets[0] || COMMODITY_PRESETS[0];
 
   return (
     <section
@@ -119,13 +126,13 @@ export function ClayHeroSection() {
 
               {/* Quick Preset Chips */}
               <div className="flex flex-wrap items-center gap-2">
-                {COMMODITY_PRESETS.map((preset) => {
+                {presets.map((preset) => {
                   const isSelected = activePreset.id === preset.id;
                   return (
                     <button
                       key={preset.id}
                       type="button"
-                      onClick={() => setActivePreset(preset)}
+                      onClick={() => setSelectedPresetId(preset.id)}
                       className={`px-3 py-1.5 rounded-[8px] text-[12px] transition-all cursor-pointer ${
                         isSelected
                           ? 'bg-[#1B1A18] text-white font-semibold shadow-xs'
@@ -163,7 +170,7 @@ export function ClayHeroSection() {
                   }`}
                 >
                   <ChartBar size={15} weight={activeTab === 'komparasi' ? 'bold' : 'regular'} />
-                  <span>Komparasi 5 Pasar</span>
+                  <span>Komparasi Antar Pasar</span>
                 </button>
               </div>
             </div>

@@ -175,7 +175,7 @@ export async function processAssistantMessage(
       ],
       suggestedActions: [
         { label: 'Uji di Form Cek Harga Wajar', href: '/cek-harga' },
-        { label: 'Bandingkan di 5 Pasar', href: `/komoditas/${commodity.slug}` },
+        { label: 'Bandingkan Antar Pasar', href: `/komoditas/${commodity.slug}` },
       ],
     };
   }

@@ -46,7 +46,7 @@ export function SupplyChainStages() {
                   03 · ECERAN
                 </span>
                 <div>
-                  <h3 className="text-xs font-bold text-gray-900">Lapak 5 Pasar Tradisional</h3>
+                  <h3 className="text-xs font-bold text-gray-900">Lapak Pasar Tradisional</h3>
                   <p className="text-[11px] text-gray-500 mt-0.5">
                     Harga riil yang dihadapi pembeli di Pasar Anyar, Kebon Kembang, Sukasari, dll.
                   </p>

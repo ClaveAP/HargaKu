@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { PETA_COMMODITIES, PetaMarketPrice } from './peta-data';
 import { PetaFilterSidebar } from './PetaFilterSidebar';
 import { PetaSpatialStage } from './PetaSpatialStage';
@@ -8,6 +8,7 @@ import { PetaMarketRankTable } from './PetaMarketRankTable';
 import { CommoditySummary } from '@/types';
 import { useRegion } from '@/lib/store/region-store';
 import { getMarketsByRegion } from '@/lib/mock/markets.data';
+import { useLiveCatalog } from '@/lib/store/use-live-catalog';
 
 interface Props {
   initialCommodities: CommoditySummary[];
@@ -15,6 +16,7 @@ interface Props {
 
 export function PetaContainer({ initialCommodities }: Props) {
   const { selectedRegion } = useRegion();
+  const { rawMarkets, dailyPrices } = useLiveCatalog();
   const [selectedCommodityId, setSelectedCommodityId] = useState<string>(
     PETA_COMMODITIES[0].id
   );
@@ -22,8 +24,28 @@ export function PetaContainer({ initialCommodities }: Props) {
   const [visualIndicator, setVisualIndicator] = useState<string>('price');
   const [isLightMode, setIsLightMode] = useState<boolean>(false);
 
-  // Get dynamic markets for currently selected region
-  const currentRegionMarkets = getMarketsByRegion(selectedRegion.id);
+  // Dynamic markets for the selected region
+  const currentRegionMarkets = useMemo(() => {
+    const regionFiltered = rawMarkets.filter(
+      (m) =>
+        m.regionId === selectedRegion.id ||
+        m.city?.toLowerCase().includes(selectedRegion.name.toLowerCase()) ||
+        (selectedRegion.province && m.city?.toLowerCase().includes(selectedRegion.province.toLowerCase()))
+    );
+
+    if (regionFiltered.length > 0) {
+      return regionFiltered.map((m) => ({
+        id: m.id,
+        name: m.name,
+        city: m.city,
+        district: m.district,
+        latitude: m.latitude,
+        longitude: m.longitude,
+      }));
+    }
+
+    return getMarketsByRegion(selectedRegion.id);
+  }, [rawMarkets, selectedRegion]);
 
   // Active commodity configuration
   const activeCommodity =
@@ -37,9 +59,13 @@ export function PetaContainer({ initialCommodities }: Props) {
 
   // Build unified markets list with price details
   const marketsWithPrice: PetaMarketPrice[] = currentRegionMarkets.map((info, idx) => {
-    // Natural market spread: -4% to +4% across different stalls/markets in the province
+    // Check if live admin daily price entry exists
+    const dailyRecord = dailyPrices[`${info.id}_${selectedCommodityId}`];
+    const livePrice = dailyRecord && dailyRecord.price > 0 ? dailyRecord.price : null;
+
+    // Natural market spread fallback: -4% to +4%
     const variationMultiplier = idx === 0 ? 0.96 : idx === 1 ? 0.99 : idx === 2 ? 1.02 : 1.04;
-    const computedPrice = Math.round((baseRegionalPrice * variationMultiplier) / 100) * 100;
+    const computedPrice = livePrice || Math.round((baseRegionalPrice * variationMultiplier) / 100) * 100;
     const diffPercent = Math.round(((computedPrice - baseRegionalPrice) / baseRegionalPrice) * 1000) / 10;
     const status = diffPercent < -2 ? ('cheaper' as const) : diffPercent > 2 ? ('expensive' as const) : ('average' as const);
 

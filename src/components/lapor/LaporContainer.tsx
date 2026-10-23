@@ -7,6 +7,8 @@ import { LaporVerificationCard } from './LaporVerificationCard';
 import { LaporSuccessCard } from './LaporSuccessCard';
 import { submitCitizenReport } from '@/lib/api/reports.api';
 import { useRegion } from '@/lib/store/region-store';
+import { useAdminStore } from '@/lib/store/admin-store';
+import { useLiveCatalog } from '@/lib/store/use-live-catalog';
 
 interface Props {
   commodities: CommoditySummary[];
@@ -25,11 +27,16 @@ interface SubmittedReportState {
 
 export function LaporContainer({ commodities, markets }: Props) {
   const { regionMarkets } = useRegion();
+  const { addReport } = useAdminStore();
+  const { commodities: liveCommodities, markets: liveMarkets } = useLiveCatalog();
+
+  const currentCommodities = liveCommodities.length > 0 ? liveCommodities : commodities;
+  const currentMarkets =
+    liveMarkets.length > 0 ? liveMarkets : regionMarkets.length > 0 ? regionMarkets : markets;
+
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submittedReport, setSubmittedReport] =
     useState<SubmittedReportState | null>(null);
-
-  const activeMarkets = regionMarkets.length > 0 ? regionMarkets : markets;
 
   const handleSubmit = async (data: {
     commodityId: string;
@@ -53,10 +60,39 @@ export function LaporContainer({ commodities, markets }: Props) {
         notes: data.notes,
       });
 
-      const matchedCommodity = commodities.find(
+      const matchedCommodity = currentCommodities.find(
         (c) => c.id === data.commodityId
       );
-      const matchedMarket = markets.find((m) => m.id === data.marketId);
+      const matchedMarket = currentMarkets.find((m) => m.id === data.marketId);
+
+      const hapPrice = matchedCommodity?.hapHetPrice || data.normalizedPrice;
+      const diffPercent =
+        hapPrice > 0
+          ? Math.round(((data.normalizedPrice - hapPrice) / hapPrice) * 1000) / 10
+          : 0;
+      const isAnomaly = Math.abs(diffPercent) > 25;
+
+      // Real-time synchronization to Admin Moderation Queue
+      addReport({
+        id: res.data.reportId,
+        commodityName: matchedCommodity?.name || 'Komoditas Pangan',
+        marketName: matchedMarket?.name || 'Pasar Tradisional',
+        reportedPrice: data.price,
+        unit: data.unit,
+        normalizedPricePerKg: data.normalizedPrice,
+        officialHapPrice: hapPrice,
+        cityAvgPrice: matchedCommodity?.currentAvgPrice || hapPrice,
+        diffPercent,
+        submittedAt: 'Baru saja',
+        hasPhoto: Boolean(data.photoFile),
+        photoUrl: data.photoFile ? URL.createObjectURL(data.photoFile) : undefined,
+        citizenNotes: data.notes || undefined,
+        status: isAnomaly ? 'ANOMALY' : 'PENDING',
+        anomalyReason: isAnomaly
+          ? `Deviasi ${diffPercent > 0 ? '+' : ''}${diffPercent}% melampaui ambang batas toleransi MAD (±25%).`
+          : undefined,
+        exifSanitized: true,
+      });
 
       setSubmittedReport({
         reportId: res.data.reportId,
@@ -91,8 +127,8 @@ export function LaporContainer({ commodities, markets }: Props) {
           />
         ) : (
           <LaporFormCard
-            commodities={commodities}
-            markets={activeMarkets}
+            commodities={currentCommodities}
+            markets={currentMarkets}
             isSubmitting={isSubmitting}
             onSubmit={handleSubmit}
           />

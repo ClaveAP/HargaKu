@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import {
   TrendDown,
@@ -10,12 +10,63 @@ import {
   ArrowRight,
 } from '@phosphor-icons/react';
 import { COMMODITIES, type CommodityRow } from './commodity-table-data';
+import { useLiveCatalog } from '@/lib/store/use-live-catalog';
 
 export function ClayCommodityTableSection() {
+  const { commodities: liveCommodities, markets: liveMarkets, dailyPrices } = useLiveCatalog();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchFilter, setSearchFilter] = useState('');
 
-  const filtered = COMMODITIES.filter((item) => {
+  const displayList: CommodityRow[] = useMemo(() => {
+    if (liveCommodities.length === 0) return COMMODITIES;
+
+    return liveCommodities.map((c) => {
+      let cheapestMarketName = liveMarkets[0]?.name || 'Pasar Anyar';
+      let cheapestPrice = c.currentAvgPrice;
+
+      const pricesForC = liveMarkets
+        .map((m) => ({
+          market: m,
+          record: dailyPrices[`${m.id}_${c.id}`],
+        }))
+        .filter((item) => item.record && item.record.price > 0);
+
+      if (pricesForC.length > 0) {
+        pricesForC.sort((a, b) => a.record.price - b.record.price);
+        cheapestMarketName = pricesForC[0].market.name;
+        cheapestPrice = pricesForC[0].record.price;
+      }
+
+      let categoryKey: 'beras' | 'cabai' | 'daging' | 'minyak' = 'cabai';
+      if (c.category === 'BERAS') categoryKey = 'beras';
+      else if (c.category === 'DAGING_TELUR') categoryKey = 'daging';
+      else if (c.category === 'MINYAK_GULA') categoryKey = 'minyak';
+
+      const trendType: 'down' | 'stable' | 'up' =
+        c.changePercentage < 0 ? 'down' : c.changePercentage > 0 ? 'up' : 'stable';
+      const statusText =
+        c.statusVsHap === 'BELOW_HAP'
+          ? 'Murah'
+          : c.statusVsHap === 'ABOVE_HAP'
+          ? 'Agak Mahal'
+          : 'Wajar';
+
+      return {
+        name: c.name,
+        category: categoryKey,
+        sub: 'Pantauan harian pasar',
+        hapPrice: `Rp ${c.hapHetPrice.toLocaleString('id-ID')} / ${c.unit}`,
+        avgPrice: `Rp ${c.currentAvgPrice.toLocaleString('id-ID')} / ${c.unit}`,
+        cheapestMarket: cheapestMarketName,
+        cheapestPrice: `Rp ${cheapestPrice.toLocaleString('id-ID')} / ${c.unit}`,
+        trend: `${c.changePercentage > 0 ? '+' : ''}${c.changePercentage}%`,
+        trendType,
+        status: statusText,
+      };
+    });
+  }, [liveCommodities, liveMarkets, dailyPrices]);
+
+  const filtered = displayList.filter((item) => {
     const matchesCategory =
       selectedCategory === 'all' || item.category === selectedCategory;
     const matchesSearch =
@@ -157,7 +208,7 @@ export function ClayCommodityTableSection() {
 
           {/* Table Footer */}
           <div className="px-6 py-4 bg-[#FAF9F5] border-t border-[#E5E3DE] flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-[#6E6D67]">
-            <span>Menampilkan data terverifikasi 5 pasar tradisional · Diperbarui tiap 06:00 WIB</span>
+            <span>Menampilkan data terverifikasi pasar tradisional · Diperbarui tiap 06:00 WIB</span>
             <Link
               href="/dashboard"
               className="text-[#1B1A18] font-semibold hover:underline inline-flex items-center gap-1"

@@ -1,4 +1,4 @@
-import { Market } from '@/types';
+import type { Market } from '../../types/index.ts';
 
 export const OUTER_MARKETS: Market[] = [
   // Sumatera Utara (reg_sumut)

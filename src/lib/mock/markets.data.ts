@@ -1,6 +1,6 @@
-import { Market } from '@/types';
-import { JAWA_MARKETS } from './markets-jawa.data';
-import { OUTER_MARKETS } from './markets-outer.data';
+import type { Market } from '../../types/index.ts';
+import { JAWA_MARKETS } from './markets-jawa.data.ts';
+import { OUTER_MARKETS } from './markets-outer.data.ts';
 
 export const MOCK_MARKETS: Market[] = [...JAWA_MARKETS, ...OUTER_MARKETS];
 

@@ -1,4 +1,4 @@
-import { Market } from '@/types';
+import type { Market } from '../../types/index.ts';
 
 export const JAWA_MARKETS: Market[] = [
   { id: 'mkt_pasar_baru_bdg', regionId: 'reg_jabar', name: 'Pasar Baru Trade Center', slug: 'pasar-baru-bandung', city: 'Kota Bandung', district: 'Andir', latitude: -6.91845, longitude: 107.60412, isActive: true }, 

@@ -147,7 +147,7 @@ export function PriceEvaluationResultCard({
           href={`/komoditas/${commodity.slug}`}
           className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-[8px] bg-[#EEF773] text-[#1B1A18] outline outline-1 outline-[#1B1A18] text-[12px] font-semibold hover:bg-[#dce663] transition-colors"
         >
-          <span>Bandingkan 5 Pasar Lain</span>
+          <span>Bandingkan Pasar Lain</span>
           <ArrowRight size={13} weight="bold" />
         </Link>
       </div>

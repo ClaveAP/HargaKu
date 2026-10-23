@@ -33,6 +33,7 @@ interface Props {
   selectedCategory: DashboardCategoryFilter;
   onCategoryChange: (category: DashboardCategoryFilter) => void;
   totalCount: number;
+  markets?: Array<{ id: string; name: string }>;
 }
 
 const CATEGORIES: Array<{ id: DashboardCategoryFilter; label: string }> = [
@@ -55,6 +56,7 @@ export function DashboardFilterBar({
   onToggleLightMode,
   selectedCategory,
   onCategoryChange,
+  markets = [],
 }: Props) {
   return (
     <div className="flex flex-col gap-4">
@@ -83,12 +85,24 @@ export function DashboardFilterBar({
             onChange={(e) => onMarketChange(e.target.value)}
             className="w-full appearance-none pl-3.5 pr-8 py-2.5 rounded-[10px] bg-white outline outline-1 outline-[#E5E3DE] text-[13px] text-[#1B1A18] font-medium shadow-xs focus:outline-[#1B1A18] cursor-pointer"
           >
-            <option value="ALL">Pasar: Semua Pasar (5 Pasar)</option>
-            <option value="kebon-kembang">Pasar Kebon Kembang</option>
-            <option value="pasar-anyar">Pasar Anyar</option>
-            <option value="sukasari">Pasar Sukasari</option>
-            <option value="gunung-batu">Pasar Gunung Batu</option>
-            <option value="jambu-dua">Pasar Jambu Dua</option>
+            <option value="ALL">
+              Semua Pasar {markets.length > 0 ? `(${markets.length} Pasar)` : ''}
+            </option>
+            {markets.length > 0 ? (
+              markets.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.name}
+                </option>
+              ))
+            ) : (
+              <>
+                <option value="kebon-kembang">Pasar Kebon Kembang</option>
+                <option value="pasar-anyar">Pasar Anyar</option>
+                <option value="sukasari">Pasar Sukasari</option>
+                <option value="gunung-batu">Pasar Gunung Batu</option>
+                <option value="jambu-dua">Pasar Jambu Dua</option>
+              </>
+            )}
           </select>
           <CaretDown
             size={13}
