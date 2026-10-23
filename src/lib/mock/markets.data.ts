@@ -1,54 +1,12 @@
 import { Market } from '@/types';
+import { JAWA_MARKETS } from './markets-jawa.data';
+import { OUTER_MARKETS } from './markets-outer.data';
 
-export const MOCK_MARKETS: Market[] = [
-  {
-    id: 'mkt_kebon_kembang',
-    name: 'Pasar Kebon Kembang',
-    slug: 'kebon-kembang',
-    city: 'Kota Bogor',
-    district: 'Bogor Tengah',
-    latitude: -6.591234,
-    longitude: 106.792345,
-    isActive: true,
-  },
-  {
-    id: 'mkt_pasar_anyar',
-    name: 'Pasar Anyar',
-    slug: 'pasar-anyar',
-    city: 'Kota Bogor',
-    district: 'Bogor Tengah',
-    latitude: -6.590123,
-    longitude: 106.791123,
-    isActive: true,
-  },
-  {
-    id: 'mkt_sukasari',
-    name: 'Pasar Sukasari (Pasar Bogor)',
-    slug: 'sukasari',
-    city: 'Kota Bogor',
-    district: 'Bogor Timur',
-    latitude: -6.602123,
-    longitude: 106.800123,
-    isActive: true,
-  },
-  {
-    id: 'mkt_gunung_batu',
-    name: 'Pasar Gunung Batu',
-    slug: 'gunung-batu',
-    city: 'Kota Bogor',
-    district: 'Bogor Barat',
-    latitude: -6.594512,
-    longitude: 106.778945,
-    isActive: true,
-  },
-  {
-    id: 'mkt_jambu_dua',
-    name: 'Pasar Jambu Dua',
-    slug: 'jambu-dua',
-    city: 'Kota Bogor',
-    district: 'Bogor Utara',
-    latitude: -6.572112,
-    longitude: 106.804123,
-    isActive: true,
-  },
-];
+export const MOCK_MARKETS: Market[] = [...JAWA_MARKETS, ...OUTER_MARKETS];
+
+export function getMarketsByRegion(regionId: string): Market[] {
+  const filtered = MOCK_MARKETS.filter((m) => m.regionId === regionId);
+  if (filtered.length > 0) return filtered;
+  // Fallback to top Jawa markets if region has no specific markets
+  return JAWA_MARKETS.slice(0, 4);
+}
