@@ -4,7 +4,9 @@ export interface PetaMarketPrice {
   shortName: string;
   district: string;
   address: string;
-  xPercent: number; // coordinate percentage on SVG map
+  latitude: number;
+  longitude: number;
+  xPercent: number; // coordinate percentage on SVG map fallback
   yPercent: number;
   price: number;
   diffPercent: number; // deviation from city average
@@ -20,59 +22,69 @@ export interface PetaCommodityOption {
   name: string;
   unit: string;
   cityAvgPrice: number;
-  markets: Record<string, Omit<PetaMarketPrice, 'marketId' | 'name' | 'shortName' | 'district' | 'address' | 'xPercent' | 'yPercent' | 'googleMapsUrl'>>;
+  markets: Record<string, Omit<PetaMarketPrice, 'marketId' | 'name' | 'shortName' | 'district' | 'address' | 'latitude' | 'longitude' | 'xPercent' | 'yPercent' | 'googleMapsUrl'>>;
 }
 
 export const PETA_MARKETS_INFO = [
   {
     id: 'sukasari',
-    name: 'Pasar Bogor (Sukasari)',
+    name: 'Pasar Sukasari',
     shortName: 'Pasar Sukasari',
-    district: 'Bogor Timur',
-    address: 'Jl. Siliwangi No. 12, Sukasari',
+    district: 'Sentra Wilayah Timur',
+    address: 'Sentra Sayur & Bumbu Wilayah Timur',
+    latitude: -6.602123,
+    longitude: 106.800123,
     xPercent: 62,
     yPercent: 74,
-    googleMapsUrl: 'https://maps.google.com/?q=Pasar+Sukasari+Bogor',
+    googleMapsUrl: 'https://maps.google.com/?q=Pasar+Sukasari',
   },
   {
     id: 'kebon-kembang',
     name: 'Pasar Kebon Kembang',
     shortName: 'Pasar Kebon Kembang',
-    district: 'Bogor Tengah',
-    address: 'Jl. Dewi Sartika, MA Salmun',
+    district: 'Sentra Wilayah Pusat',
+    address: 'Pusat Distribusi Sayur & Pangan',
+    latitude: -6.591234,
+    longitude: 106.792345,
     xPercent: 44,
     yPercent: 46,
-    googleMapsUrl: 'https://maps.google.com/?q=Pasar+Kebon+Kembang+Bogor',
+    googleMapsUrl: 'https://maps.google.com/?q=Pasar+Kebon+Kembang',
   },
   {
     id: 'pasar-anyar',
     name: 'Pasar Anyar',
     shortName: 'Pasar Anyar',
-    district: 'Bogor Tengah',
-    address: 'Jl. Pabaton, Bogor Tengah',
+    district: 'Sentra Wilayah Pusat',
+    address: 'Pusat Perdagangan Pangan Terpadu',
+    latitude: -6.590123,
+    longitude: 106.791123,
     xPercent: 49,
     yPercent: 38,
-    googleMapsUrl: 'https://maps.google.com/?q=Pasar+Anyar+Bogor',
+    googleMapsUrl: 'https://maps.google.com/?q=Pasar+Anyar',
   },
   {
     id: 'gunung-batu',
     name: 'Pasar Gunung Batu',
     shortName: 'Pasar Gn. Batu',
-    district: 'Bogor Barat',
-    address: 'Jl. Raya Gunung Batu No. 4',
+    district: 'Sentra Wilayah Barat',
+    address: 'Sentra Komoditas Sembako Barat',
+    latitude: -6.594512,
+    longitude: 106.778945,
     xPercent: 24,
     yPercent: 54,
-    googleMapsUrl: 'https://maps.google.com/?q=Pasar+Gunung+Batu+Bogor',
+    googleMapsUrl: 'https://maps.google.com/?q=Pasar+Gunung+Batu',
   },
   {
     id: 'jambu-dua',
     name: 'Pasar Jambu Dua',
     shortName: 'Pasar Jambu Dua',
-    district: 'Bogor Utara',
-    address: 'Jl. Pajajaran Utara (Warung Jambu)',
+    district: 'Sentra Wilayah Utara',
+    address: 'Sentra Daging & Unggas Utara',
+    latitude: -6.572112,
+    longitude: 106.804123,
     xPercent: 68,
     yPercent: 20,
-    googleMapsUrl: 'https://maps.google.com/?q=Pasar+Jambu+Dua+Bogor',
+    googleMapsUrl: 'https://maps.google.com/?q=Pasar+Jambu+Dua',
   },
 ];
 

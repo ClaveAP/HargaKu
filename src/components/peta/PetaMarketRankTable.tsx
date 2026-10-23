@@ -25,14 +25,14 @@ export function PetaMarketRankTable({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-[#E5E3DE]">
         <div>
           <h2 className="text-[17px] font-bold text-[#1B1A18] tracking-tight">
-            Urutan Harga 5 Pasar · {commodityName}
+            Urutan Harga Pasar · {commodityName}
           </h2>
           <p className="text-[12px] text-[#6E6D67]">
-            Data terurut dari pasar yang paling hemat hingga yang tertinggi di Kota Bogor.
+            Data terurut dari pasar yang paling hemat hingga yang tertinggi di wilayah terpilih.
           </p>
         </div>
         <span className="text-[11px] font-semibold text-[#8E8D86] bg-[#FAF9F5] px-2.5 py-1 rounded-full outline outline-1 outline-[#E5E3DE] w-fit">
-          5 Pasar Aktif
+          Pasar Pantauan Aktif
         </span>
       </div>
 
@@ -40,12 +40,12 @@ export function PetaMarketRankTable({
         <table className="w-full text-left border-collapse min-w-[620px]">
           <thead>
             <tr className="border-b border-[#E5E3DE] text-[11px] font-bold text-[#8E8D86] uppercase tracking-wider">
-              <th className="py-2.5 pr-4">Peringkat & Pasar</th>
+              <th className="py-2.5 pl-3.5 sm:pl-4 pr-4">Peringkat & Pasar</th>
               <th className="py-2.5 px-4 text-right">Harga Lapak / kg</th>
               <th className="py-2.5 px-4 text-center">Selisih vs Rerata</th>
               <th className="py-2.5 px-4 text-center">Stok</th>
               <th className="py-2.5 px-4 text-right">Laporan Warga</th>
-              <th className="py-2.5 pl-4 text-right">Aksi</th>
+              <th className="py-2.5 pr-3.5 sm:pr-4 pl-4 text-right">Aksi</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[#F4F3F0] text-[13px]">
@@ -64,13 +64,13 @@ export function PetaMarketRankTable({
                   onClick={() => onSelectMarket(m.marketId)}
                 >
                   {/* Rank & Market */}
-                  <td className="py-3.5 pr-4">
+                  <td className="py-3.5 pl-3.5 sm:pl-4 pr-4">
                     <div className="flex items-center gap-3">
                       <span
-                        className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 ${
+                        className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 transition-transform ${
                           isCheapest
-                            ? 'bg-[#EEF773] text-[#1B1A18] outline outline-1 outline-[#1B1A18]'
-                            : 'bg-[#F4F3F0] text-[#6E6D67]'
+                            ? 'bg-[#EEF773] text-[#1B1A18] border border-[#1B1A18] shadow-2xs'
+                            : 'bg-[#F4F3F0] text-[#6E6D67] border border-transparent'
                         }`}
                       >
                         {idx + 1}
@@ -79,13 +79,13 @@ export function PetaMarketRankTable({
                         <div className="font-bold text-[#1B1A18] flex items-center gap-1.5">
                           <span>{m.name}</span>
                           {isCheapest && (
-                            <span className="text-[10px] font-bold bg-[#EEF773] text-[#1B1A18] px-1.5 py-0.2 rounded outline outline-1 outline-[#1B1A18]">
+                            <span className="text-[10px] font-bold bg-[#EEF773] text-[#1B1A18] px-1.5 py-0.5 rounded border border-[#1B1A18]">
                               Termurah
                             </span>
                           )}
                         </div>
                         <span className="text-[11px] text-[#8E8D86]">
-                          {m.district} · {m.address}
+                          {m.address}
                         </span>
                       </div>
                     </div>
@@ -122,14 +122,14 @@ export function PetaMarketRankTable({
 
                   {/* Reports Count */}
                   <td className="py-3.5 px-4 text-right text-[12px] text-[#6E6D67] tabular-nums">
-                    <span>{m.reportsCount} lap.</span>
+                    <span>{m.reportsCount} laporan</span>
                     <span className="block text-[10px] text-[#8E8D86]">
                       {m.lastUpdated}
                     </span>
                   </td>
 
                   {/* Actions */}
-                  <td className="py-3.5 pl-4 text-right">
+                  <td className="py-3.5 pr-3.5 sm:pr-4 pl-4 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <button
                         type="button"
@@ -137,10 +137,10 @@ export function PetaMarketRankTable({
                           e.stopPropagation();
                           onSelectMarket(m.marketId);
                         }}
-                        className={`px-2.5 py-1.5 rounded-[8px] text-[11px] font-semibold outline outline-1 transition-colors ${
+                        className={`px-3 py-1.5 rounded-[8px] text-[11px] font-semibold transition-all cursor-pointer ${
                           isSelected
-                            ? 'bg-[#1B1A18] text-white outline-[#1B1A18]'
-                            : 'bg-white text-[#1B1A18] outline-[#E5E3DE] hover:bg-[#FAF9F5]'
+                            ? 'bg-[#1B1A18] text-white shadow-2xs'
+                            : 'bg-white text-[#1B1A18] border border-[#E5E3DE] hover:bg-[#FAF9F5]'
                         }`}
                       >
                         {isSelected ? 'Terpilih' : 'Pilih'}
@@ -150,10 +150,10 @@ export function PetaMarketRankTable({
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        title="Buka di Google Maps"
-                        className="p-1.5 rounded-[8px] text-[#6E6D67] hover:text-[#1B1A18] hover:bg-[#FAF9F5] transition-colors"
+                        title="Buka rute di Google Maps"
+                        className="p-1.5 rounded-[8px] border border-[#E5E3DE] text-[#6E6D67] hover:text-[#1B1A18] hover:bg-[#FAF9F5] transition-colors"
                       >
-                        <NavigationArrow size={14} weight="bold" />
+                        <NavigationArrow size={13} weight="bold" />
                       </a>
                     </div>
                   </td>

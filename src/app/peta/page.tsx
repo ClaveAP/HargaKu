@@ -6,7 +6,7 @@ import { PetaContainer } from '@/components/peta/PetaContainer';
 export const metadata: Metadata = {
   title: 'Peta Harga Pasar Tradisional · HargaKu',
   description:
-    'Peta interaktif sebaran harga komoditas pangan pokok di 5 pasar tradisional Kota Bogor.',
+    'Peta interaktif sebaran harga komoditas pangan pokok di pasar-pasar tradisional Indonesia terkalibrasi daerah.',
 };
 
 export default async function PetaPage() {
