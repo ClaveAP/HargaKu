@@ -41,17 +41,17 @@ export function evaluatePrice(
     advice = `Harga ini wajar dan sejalan dengan rata-rata transaksi harian di ${regionName}.`;
   } else if (diffPercentage <= 25) {
     status = 'SLIGHTLY_EXPENSIVE';
-    statusLabel = 'Agak Mahal / Potensi Mark-up';
+    statusLabel = 'Agak Mahal';
     statusBadgeColor = 'amber';
     markupDetected = true;
-    markupLabel = 'Terindikasi Mark-up Moderat';
+    markupLabel = 'Di Atas Acuan Rerata';
     advice = `Harga lebih tinggi (+${diffPercentage}%) dari acuan wajar di ${regionName}. Cobalah menawar mendekati Rp ${comparisonPrice.toLocaleString('id-ID')}/kg atau bandingkan lapak sekitar.`;
   } else {
     status = 'OVERPRICED';
-    statusLabel = 'Terlalu Mahal / Mark-up Tinggi';
+    statusLabel = 'Terlalu Mahal';
     statusBadgeColor = 'rose';
     markupDetected = true;
-    markupLabel = 'Terindikasi Mark-up Spekulatif';
+    markupLabel = 'Jauh Di Atas Acuan';
     advice = `Harga melampaui toleransi wajar (> +25%). Pedagang mematok harga jauh di atas acuan di ${regionName}. Sangat disarankan menawar ke Rp ${comparisonPrice.toLocaleString('id-ID')}/kg atau pindah ke lapak lain.`;
   }
 

@@ -6,7 +6,7 @@ import { PublicLayoutWrapper } from '@/components/layout/PublicLayoutWrapper';
 export const metadata: Metadata = {
   title: 'HargaKu — Tahu Harga Wajar Pasar Sebelum Melangkah Belanja',
   description:
-    'Platform transparansi komoditas pangan dengan standarisasi acuan nasional Bapanas terkalibrasi daerah. Cek tren harga riil dari rumah sebelum melangkah belanja dan deteksi potensi mark-up pedagang di lapak pasar.',
+    'Platform transparansi komoditas pangan dengan standarisasi acuan nasional Bapanas terkalibrasi daerah. Cek tren harga riil dari rumah sebelum melangkah belanja dan bandingkan penawaran pedagang dengan harga wajar pasar.',
 };
 
 export default function RootLayout({

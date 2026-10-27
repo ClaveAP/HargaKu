@@ -1,8 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { PriceCheckResult, CommoditySummary, Market } from '@/types';
-import { ArrowRight, MegaphoneSimple } from '@phosphor-icons/react';
+import {
+  ArrowRight,
+  MegaphoneSimple,
+  ShoppingCartSimple,
+  Check,
+} from '@phosphor-icons/react';
+import { useCart } from '@/lib/store/cart-store';
 
 interface Props {
   result: PriceCheckResult;
@@ -21,6 +28,21 @@ export function PriceEvaluationResultCard({
   takaranUnitLabel,
   rawPriceInput,
 }: Props) {
+  const { addItem } = useCart();
+  const [isAdded, setIsAdded] = useState(false);
+
+  const handleAddToCart = () => {
+    addItem({
+      id: commodity.id || commodity.slug,
+      name: commodity.name,
+      unit: takaranUnitLabel.includes('kg') ? 'kg' : 'ons',
+      quantity: takaranAmount,
+      avgPricePerUnit: result.offeredPrice,
+    });
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 3000);
+  };
+
   // Determine badge and style
   let badgeStyle = 'bg-[#F4F3F0] text-[#1B1A18] outline-[#E5E3DE]';
   let titlePrefix = '';
@@ -59,7 +81,7 @@ export function PriceEvaluationResultCard({
             </span>
             {result.markupDetected && (
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-[4px] bg-[#FEE2E2] text-[#991B1B] outline outline-1 outline-[#FECACA] uppercase">
-                {result.markupLabel || 'Potensi Mark-up'}
+                {result.markupLabel || 'Di Atas Acuan'}
               </span>
             )}
           </div>
@@ -134,22 +156,53 @@ export function PriceEvaluationResultCard({
       </div>
 
       {/* Action Buttons Row */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-        <Link
-          href={`/lapor?commodity=${commodity.slug}&market=${market?.slug || ''}&price=${result.offeredPrice}`}
-          className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-[8px] bg-white text-[#1B1A18] outline outline-1 outline-[#E5E3DE] hover:bg-[#F4F3F0] text-[12px] font-semibold transition-colors"
+      <div className="flex flex-col gap-2.5 pt-2">
+        <button
+          type="button"
+          onClick={handleAddToCart}
+          className={`w-full py-2.5 px-4 rounded-[10px] text-[12px] font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+            isAdded
+              ? 'bg-[#F4FDF4] text-[#15803D] outline outline-1 outline-[#DCFCE7]'
+              : 'bg-[#1B1A18] hover:bg-[#32312E] text-white shadow-xs'
+          }`}
         >
-          <MegaphoneSimple size={15} weight="bold" />
-          <span>Lapor Harga Lapak Ini</span>
-        </Link>
+          {isAdded ? (
+            <>
+              <Check size={16} weight="bold" />
+              <span>✓ Berhasil Disimpan ke Keranjang!</span>
+              <Link
+                href="/keranjang"
+                className="underline underline-offset-2 ml-1 text-[#15803D] hover:text-[#0f5a2b]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Lihat Keranjang →
+              </Link>
+            </>
+          ) : (
+            <>
+              <ShoppingCartSimple size={16} weight="bold" />
+              <span>+ Masukkan ke Keranjang Belanja</span>
+            </>
+          )}
+        </button>
 
-        <Link
-          href={`/komoditas/${commodity.slug}`}
-          className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-[8px] bg-[#EEF773] text-[#1B1A18] outline outline-1 outline-[#1B1A18] text-[12px] font-semibold hover:bg-[#dce663] transition-colors"
-        >
-          <span>Bandingkan Pasar Lain</span>
-          <ArrowRight size={13} weight="bold" />
-        </Link>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+          <Link
+            href={`/lapor?commodity=${commodity.slug}&market=${market?.slug || ''}&price=${result.offeredPrice}`}
+            className="flex-1 inline-flex items-center justify-center gap-2 py-2 px-3 rounded-[8px] bg-white text-[#1B1A18] outline outline-1 outline-[#E5E3DE] hover:bg-[#F4F3F0] text-[12px] font-semibold transition-colors"
+          >
+            <MegaphoneSimple size={14} weight="bold" />
+            <span>Lapor Harga Lapak Ini</span>
+          </Link>
+
+          <Link
+            href={`/komoditas/${commodity.slug}`}
+            className="flex-1 inline-flex items-center justify-center gap-2 py-2 px-3 rounded-[8px] bg-[#FAF9F5] text-[#1B1A18] outline outline-1 outline-[#E5E3DE] text-[12px] font-semibold hover:bg-[#F4F3F0] transition-colors"
+          >
+            <span>Bandingkan Pasar Lain</span>
+            <ArrowRight size={13} weight="bold" />
+          </Link>
+        </div>
       </div>
     </div>
   );

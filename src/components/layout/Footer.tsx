@@ -19,7 +19,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-[13px] leading-[20px] text-[#6E6D67]">
-              Platform transparansi harga komoditas pangan tradisional berbasis acuan nasional Bapanas terkalibrasi daerah. Membantu warga belanja cerdas dan mendeteksi mark-up harga di lapangan.
+              Platform transparansi harga komoditas pangan tradisional berbasis acuan nasional Bapanas terkalibrasi daerah. Membantu warga belanja cerdas dengan transparansi harga riil di lapangan.
             </p>
             <div className="text-[12px] text-[#8C8B85]">
               © 2026 HargaKu. Kolaborasi Terbuka WIA 2026.
@@ -157,25 +157,8 @@ export function Footer() {
         </div>
 
         {/* Footnote */}
-        <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[12px] text-[#8C8B85]">
+        <div className="pt-8 text-[12px] text-[#8C8B85]">
           <div>Inisiatif transparansi pangan publik — Tanpa bias komersial.</div>
-          <div className="flex flex-wrap items-center gap-4">
-            <Link href="/tentang#etika-pedagang" className="hover:text-[#1B1A18] transition-colors">
-              Privasi &amp; Sanitasi EXIF
-            </Link>
-            <span>·</span>
-            <Link href="/tentang#etika-pedagang" className="hover:text-[#1B1A18] transition-colors">
-              Etika &amp; Ketentuan Layanan
-            </Link>
-            <span>·</span>
-            <Link
-              href="/admin"
-              className="text-[#8C8B85] hover:text-[#1B1A18] transition-colors underline decoration-[#E5E3DE] underline-offset-2"
-              title="Dashboard Moderasi Internal TPID & Pemantau Pasar"
-            >
-              Portal Petugas TPID
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

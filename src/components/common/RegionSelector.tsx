@@ -206,7 +206,7 @@ export function RegionSelector({ className = '', variant = 'pill' }: Props) {
           {/* Educational Footer */}
           <div className="p-2 border-t border-[#E5E3DE] mt-1 bg-[#FAF9F5] rounded-[10px]">
             <p className="text-[11px] text-[#6E6D67] leading-[15px]">
-              Toleransi ongkir kapal otomatis dihitung agar pedagang tidak mematok mark-up sepihak.
+              Toleransi ongkir kapal otomatis dihitung untuk menjaga transparansi harga wajar di seluruh wilayah.
             </p>
           </div>
         </div>

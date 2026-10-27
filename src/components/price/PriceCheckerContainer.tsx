@@ -158,17 +158,21 @@ export function PriceCheckerContainer({
             takaranUnitLabel={selectedUnitLabel}
             rawPriceInput={rawPriceInput}
           />
-        ) : (
+        ) : loading ? (
           <div className="bg-white rounded-[18px] outline outline-1 outline-[#E5E3DE] p-6 sm:p-7 shadow-xs flex items-center justify-center text-[#8C8B85] text-[13px]">
             Memuat hasil evaluasi kewajaran...
           </div>
+        ) : (
+          <PriceInsufficientDataCard
+            commodityName={selectedCommodity?.name}
+            marketName={selectedMarket?.name}
+          />
         )}
       </div>
 
-      {/* Bottom Knowledge Row: Methodology + Insufficient Data State */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+      {/* Bottom Knowledge Row: Comprehensive Methodology */}
+      <div className="w-full">
         <PriceMethodologyCard />
-        <PriceInsufficientDataCard />
       </div>
     </div>
   );

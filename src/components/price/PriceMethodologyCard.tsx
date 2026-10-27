@@ -12,7 +12,7 @@ export function PriceMethodologyCard() {
         </h3>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[12px]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-[12px]">
         {/* Wajar */}
         <div className="flex flex-col gap-1 p-3 rounded-[10px] bg-[#FAF9F5] outline outline-1 outline-[#E5E3DE]/70">
           <span className="inline-block text-[11px] font-bold px-2 py-0.5 rounded-[4px] bg-[#F4F3F0] text-[#1B1A18] outline outline-1 outline-[#E5E3DE] w-fit">
@@ -39,7 +39,7 @@ export function PriceMethodologyCard() {
             Terlalu Mahal
           </span>
           <span className="text-[#6E6D67] leading-[18px]">
-            Di atas +25% dari acuan (potensi markup signifikan pedagang).
+            Di atas +25% dari acuan rata-rata harga pasar saat ini.
           </span>
         </div>
 
