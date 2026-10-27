@@ -8,6 +8,7 @@ import {
   CheckCircle,
   Clock,
   MagnifyingGlass,
+  MapPin,
   Storefront,
   X,
 } from '@phosphor-icons/react';
@@ -210,13 +211,13 @@ export function AdminDailyPricesView() {
                         </span>
                       </div>
                       <span
-                        className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                        className={`px-2 py-0.5 rounded-md text-[10px] font-medium ${
                           isSelected
                             ? 'bg-white/20 text-white'
-                            : 'bg-[#FAF9F5] text-[#FF7714] border border-[#FFD9C7]'
+                            : 'bg-[#FAF9F5] text-[#6E6D67] border border-[#E5E3DE]'
                         }`}
                       >
-                        {reg?.island || 'NASIONAL'}
+                        {reg?.islandName || 'Nasional'}
                       </span>
                     </button>
                   );
@@ -297,17 +298,32 @@ export function AdminDailyPricesView() {
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="text-sm font-bold text-[#1B1A18]">{currentMarket?.name}</h3>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FAF9F5] border border-[#E5E3DE] text-[#1B1A18]">
-                {currentRegion ? `[${currentRegion.island}] ${currentRegion.name}` : currentMarket?.city || 'Nasional'}
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[#FAF9F5] border border-[#E5E3DE] text-[#4A4843]">
+                <MapPin size={11} weight="fill" className="text-[#FF7714]" />
+                {currentMarket?.city && currentRegion && currentMarket.city !== currentRegion.name
+                  ? `${currentMarket.city} · ${currentRegion.name}`
+                  : currentMarket?.city || currentRegion?.name || 'Nasional'}
               </span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FFF3ED] border border-[#FFD9C7] text-[#FF7714]">
+              <span
+                className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${
+                  currentRegion && currentRegion.logisticsCostPct > 0
+                    ? 'bg-[#FFF3ED] border-[#FFD9C7] text-[#B53D0A]'
+                    : 'bg-[#FAF9F5] border-[#E5E3DE] text-[#6E6D67]'
+                }`}
+              >
                 {currentRegion && currentRegion.logisticsCostPct > 0
                   ? `+${currentRegion.logisticsCostPct}% Ongkir Kapal`
-                  : 'Harga Dasar (1.00x)'}
+                  : 'Sentra Produksi (Acuan Nasional)'}
               </span>
             </div>
-            <p className="text-xs text-[#706E6A] mt-0.5">
-              Input harga resmi pasar ini langsung tersinkronisasi sebagai patokan wajar warga di {currentRegion?.name || currentMarket?.city || 'wilayah ini'}.
+            <p className="text-xs text-[#706E6A] mt-1 leading-relaxed">
+              Harga resmi pasar ini menjadi patokan wajar belanja warga di{' '}
+              <strong className="text-[#1B1A18] font-semibold">
+                {currentMarket?.city || currentRegion?.name || 'wilayah ini'}
+              </strong>
+              {currentRegion && currentRegion.logisticsCostPct > 0
+                ? ` (disesuaikan dengan toleransi ongkir kapal laut +${currentRegion.logisticsCostPct}% antar-pulau).`
+                : ' (mengacu langsung pada harga acuan pangan nasional tanpa beban ongkir laut).'}
             </p>
           </div>
         </div>

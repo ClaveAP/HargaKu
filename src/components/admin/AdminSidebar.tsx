@@ -1,9 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import type { AdminModule } from '@/lib/types/admin';
 import { useAdminStore } from '@/lib/store/admin-store';
+import { DEFAULT_ADMIN_USER } from '@/lib/store/admin-seed';
+import { logoutAdmin } from '@/lib/auth/admin-auth';
 import { AdminConfirmModal } from './AdminConfirmModal';
+import { AdminProfileModal } from './AdminProfileModal';
+import { AdminHelpModal } from './AdminHelpModal';
 import {
   ChartBar,
   ShieldCheck,
@@ -11,6 +16,8 @@ import {
   Storefront,
   Lightning,
   ArrowsCounterClockwise,
+  SignOut,
+  Question,
   X,
 } from '@phosphor-icons/react';
 
@@ -27,9 +34,25 @@ export function AdminSidebar({
   isOpenMobile,
   onCloseMobile,
 }: AdminSidebarProps) {
-  const { commodities, markets, reports, resetToDefaultData } = useAdminStore();
+  const router = useRouter();
+  const { commodities, markets, reports, resetToDefaultData, currentUser } = useAdminStore();
+  const user = currentUser || DEFAULT_ADMIN_USER;
 
   const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const confirmLogout = () => {
+    logoutAdmin();
+    router.push('/admin/login');
+  };
+
+  const rawName = user?.name || user?.fullName || 'Admin';
+  const displayName = rawName.toLowerCase().includes('hendra') ? 'Admin' : rawName;
+  const avatarSrc =
+    user?.avatarUrl ||
+    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&h=120&q=80';
 
   const pendingReportsCount = reports.filter(
     (r) => r.status === 'PENDING' || r.status === 'ANOMALY'
@@ -144,26 +167,73 @@ export function AdminSidebar({
         })}
       </div>
 
-      {/* Subtle Footer Utility */}
-      <div className="pt-3 border-t border-[#E5E3DE] px-2 flex items-center justify-between">
-        <button
-          type="button"
-          onClick={handleReset}
-          className="text-[11px] font-medium text-[#A8A29E] hover:text-[#1B1A18] transition-colors flex items-center gap-1.5 cursor-pointer"
-          title="Kembalikan data ke simulasi awal"
-        >
-          <ArrowsCounterClockwise size={13} weight="bold" />
-          <span>Reset Demo</span>
-        </button>
-        <span className="text-[10px] text-[#A8A29E] font-mono">Nasional</span>
+      {/* Pinned Bottom Area: Profile & Utility */}
+      <div className="pt-3 border-t border-[#E5E3DE] mt-auto flex flex-col gap-2 shrink-0">
+        {/* User Profile Card */}
+        <div className="p-2 rounded-2xl bg-white border border-[#E5E3DE] flex items-center justify-between gap-2 shadow-2xs">
+          <button
+            type="button"
+            onClick={() => setIsProfileOpen(true)}
+            className="flex items-center gap-2.5 min-w-0 flex-1 text-left hover:opacity-85 transition-opacity cursor-pointer"
+            title="Buka Profil & Pengaturan Akun"
+          >
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-[#E5E3DE] bg-neutral-100 shrink-0">
+              <img
+                src={avatarSrc}
+                alt={displayName}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="flex flex-col min-w-0">
+              <span className="text-xs font-bold text-[#1B1A18] truncate leading-tight">
+                {displayName}
+              </span>
+              <span className="text-[10px] text-[#706E6A] truncate">
+                Petugas Pengawas
+              </span>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsLogoutModalOpen(true)}
+            className="p-1.5 rounded-lg text-[#A8A29E] hover:text-[#DC2626] hover:bg-rose-50 transition-colors cursor-pointer shrink-0"
+            title="Keluar dari Konsol Admin"
+          >
+            <SignOut size={16} weight="bold" />
+          </button>
+        </div>
+
+        {/* Reset Demo & Help Utilities */}
+        <div className="px-2 flex items-center justify-between text-[11px] text-[#A8A29E]">
+          <button
+            type="button"
+            onClick={handleReset}
+            className="hover:text-[#1B1A18] transition-colors flex items-center gap-1.5 cursor-pointer"
+            title="Kembalikan data ke simulasi awal"
+          >
+            <ArrowsCounterClockwise size={12} weight="bold" />
+            <span>Reset Demo</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsHelpOpen(true)}
+            className="hover:text-[#1B1A18] transition-colors flex items-center gap-1 cursor-pointer"
+            title="Panduan Operasional & Bantuan Admin"
+          >
+            <Question size={12} weight="bold" />
+            <span>Bantuan</span>
+          </button>
+        </div>
       </div>
     </div>
   );
 
   return (
     <>
-      {/* Desktop Persistent Sidebar */}
-      <aside className="hidden lg:block w-[240px] shrink-0 bg-[#FAF9F5] p-2 border border-[#E5E3DE] rounded-[24px]">
+      {/* Desktop Sticky Full-Height Sidebar - Perfectly sized to fit viewport on load */}
+      <aside className="hidden lg:flex flex-col justify-between w-[240px] shrink-0 bg-[#FAF9F5] p-2.5 border border-[#E5E3DE] rounded-[24px] sticky top-6 h-[calc(100vh-8.5rem)] min-h-[480px] shadow-2xs">
         {navContent}
       </aside>
 
@@ -192,6 +262,31 @@ export function AdminSidebar({
         </div>
       )}
 
+      {/* Profile Management Modal */}
+      <AdminProfileModal
+        isOpen={isProfileOpen}
+        onClose={() => setIsProfileOpen(false)}
+      />
+
+      {/* Help & Support Modal */}
+      <AdminHelpModal
+        isOpen={isHelpOpen}
+        onClose={() => setIsHelpOpen(false)}
+      />
+
+      {/* Logout Confirmation Modal */}
+      <AdminConfirmModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={confirmLogout}
+        title="Konfirmasi Keluar"
+        description="Apakah Anda yakin ingin keluar dari Konsol Admin HargaKu? Sesi otorisasi Anda akan diakhiri."
+        confirmLabel="Ya, Keluar"
+        cancelLabel="Batal"
+        variant="warning"
+      />
+
+      {/* Reset Confirmation Modal */}
       <AdminConfirmModal
         isOpen={isResetConfirmOpen}
         onClose={() => setIsResetConfirmOpen(false)}

@@ -159,7 +159,7 @@ export function MarketFormModal({
             >
               {MOCK_REGIONS.map((r) => (
                 <option key={r.id} value={r.id}>
-                  [{r.island}] {r.name} · {r.logisticsCostPct > 0 ? `+${r.logisticsCostPct}% Logistik Laut` : 'Sentra Dasar (1.00x)'}
+                  {r.name} ({r.islandName}) · {r.logisticsCostPct > 0 ? `+${r.logisticsCostPct}% Ongkir Kapal` : 'Sentra Produksi (Acuan Nasional)'}
                 </option>
               ))}
             </select>

@@ -49,7 +49,7 @@ export function AdminReportQueue({
   return (
     <div className="bg-white rounded-[24px] border border-[#E5E3DE] p-5 shadow-xs flex flex-col gap-4">
       {/* Tabs */}
-      <div className="grid grid-cols-5 gap-1 pb-2 border-b border-[#E5E3DE]">
+      <div className="grid grid-cols-5 gap-1.5 pb-2 border-b border-[#E5E3DE]">
         {(
           [
             { id: 'ALL', label: 'Semua' },
@@ -59,10 +59,6 @@ export function AdminReportQueue({
             { id: 'REJECTED', label: 'Ditolak' },
           ] as const
         ).map((tab) => {
-          const count =
-            tab.id === 'ALL'
-              ? reports.length
-              : reports.filter((r) => r.status === tab.id).length;
           const isActive = activeTab === tab.id;
 
           return (
@@ -70,14 +66,13 @@ export function AdminReportQueue({
               key={tab.id}
               type="button"
               onClick={() => onTabChange(tab.id)}
-              className={`py-1.5 px-1 rounded-xl text-[11px] font-semibold transition-all border text-center flex flex-col items-center justify-center cursor-pointer ${
+              className={`py-2 px-1 rounded-xl text-[12px] font-semibold transition-all border text-center flex items-center justify-center cursor-pointer ${
                 isActive
                   ? 'bg-[#1B1A18] text-white border-[#1B1A18] shadow-xs'
                   : 'bg-[#FAF9F5] text-[#6E6D67] border-[#E5E3DE] hover:bg-white hover:text-[#1B1A18]'
               }`}
             >
               <span className="truncate">{tab.label}</span>
-              <span className="opacity-75 tabular-nums text-[10px]">({count})</span>
             </button>
           );
         })}

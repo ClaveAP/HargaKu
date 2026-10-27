@@ -2,7 +2,7 @@
 
 import React from 'react';
 import type { AdminCommodity, DailyPriceRecord } from '@/lib/types/admin';
-import { Lightning, ArrowUp, ArrowDown, Minus } from '@phosphor-icons/react';
+import { Lightning, ArrowUp, ArrowDown, Minus, Info } from '@phosphor-icons/react';
 
 interface DailyPriceTableProps {
   currentMarketName: string;
@@ -89,7 +89,11 @@ export function DailyPriceTable({
                         <span
                           className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold ${
                             diffHap > 10
-                              ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                              ? 'bg-rose-50 text-rose-700 border border-rose-200'
+                              : diffHap > 0
+                              ? 'bg-amber-50 text-amber-800 border border-amber-200'
+                              : diffHap === 0
+                              ? 'bg-[#FAF9F5] text-[#6E6D67] border border-[#E5E3DE]'
                               : diffHap < -10
                               ? 'bg-blue-50 text-blue-700 border border-blue-200'
                               : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
@@ -113,6 +117,49 @@ export function DailyPriceTable({
               })}
             </tbody>
           </table>
+        </div>
+      </div>
+
+      {/* Educational Legend: HAP & Selisih Guide */}
+      <div className="bg-white border border-[#E5E3DE] rounded-[20px] p-4 sm:p-5 shadow-2xs flex flex-col md:flex-row md:items-start justify-between gap-5">
+        <div className="space-y-1.5 md:max-w-[48%]">
+          <div className="flex items-center gap-1.5 font-bold text-xs text-[#1B1A18]">
+            <Info size={15} weight="bold" className="text-[#FF7714]" />
+            <span>Apa itu Acuan HAP Bapanas?</span>
+          </div>
+          <p className="text-xs text-[#706E6A] leading-relaxed">
+            <strong className="text-[#1B1A18] font-semibold">Harga Acuan Penjualan (HAP)</strong> adalah batas patokan resmi stabilitas pangan di tingkat konsumen dari Badan Pangan Nasional (Bapanas RI). Digunakan sebagai tolok ukur perlindungan konsumen dan deteksi kewajaran harga belanja warga.
+          </p>
+        </div>
+
+        <div className="space-y-2 md:max-w-[48%] border-t md:border-t-0 md:border-l border-[#E5E3DE] pt-3 md:pt-0 md:pl-5">
+          <span className="font-bold text-xs text-[#1B1A18] block">Panduan Indikator Selisih vs HAP:</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
+            <div className="flex items-center gap-1.5">
+              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full font-semibold bg-amber-50 text-amber-800 border border-amber-200 shrink-0">
+                <ArrowUp size={10} weight="bold" /> Naik (+%)
+              </span>
+              <span className="text-[#706E6A]">Lebih mahal dari HAP</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+                <ArrowDown size={10} weight="bold" /> Turun (-%)
+              </span>
+              <span className="text-[#706E6A]">Lebih hemat dari HAP</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full font-semibold bg-[#FAF9F5] text-[#6E6D67] border border-[#E5E3DE] shrink-0">
+                <Minus size={10} weight="bold" /> 0% Sesuai
+              </span>
+              <span className="text-[#706E6A]">Tepat standar nasional</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full font-semibold bg-rose-50 text-rose-700 border border-rose-200 shrink-0">
+                <ArrowUp size={10} weight="bold" /> &gt;+10%
+              </span>
+              <span className="text-[#706E6A]">Lonjakan harga signifikan</span>
+            </div>
+          </div>
         </div>
       </div>
 
