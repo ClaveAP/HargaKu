@@ -28,7 +28,7 @@ export function AdminAuthGuard({ children }: AdminAuthGuardProps) {
           H.
         </div>
         <div className="text-xs font-semibold text-[#1B1A18]">
-          Memverifikasi Otorisasi Petugas TPID...
+          Memverifikasi Otorisasi Administrator...
         </div>
         <span className="text-[11px] text-[#706E6A]">
           Mengalihkan ke portal masuk jika sesi tidak valid.

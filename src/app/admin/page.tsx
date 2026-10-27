@@ -3,7 +3,7 @@ import { AdminAuthGuard } from '@/components/admin/AdminAuthGuard';
 import { AdminContainer } from '@/components/admin/AdminContainer';
 
 export const metadata: Metadata = {
-  title: 'Admin Console & Moderasi TPID · HargaKu',
+  title: 'Admin Console & Moderasi Pangan · HargaKu',
   description:
     'Pusat kendali data pangan publik: katalog komoditas, pasar tradisional, entri harga harian resmi, dan moderasi laporan warga.',
 };

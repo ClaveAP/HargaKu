@@ -43,13 +43,6 @@ export function AdminOverviewView({ onNavigate }: AdminOverviewViewProps) {
       <div className="bg-white border border-[#E5E3DE] rounded-[24px] p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#FF7714]">
-                Portal Pengawas Pangan
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#E5E3DE]" />
-              <span className="text-xs text-[#706E6A]">Sentra Pantauan Pangan</span>
-            </div>
             <h1 className="text-2xl sm:text-3xl font-medium tracking-tight text-[#1B1A18]">
               Pusat Kendali Operasional
             </h1>

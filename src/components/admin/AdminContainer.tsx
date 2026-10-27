@@ -47,7 +47,7 @@ function AdminWorkspace() {
       {/* Admin Dedicated Footnote - Pinned to bottom cleanly */}
       <footer className="mt-auto pt-6 pb-2 text-xs text-[#A8A29E] flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-[#E5E3DE]">
         <span>
-          HargaKu TPID Admin Console · Khusus Petugas Operasional &amp; Pengawas Pangan
+          HargaKu Admin Console · Khusus Petugas Operasional &amp; Pengawas Pangan
         </span>
         <span className="font-mono text-[11px]">
           Fase Produksi Multi-Wilayah Nasional

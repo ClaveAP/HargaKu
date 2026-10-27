@@ -26,7 +26,9 @@ export function AdminDailyPricesView() {
   );
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [recordedDate, setRecordedDate] = useState<string>('2026-10-23');
+  const [recordedDate, setRecordedDate] = useState<string>(() => {
+    return new Date().toISOString().split('T')[0];
+  });
   const [inputs, setInputs] = useState<Record<string, string>>({});
   const [successMessage, setSuccessMessage] = useState<string>('');
 

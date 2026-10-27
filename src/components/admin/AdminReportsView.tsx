@@ -29,10 +29,7 @@ export function AdminReportsView() {
     <div className="space-y-6">
       {/* Header bar */}
       <div className="bg-white border border-[#E5E3DE] rounded-[24px] p-6 shadow-sm">
-        <span className="text-xs font-bold uppercase tracking-wider text-[#FF7714]">
-          Partisipasi Pangan Warga
-        </span>
-        <h1 className="text-2xl font-medium tracking-tight text-[#1B1A18] mt-0.5">
+        <h1 className="text-2xl font-medium tracking-tight text-[#1B1A18]">
           Portal Moderasi Laporan Warga
         </h1>
         <p className="text-sm text-[#706E6A]">

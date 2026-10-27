@@ -13,8 +13,8 @@ export function AdminLoginShowcase() {
     {
       icon: Storefront,
       iconBg: 'bg-[#EEF773] text-[#1B1A18]',
-      title: 'Seluruh Pasar Tradisional Terhubung',
-      desc: 'Pemantauan serempak di Pasar Anyar, Kebon Kembang, Sukasari, Gunung Batu, Jambu Dua, dan pasar rakyat lainnya.',
+      title: '64 Sentra Pasar Tradisional Terhubung',
+      desc: 'Pemantauan serempak 64 sentra pasar tradisional di seluruh koridor wilayah nusantara.',
     },
     {
       icon: Lightning,
@@ -57,7 +57,7 @@ export function AdminLoginShowcase() {
               HargaKu Console
             </span>
             <span className="text-[10px] text-[#A8A29E] tracking-wider uppercase">
-              TPID &amp; PEMANTAU PASAR
+              TIM PENGAWAS &amp; PEMANTAU PASAR
             </span>
           </div>
         </div>
