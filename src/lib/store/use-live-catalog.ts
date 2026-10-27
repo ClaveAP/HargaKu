@@ -24,12 +24,18 @@ function mapAdminCategoryToPublic(category: string): CommodityCategory {
   }
 }
 
-export function useLiveCatalog() {
+export function useLiveCatalog(selectedRegionId?: string) {
   const { commodities, markets, dailyPrices, reports, isLoaded } = useAdminStore();
 
   const activeMarkets = useMemo(() => {
     return markets.filter((m) => m.isActive);
   }, [markets]);
+
+  const targetMarkets = useMemo(() => {
+    if (!selectedRegionId) return activeMarkets;
+    const filtered = activeMarkets.filter((m) => m.regionId === selectedRegionId);
+    return filtered.length > 0 ? filtered : activeMarkets;
+  }, [activeMarkets, selectedRegionId]);
 
   const activeCommodities = useMemo(() => {
     return commodities.filter((c) => c.isActive);
@@ -123,7 +129,7 @@ export function useLiveCatalog() {
     return activeCommodities.slice(0, 6).map((c: AdminCommodity) => {
       const priceEntries: Array<{ marketName: string; price: number }> = [];
 
-      for (const m of activeMarkets) {
+      for (const m of targetMarkets) {
         const record = dailyPrices[`${m.id}_${c.id}`];
         const price = record && record.price > 0 ? record.price : c.hapHetPrice;
         priceEntries.push({ marketName: m.name, price });
@@ -137,7 +143,10 @@ export function useLiveCatalog() {
       // Sort by price ascending
       priceEntries.sort((a, b) => a.price - b.price);
 
-      const ranks: MarketPriceRank[] = priceEntries.map((item, idx) => {
+      // Limit to top 5 markets for hero ranking display to prevent layout stretching
+      const topEntries = priceEntries.slice(0, 5);
+
+      const ranks: MarketPriceRank[] = topEntries.map((item, idx) => {
         const diffPercent =
           avgPrice > 0 ? Math.round(((item.price - avgPrice) / avgPrice) * 1000) / 10 : 0;
 
@@ -157,8 +166,8 @@ export function useLiveCatalog() {
         };
       });
 
-      const cheapest = priceEntries[0] || {
-        marketName: activeMarkets[0]?.name || 'Pasar Anyar',
+      const cheapest = topEntries[0] || {
+        marketName: targetMarkets[0]?.name || 'Pasar Anyar',
         price: c.hapHetPrice,
       };
 
@@ -172,7 +181,7 @@ export function useLiveCatalog() {
         ranks,
       };
     });
-  }, [activeCommodities, activeMarkets, dailyPrices]);
+  }, [activeCommodities, targetMarkets, dailyPrices]);
 
   return {
     isLoaded,

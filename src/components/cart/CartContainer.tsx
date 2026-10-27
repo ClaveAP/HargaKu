@@ -1,37 +1,18 @@
 'use client';
 
-import { useState } from 'react';
-import { CartItem, INITIAL_CART_ITEMS } from './cart-data';
+import { useCart } from '@/lib/store/cart-store';
 import { CartItemsCard } from './CartItemsCard';
 import { CartMarketComparisonCard } from './CartMarketComparisonCard';
 import { ShoppingCartSimple, ArrowCounterClockwise } from '@phosphor-icons/react';
 
 export function CartContainer() {
-  const [items, setItems] = useState<CartItem[]>(INITIAL_CART_ITEMS);
-
-  const handleUpdateQuantity = (id: string, delta: number) => {
-    setItems((prev) =>
-      prev.map((item) => {
-        if (item.id === id) {
-          const newQty = Math.max(1, item.quantity + delta);
-          return { ...item, quantity: newQty };
-        }
-        return item;
-      })
-    );
-  };
-
-  const handleRemoveItem = (id: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const handleAddItem = (newItem: CartItem) => {
-    setItems((prev) => [...prev, newItem]);
-  };
-
-  const handleResetDefaults = () => {
-    setItems(INITIAL_CART_ITEMS);
-  };
+  const {
+    items,
+    addItem,
+    updateQuantity,
+    removeItem,
+    resetDefaults,
+  } = useCart();
 
   if (items.length === 0) {
     return (
@@ -49,7 +30,7 @@ export function CartContainer() {
         </div>
         <button
           type="button"
-          onClick={handleResetDefaults}
+          onClick={resetDefaults}
           className="py-2.5 px-4 rounded-[10px] bg-[#1B1A18] hover:bg-[#32312E] text-white text-[12px] font-semibold flex items-center gap-2 transition-colors shadow-xs"
         >
           <ArrowCounterClockwise size={14} weight="bold" />
@@ -65,9 +46,9 @@ export function CartContainer() {
       <div className="lg:col-span-7 xl:col-span-7">
         <CartItemsCard
           items={items}
-          onUpdateQuantity={handleUpdateQuantity}
-          onRemoveItem={handleRemoveItem}
-          onAddItem={handleAddItem}
+          onUpdateQuantity={updateQuantity}
+          onRemoveItem={removeItem}
+          onAddItem={addItem}
         />
       </div>
 

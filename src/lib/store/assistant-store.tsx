@@ -27,7 +27,7 @@ export function AssistantProvider({ children }: { children: React.ReactNode }) {
       id: 'welcome_1',
       role: 'assistant',
       timestamp: '06:00',
-      content: `Halo! Saya **Asisten Pangan HargaKu**. Saya siap membantu menghitung resep masakan, membedah budget belanja, atau mengecek apakah tawaran harga pedagang di pasar wajar atau terkena mark-up.`,
+      content: `Halo! Saya **Asisten Pangan HargaKu**. Saya siap membantu menghitung resep masakan, membedah budget belanja, atau mengecek apakah tawaran harga pedagang di pasar wajar atau lebih mahal dari rata-rata.`,
       suggestedActions: [
         { label: 'Cek Harga Wajar', href: '/cek-harga' },
         { label: 'Keranjang Belanja', href: '/keranjang' },

@@ -4,7 +4,7 @@ export interface CartItem {
   unit: string;
   quantity: number; // in unit (e.g. 2 for 2 kg)
   avgPricePerUnit: number;
-  pricesByMarket: Record<string, number>; // marketId -> price per unit
+  pricesByMarket?: Record<string, number>; // marketId -> price per unit
 }
 
 export const INITIAL_CART_ITEMS: CartItem[] = [
