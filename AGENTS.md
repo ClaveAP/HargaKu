@@ -10,7 +10,7 @@ Untuk efisiensi context window dan token AI, **dilarang menumpuk penjelasan panj
 
 | Kebutuhan Informasi / Aturan | Dokumen Acuan Wajib | Keterangan Singkat |
 | :--- | :--- | :--- |
-| **Visi, Fitur, & Alur Produk** | [`docs/PRD.md`](docs/PRD.md) | Persona, alur 3 lapis harga, pilot Kota Bogor, fase lomba. |
+| **Visi, Fitur, & Alur Produk** | [`docs/PRD.md`](docs/PRD.md) | Persona, alur 3 lapis harga, cakupan 21 provinsi (64 pasar), fase lomba. |
 | **Batas Ruang Lingkup & Hal Terlarang** | [`docs/NON_GOALS.md`](docs/NON_GOALS.md) | Anti-scope creep, fitur/library yang dilarang pada MVP. |
 | **Struktur Database, Tabel, & Relasi** | [`docs/SCHEMA.md`](docs/SCHEMA.md) | Skema PostgreSQL: komoditas, pasar, harga resmi, laporan warga. |
 | **Kontrak REST API & Payload** | [`docs/API_SPEC.md`](docs/API_SPEC.md) | Endpoints, query params, format envelope response standar. |

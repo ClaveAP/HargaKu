@@ -21,7 +21,7 @@ Membangun aplikasi perlombaan sering gagal bukan karena kekurangan ide, melainka
 | **E-Commerce & Transaksi Jual-Beli Online** | HargaKu adalah platform informasi dan pendukung keputusan (*decision support*), bukan marketplace belanja/checkout. | Roadmap Pasca Lomba (Fase 3). |
 | **Scraping Liar / Agresif Tanpa Izin** | Rentan terblokir IP, melanggar ToS sumber resmi, dan tidak etis. Lebih baik gunakan ekspor resmi atau data simulasi berlabel. | Jika ada API resmi terbuka dari Bapanas/Disperindag. |
 | **Bot WhatsApp / Telegram Otomatis** | Memerlukan infrastruktur webhook, token berbayar Meta, dan pemeliharaan server tersendiri yang memecah fokus frontend/backend. | Roadmap Pitch (Konsep Masa Depan). |
-| **Multi-Kota / Ekspansi Nasional** | Fase pilot harus fokus mendalam dan terverifikasi di Kota Bogor (12–15 komoditas). Memperluas kota akan membuat data dangkal. | Pasca Lomba / Ekspansi Jabodetabek. |
+| **Ekspansi Kota Liar Tanpa Acuan Bapanas** | Penambahan kota wajib berakar pada 21 provinsi resmi Bapanas dalam 6 koridor pulau yang sudah terstandarisasi. Dilarang menambah kota acak tanpa basis data logistik resmi. | Sesuai rilis koridor zonasi pangan nasional. |
 | **AI Prediksi Harga / Machine Learning Kompleks** | Dataset historis singkat tidak cukup untuk melatih model time-series yang akurat. Fokus pada penyajian data riil & kalkulasi deviasi. | Roadmap Riset Lanjutan. |
 | **Sistem Akun User Publik yang Rumit (OAuth Google/Apple)** | Laporan warga cukup menggunakan verifikasi ringan (rate limit hash IP + captcha). Warga pasar enggan repot membuat akun untuk melapor. | Fase 2 jika ada sistem gamifikasi poin. |
 

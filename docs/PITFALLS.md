@@ -60,7 +60,22 @@ Dokumen ini adalah buku catatan "Jebakan Batman" (**Pitfall Vault**) proyek **Ha
 
 ---
 
-## 4. Format Angka Rupiah & Tabular Font Layout Shift
+## 5. UI Layout, Overflow Clipping & State Persistence
+
+### 5.1. Overflow Clipping & Stroke Potong pada Tabel Responsif
+- **Gejala**: Angka lingkaran nomor peringkat atau tombol aksi di tabel terpotong sebagian di sisi kiri atau kanan saat dibungkus kontainer `overflow-x-auto`.
+- **Penyebab**: Penggunaan `outline outline-1` bersudut lengkung yang digambar di luar bounding box, serta ketiadaan padding tepi (`pr` / `pl`).
+- **Solusi Terverifikasi**:
+  * Gunakan `border border-[#...]` alih-alih `outline`.
+  * Berikan padding horizontal yang cukup (`pl-3.5 sm:pl-4` di kolom pertama dan `pr-6` di kolom terakhir/aksi).
+
+### 5.2. Kehilangan State Keranjang saat Berpindah Halaman
+- **Gejala**: Pengguna menekan `[+ Masukkan ke Keranjang]` di Cek Harga Wajar, namun daftar belanja kosong saat membuka `/keranjang`.
+- **Penyebab**: Menyimpan daftar item keranjang pada `useState` lokal komponen container halaman yang ter-unmount saat rute berganti.
+- **Solusi Terverifikasi**:
+  * Bungkus seluruh rute publik dengan `CartProvider` (`src/lib/store/cart-store.tsx`) di level root `PublicLayoutWrapper`.
+  * Sinkronkan state keranjang ke `localStorage` (`hargaku_user_cart_items`) sehingga data persisten melintasi refresh browser dan navigasi.
+
 
 ### 4.1. Layout Shift (CLS) saat Angka Harga Beranimasi
 - **Gejala**: Card komoditas bergetar atau teks bergoyang saat harga berubah atau saat rendering client-side.

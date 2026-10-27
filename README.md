@@ -4,7 +4,7 @@
   ### *Tahu harga, beli tenang, jual adil.*
 
   [![Event](https://img.shields.io/badge/Competition-Web%20In%20Action%20(MIA%202026)-orange?style=flat)]()
-  [![Focus](https://img.shields.io/badge/Pilot-Kota%20Bogor-emerald?style=flat)]()
+  [![Scope](https://img.shields.io/badge/Cakupan-21%20Provinsi%20(64%20Pasar)-emerald?style=flat)]()
   [![Tech](https://img.shields.io/badge/Stack-Next.js%20%7C%20TypeScript%20%7C%20Tailwind%20%7C%20Prisma-blue?style=flat)]()
   [![Database](https://img.shields.io/badge/Database-PostgreSQL-336791?style=flat&logo=postgresql)]()
 
@@ -18,20 +18,21 @@
 
 Data resmi pemerintah (PIHPS Bank Indonesia dan Panel Harga Badan Pangan Nasional) sering kali tersaji dalam bentuk tabel agregat makro yang kaku dan berjarak dari kebutuhan riil pembeli di pasar. HargaKu hadir sebagai lapisan penerjemah (*actionable layer*) yang menggabungkan data resmi dengan **laporan partisipatif warga (crowdsourcing level pasar)** untuk menghasilkan wawasan langsung, peta harga antar-pasar, dan kalkulasi kewajaran harga secara transparan.
 
-### 🎯 Wilayah Pilot & Komoditas
-* **Wilayah Uji Coba**: **Kota Bogor** (Pasar Anyar, Pasar Bogor/Kebon Kembang, Pasar Gunung Batu, Pasar Merdeka, dll.).
+### 🎯 Cakupan Wilayah & Komoditas
+* **Cakupan Wilayah**: **Nasional (21 Provinsi dalam 6 Koridor Logistik Pulau)** dengan **64 sentra pasar tradisional**.
 * **12–15 Komoditas Strategis**: Beras medium, beras premium, minyak goreng (curah & MinyaKita), gula pasir, telur ayam ras, daging ayam ras, daging sapi, cabai merah keriting, cabai rawit merah, bawang merah, bawang putih, tomat, dan kol.
 
 ---
 
 ## ✨ Nilai Utama / Value Proposition
 
-1. **Cek Harga Wajar Instan**: Masukkan komoditas, pasar, dan harga yang ditawarkan. Sistem langsung menghitung deviasi terhadap acuan dan memberikan status visual: **Wajar (±10%)**, **Agak Mahal (+10% s.d. +25%)**, **Terlalu Mahal (>+25%)**, atau **Jauh Lebih Murah (<-15%)**.
+1. **Cek Harga Wajar Instan & Simpan ke Keranjang**: Masukkan komoditas, pasar, dan harga yang ditawarkan. Sistem langsung menghitung deviasi terhadap acuan dan memberikan status visual: **Wajar (±10%)**, **Agak Mahal (+10% s.d. +25%)**, **Terlalu Mahal (>+25%)**, atau **Jauh Lebih Murah (<-15%)**, serta tombol satu-klik untuk menyimpan barang ke keranjang belanja mingguan.
 2. **Konsep Tiga Lapis Harga**:
-   * **Lapis 1 — Harga Acuan Resmi**: HAP/HET Badan Pangan Nasional.
-   * **Lapis 2 — Rata-Rata Pasar Resmi**: Data survei harian PIHPS BI dan Bapanas.
-   * **Lapis 3 — Laporan Partisipatif Warga**: Verifikasi harga riil di level kios pasar dengan bukti foto teranonimasi.
-3. **Peta & Perbandingan Antar-Pasar**: Membantu warga memilih pasar paling hemat dan membantu pedagang kecil mengetahui acuan harga kulakan di pasar sekitar.
+   * **Lapis 1 — Harga Acuan Resmi**: HAP/HET Badan Pangan Nasional terkalibrasi zonasi pulau.
+   * **Lapis 2 — Rata-Rata Pasar Resmi**: Data survei harian pasar tradisional daerah (06:00 WIB).
+   * **Lapis 3 — Laporan Partisipatif Warga**: Verifikasi harga riil di level lapak pasar dengan bukti foto teranonimasi (EXIF metadata GPS otomatis disanitasi di peramban).
+3. **Peta Harga Spasial & Komparasi Rerata Wilayah**: Peta interaktif Leaflet dan tabel komparasi peringkat dari yang paling hemat ke tertinggi tanpa data stok palsu/fiktif.
+4. **Keranjang Belanja Multi-Wilayah & Bagikan WhatsApp**: Menghitung paket komparasi belanja mingguan antar pasar pada provinsi aktif, lengkap dengan tombol satu-klik ekspor format catatan belanja ke WhatsApp.
 
 ---
 

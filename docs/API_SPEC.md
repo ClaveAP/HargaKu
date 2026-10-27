@@ -198,8 +198,8 @@ Mengambil daftar pasar tradisional pada wilayah terpilih untuk dropdown dan mark
 
 ---
 
-### 3.5. `POST /api/v1/price-check` (Cek Harga Wajar & Deteksi Mark-up)
-Mengevaluasi apakah harga yang ditawarkan di pasar wajar atau terdapat indikasi mark-up berlebih.
+### 3.5. `POST /api/v1/price-check` (Cek Harga Wajar & Evaluasi Disparitas)
+Mengevaluasi apakah harga yang ditawarkan di pasar wajar atau terdapat disparitas harga berlebih.
 * **Request Body**:
 ```json
 {
@@ -216,7 +216,7 @@ Mengevaluasi apakah harga yang ditawarkan di pasar wajar atau terdapat indikasi 
   "comparisonPrice": 63000,
   "diffPercentage": 19.05,
   "status": "SLIGHTLY_EXPENSIVE",
-  "statusLabel": "Agak Mahal (Potensi Mark-up)",
+  "statusLabel": "Agak Mahal",
   "statusBadgeColor": "amber",
   "advice": "Harga ini lebih tinggi 19% dari rata-rata pasar setempat. Cobalah menawar mendekati Rp 63.000/kg atau cek alternatif pasar terdekat.",
   "confidenceLevel": "HIGH",
@@ -231,8 +231,8 @@ Mengevaluasi apakah harga yang ditawarkan di pasar wajar atau terdapat indikasi 
 ```
 * **Nilai Status Kemungkinan**:
   * `FAIR` (Wajar, deviasi -10% s.d. +10%)
-  * `SLIGHTLY_EXPENSIVE` (Agak Mahal / Potensi Mark-up Moderat, deviasi +10.01% s.d. +25%)
-  * `OVERPRICED` (Terlalu Mahal / Mark-up Tinggi, deviasi > +25%)
+  * `SLIGHTLY_EXPENSIVE` (Agak Mahal, deviasi +10.01% s.d. +25%)
+  * `OVERPRICED` (Terlalu Mahal, deviasi > +25%)
   * `MUCH_CHEAPER` (Jauh Lebih Murah, deviasi < -15%)
 
 ---

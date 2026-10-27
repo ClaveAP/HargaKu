@@ -8,7 +8,7 @@
 
 ## 1. Ringkasan satu paragraf
 
-HargaKu adalah website publik yang membantu pembeli dan pedagang kecil menjawab satu pertanyaan sederhana: **"Harga ini wajar atau tidak?"**. Data harga pangan sebenarnya sudah ada di platform pemerintah, tapi tersaji untuk analis, bukan untuk ibu-ibu di pasar atau pedagang sayur. HargaKu menyederhanakan data itu, menambahkan **laporan harga dari warga** di level pasar, lalu mengubahnya menjadi jawaban langsung lewat fitur **Cek Harga Wajar**, peta harga antar pasar, dan peringatan lonjakan harga. Fokus pilot: **Kota Bogor**, 12–15 komoditas utama.
+HargaKu adalah website publik yang membantu pembeli dan pedagang kecil menjawab satu pertanyaan sederhana: **"Harga ini wajar atau tidak?"**. Data harga pangan sebenarnya sudah ada di platform pemerintah, tapi tersaji untuk analis, bukan untuk ibu-ibu di pasar atau pedagang sayur. HargaKu menyederhanakan data itu, menambahkan **laporan harga dari warga** di level pasar, lalu mengubahnya menjadi jawaban langsung lewat fitur **Cek Harga Wajar**, peta harga antar pasar, keranjang belanja multi-wilayah dengan ekspor WhatsApp, dan peringatan lonjakan harga. Cakupan: **Nasional (21 Provinsi, 6 Koridor Pulau, 64 Sentra Pasar Tradisional)**, 12–15 komoditas pokok.
 
 ---
 

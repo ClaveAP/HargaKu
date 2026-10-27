@@ -50,6 +50,16 @@ Formula deviasi harga resmi Bapanas/PIHPS menentukan 4 pill status tanpa warna h
 | **Terlalu Mahal** | > +25% | `#FEE2E2` (Soft Rose) | `#991B1B` | `#FECACA` |
 | **Murah / Termurah** | < -10% Rerata | `#EEF773` (Clay Lime) | `#1B1A18` | `#1B1A18` / `#DCE6AF` |
 
+### 2.4. Standar Warna Indikator Tren Harga (Ticker, Card, & Tabel)
+| Arah Tren | Label Badge Ticker | Text Color (Light View) | Badge (Dark Ticker) | Border |
+| :--- | :--- | :--- | :--- | :--- |
+| **Harga Turun (Hemat)** | `▼ -X.X% Turun` | `#15803D` (Forest Emerald) | `#EEF773` di `bg-[#EEF773]/15` | `border-[#EEF773]/30` |
+| **Harga Naik** | `▲ +X.X% Naik` | `#DC2626` (Clean Rose Red) | `#FCA5A5` di `bg-[#DC2626]/20` | `border-[#EF4444]/40` |
+| **Harga Stabil** | `— Stabil` | `#6E6D67` (Neutral Stone) | `#D1CFCA` di `bg-white/10` | `border-white/15` |
+
+> [!TIP]
+> **Anti-Eyebrow Clutter Rule**: Dilarang meletakkan raw uppercase orange text di atas judul utama halaman (`h1`). Judul halaman harus berdiri mandiri, percaya diri, dan bersih tanpa distraksi visual.
+
 ---
 
 ## 3. Typography Hierarchy (Roobert Only, Node `YxnO0`)
@@ -105,10 +115,12 @@ Seluruh antarmuka **MANDATORI** menggunakan font **Roobert** (`Roobertvf` variab
   * Sub-headline `text-[16px]` penjelasan nilai produk.
   * Tombol CTA utama (Clay Lime B2 atau Clay Orange B1) + Tombol sekunder dengan ikon Phosphor.
   * Strip metrik kepercayaan (*Proof points*: Pasar-pasar tradisional terdaftar, update harian 06:00 WIB, inisiatif data publik gratis).
-* **Layout Kanan (Live Interactive Instrument)**:
-  * Kartu elevated white `bg-white rounded-[24px] outline outline-1 outline-[#E5E3DE] shadow-[0_12px_40px_rgba(0,0,0,0.06)]`.
-  * Header pemilih komoditas cepat & toggle tab instrumen (Kalkulator Takaran vs. Komparasi Antar Pasar).
-  * Komponen kalkulator takaran langsung berinteraksi dengan dataset pasar real-time tanpa reload.
+* **Layout Kanan (Live Interactive Instrument - Clay Foundations Aesthetic)**:
+  * Kartu elevated white konsisten: `bg-white rounded-[24px] outline outline-1 outline-[#E5E3DE] -outline-offset-1 shadow-[0_12px_40px_rgba(0,0,0,0.06)] overflow-hidden`.
+  * Header pemilih komoditas cepat: chip komoditas elegan dengan `outline outline-1 outline-[#E5E3DE]` dan state aktif `bg-[#1B1A18] text-white font-semibold shadow-xs`.
+  * Toggle tab instrumen (Kalkulator Takaran vs. Komparasi Antar Pasar): tab halus dengan pill aktif putih `bg-white text-[#1B1A18] font-semibold shadow-xs`.
+  * Komponen kalkulator takaran terkalibrasi otomatis per komoditas: input presisi dengan frame `bg-[#FAF9F5] outline outline-[1.5px] outline-[#1B1A18] rounded-[8px]` dan result box adaptif.
+  * Komponen komparasi pasar dibatasi Top 5 pasar terfilter per wilayah aktif (`selectedRegion`) untuk mencegah anomali kartu meregang ke bawah.
 
 
 
@@ -123,7 +135,8 @@ Seluruh antarmuka **MANDATORI** menggunakan font **Roobert** (`Roobertvf` variab
   * Action: Tombol B2 Signature Hero "Cek Harga".
 * **Master Footer**:
   * Background: `#FAF9F5` dengan border-top 1px `#E5E3DE`.
-  * Grid: Kolom Brand Info (Logo, deskripsi Bogor, copyright 2026), Transparansi Data, Fitur Warga, dan Legal/Kontak.
+  * Grid: Kolom Brand Info (Logo, deskripsi nasional, copyright 2026), Menu Utama, dan Sumber Data Resmi.
+  * Footnote: Bersih dan berwibawa: *"Inisiatif transparansi pangan publik — Tanpa bias komersial."* (Link internal/admin telah ditiadakan dari footer publik).
 
 ---
 
@@ -165,6 +178,23 @@ Seluruh antarmuka **MANDATORI** menggunakan font **Roobert** (`Roobertvf` variab
   * Menampilkan pasar-pasar aktif secara dinamis sesuai koridor pulau yang sedang dipilih.
 * **Kartu Konteks Dampak Publik**: Menampilkan identitas pasar, nama provinsi publik, indeks biaya logistik kargo laut (disparitas HAP), dan keterangan keterhubungan live dengan website publik.
 * **Modal Pasar Multi-Wilayah (`MarketFormModal.tsx`)**: Wajib menyertakan pemilih `Provinsi / Wilayah Pangan` (`MOCK_REGIONS`) agar setiap pasar baru otomatis terpetakan ke `regionId` yang valid.
+
+---
+
+## 7. Peta Spasial & Keranjang Belanja Spec
+
+### 7.1. Peta Pasar & Tabel Komparasi Harga
+* **Spasial Interaktif**: Menggunakan Leaflet.js dengan marker terpusat otomatis (*auto-center & zoom*) pada koordinat provinsi aktif.
+* **Tabel Peringkat Pasar Transparan**:
+  * Kolom: `Peringkat & Pasar`, `Harga Lapak / kg`, `Rerata Wilayah`, `Selisih (%)`, `Laporan Warga`, `Aksi`.
+  * Menghapus indikator stok gudang/toko untuk menghindari misinformasi publik. Fokus 100% pada perbandingan harga lapak vs harga rata-rata acuan wilayah.
+* **Mode Ringan (Tabel Langsung)**: Toggle cepat untuk pengguna dengan koneksi internet terbatas tanpa memuat peta Leaflet.
+
+### 7.2. Keranjang Belanja & Fitur Berbagi Catatan
+* **Store Keranjang Terpusat**: Menggunakan `CartProvider` yang tersinkronisasi otomatis dengan `localStorage` (`hargaku_user_cart_items`).
+* **Integrasi Cek Harga Wajar $\rightarrow$ Keranjang**: Hasil evaluasi kewajaran belanja di lapak menyediakan tombol satu-klik `[+ Masukkan ke Keranjang Belanja]` dengan status konfirmasi instan.
+* **Komparasi Dinamis Multi-Wilayah**: Otomatis membandingkan total belanja paket komoditas di seluruh pasar tradisional pada wilayah/provinsi yang sedang aktif dipilih di navbar.
+* **Ekspor Catatan Belanja WhatsApp**: Tombol satu-klik `bg-[#25D366]` untuk menyalin rincian belanja, pasar paling hemat, dan estimasi total biaya ke clipboard serta membuka WhatsApp Web/App secara otomatis.
 
 
 

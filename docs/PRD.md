@@ -8,7 +8,7 @@ Dokumen ini mendefinisikan visi produk, persona pengguna, arsitektur modul fitur
 
 ### 1.1. Latar Belakang Masalah
 * **Asimetri Informasi & Buta Harga**: Warga sering mengeluhkan harga bahan pokok yang terasa mahal, namun tidak memiliki cara mudah untuk mengetahui apakah harga komoditas tersebut memang sedang naik atau turun secara riil tanpa harus datang langsung ke pasar atau ke lapangan.
-* **Kerentanan Terhadap Mark-up Pedagang**: Ketika berbelanja di pasar tradisional, pembeli tidak memiliki patokan acuan objektif. Akibatnya, pembeli rentan dipatok harga sepihak (*mark-up*) yang berlebihan oleh pedagang tanpa mereka sadari.
+* **Kerentanan Terhadap Disparitas Harga Pedagang**: Ketika berbelanja di pasar tradisional, pembeli tidak memiliki patokan acuan objektif. Akibatnya, pembeli rentan dipatok harga sepihak yang berlebihan oleh pedagang tanpa mereka sadari.
 * **Format Data Pemerintah Sulit Dipahami**: Informasi harga pangan resmi dari pemerintah (PIHPS Bank Indonesia dan Panel Harga Bapanas) tersedia di internet, namun disajikan dalam format tabel agregat makro/analis ekonomi yang kaku dan membingungkan orang awam.
 * **Keterbatasan Cakupan Survei**: PIHPS hanya menyurvei 2 pasar utama per kota/kabupaten dengan 2 pedagang per komoditas, tanpa melibatkan partisipasi warga lokal secara langsung.
 
@@ -21,13 +21,13 @@ HargaKu hadir sebagai **pendamping belanja pangan cerdas** yang memberikan acuan
    - **Pulau Sulawesi**: Sulawesi Selatan, Sulawesi Utara (Lumbung beras & jagung KTI `1.08x`).
    - **Kepulauan Bali & Nusa Tenggara**: Bali, Nusa Tenggara Barat, Nusa Tenggara Timur (`1.06x` – `1.12x`).
    - **Kepulauan Maluku & Papua**: Maluku, Papua (Ketergantungan tol laut `1.20x` – `1.25x`).
-   *Keuntungan Utama*: Warga di seluruh pelosok provinsi terwakili dengan adil tanpa dibatasi hanya segelintir kota, serta mencegah pedagang nakal mengkambinghitamkan "ongkos kapal" untuk mematok mark-up spekulatif.
+   *Keuntungan Utama*: Warga di seluruh pelosok provinsi terwakili dengan adil tanpa dibatasi hanya segelintir kota, serta mencegah pedagang nakal mengkambinghitamkan "ongkos kapal" untuk mematok harga spekulatif.
 2. **Lapis 2 — Rata-Rata Pasar Daerah (PIHPS BI & Bapanas)**: Survei harian resmi di pasar-pasar tradisional sentra pada provinsi yang dipilih pengguna.
 3. **Lapis 3 — Laporan Partisipatif Warga (Crowdsourcing)**: Harga riil di level lapak pasar lokal yang dilaporkan langsung oleh warga dengan bukti foto nota/timbangan terverifikasi.
 
 #### Dua Momen Kunci Penggunaan (*The Two Critical Moments*)
-* **Momen 1 — Dari Rumah (Pra-Belanja)**: Sebelum berangkat ke pasar, warga mengecek apakah komoditas tertentu sedang naik atau turun hari ini di provinsinya, melihat estimasi anggaran, dan memilih pasar tradisional mana yang paling hemat.
-* **Momen 2 — Di Depan Lapak (Saat Belanja)**: Saat pedagang menawarkan harga ("Cabai Rp 80.000/kg"), warga langsung memasukkan nominal tersebut ke fitur **Cek Harga Wajar** di HP $\rightarrow$ dalam hitungan detik sistem mendeteksi apakah harga tersebut wajar atau pedagang melakukan *mark-up* berlebihan di atas acuan provinsi bersangkutan.
+* **Momen 1 — Dari Rumah (Pra-Belanja)**: Sebelum berangkat ke pasar, warga mengecek apakah komoditas tertentu sedang naik atau turun hari ini di provinsinya, melihat estimasi anggaran di Keranjang Belanja, dan memilih pasar tradisional mana yang paling hemat.
+* **Momen 2 — Di Depan Lapak (Saat Belanja)**: Saat pedagang menawarkan harga ("Cabai Rp 80.000/kg"), warga langsung memasukkan nominal tersebut ke fitur **Cek Harga Wajar** di HP $\rightarrow$ dalam hitungan detik sistem mendeteksi apakah harga tersebut wajar atau pedagang mematok harga berlebihan di atas acuan provinsi bersangkutan, dan dapat langsung menyimpannya ke Keranjang Belanja.
 
 ### 1.3. Cakupan Wilayah & Penempatan UI Selector
 * **Cakupan Wilayah**: **Standarisasi Tingkat Provinsi Berbasis 6 Koridor Pulau**. Pengguna dapat memilih provinsi dengan acuan resmi Bapanas.
@@ -58,7 +58,7 @@ HargaKu hadir sebagai **pendamping belanja pangan cerdas** yang memberikan acuan
 * **Key Flow**:
   1. **Sebelum Berangkat (Dari Rumah)**: Membuka HargaKu, memilih daerahnya (misal: "Kota Bogor"), melihat grafik tren harian di Dashboard apakah cabai atau telur sedang naik atau turun minggu ini.
   2. **Saat di Pasar (Depan Lapak)**: Ditawari cabai rawit Rp 75.000/kg oleh pedagang. Bu Retno membuka **Cek Harga Wajar**, memilih komoditas dan pasar tempat ia belanja, lalu memasukkan harga Rp 75.000.
-  3. **Hasil Instan**: Sistem menampilkan status: **"▲ Agak Mahal / Potensi Mark-up (+15% di atas acuan wajar daerah)"** dengan acuan HAP terkalibrasi Rp 65.000.
+  3. **Hasil Instan**: Sistem menampilkan status: **"▲ Agak Mahal (+15% di atas acuan wajar daerah)"** dengan acuan HAP terkalibrasi Rp 65.000, serta tombol instan untuk menyimpannya ke Keranjang Belanja.
   4. Bu Retno dapat menawar dengan percaya diri menggunakan acuan resmi atau beralih ke lapak/pasar lain.
 
 ### Persona 2: Pak Jajang (Pedagang Sayur Keliling / Warung)
@@ -70,7 +70,7 @@ HargaKu hadir sebagai **pendamping belanja pangan cerdas** yang memberikan acuan
   3. Membuka **Peta Harga** untuk mengecek perbandingan harga kulakan antar pasar di kotanya.
 
 ### Persona 3: Tim Admin / Moderator HargaKu
-* **Profil**: Administrator platform & relawan pemerhati harga pangan.
+* **Profil**: Administrator platform & tim pemantau harga pangan.
 * **Goals**: Memoderasi kiriman laporan harga dari warga agar data tetap kredibel dan bebas dari manipulasi/spam.
 * **Key Flow**:
   1. Login ke panel `/admin`.
@@ -93,18 +93,19 @@ HargaKu hadir sebagai **pendamping belanja pangan cerdas** yang memberikan acuan
 * Grafik tren pergerakan harga 7–30 hari terakhir untuk memantau siklus inflasi pangan.
 * Filter berdasarkan kategori pangan (Beras, Cabai/Bawang, Daging/Telur, Minyak/Gula).
 
-### Modul 3: Cek Harga Wajar & Deteksi Mark-up (Fase A — Fitur Inti)
+### Modul 3: Cek Harga Wajar & Evaluasi Disparitas (Fase A — Fitur Inti)
 * Form input sederhana: Pilih Komoditas ➔ Pilih Wilayah/Pasar ➔ Masukkan Harga Penawaran di Lapak.
-* **Logika Kalkulasi & Indikator Status Mark-up**:
+* **Logika Kalkulasi & Indikator Status Kewajaran**:
   1. **Harga Pembanding**:
      * Prioritas 1: Median laporan warga terverifikasi di pasar tersebut (7 hari terakhir, min. 3 laporan) ➔ Tingkat Kepercayaan: **Tinggi**.
      * Prioritas 2: Rata-rata survei resmi pasar harian (PIHPS/Bapanas daerah) ➔ Tingkat Kepercayaan: **Sedang**.
      * Prioritas 3: Standarisasi Nasional HAP/HET Bapanas terkalibrasi Zonasi Wilayah ➔ Tingkat Kepercayaan: **Dasar/Regulasi**.
-  2. **Klasifikasi Status & Deteksi Mark-up**:
+  2. **Klasifikasi Status**:
      * Deviasi dalam rentang `[-10% s.d. +10%]`: **Wajar** (Badge Hijau/Lime — Harga sesuai standar pasar).
-     * Deviasi `[+10% s.d. +25%]`: **Agak Mahal** (Badge Oranye — Terindikasi mark-up moderat).
-     * Deviasi `> +25%`: **Terlalu Mahal / Mark-up Tinggi** (Badge Merah — Peringatan mark-up spekulatif).
+     * Deviasi `[+10% s.d. +25%]`: **Agak Mahal** (Badge Oranye/Amber — Terindikasi di atas harga rata-rata).
+     * Deviasi `> +25%`: **Terlalu Mahal** (Badge Merah — Peringatan harga terlalu tinggi).
      * Deviasi `< -15%`: **Jauh Lebih Murah** (Badge Biru — Peringatan cek kesegaran atau akurasi timbangan pedagang).
+  3. **Integrasi ke Keranjang**: Tombol instan `[+ Masukkan ke Keranjang Belanja]` untuk menyimpan komoditas yang dicek ke daftar belanja mingguan.
 
 ### Modul 4: Halaman Tentang & Sumber Data (Fase A)
 * Pernyataan transparansi metodologi data.
@@ -114,25 +115,28 @@ HargaKu hadir sebagai **pendamping belanja pangan cerdas** yang memberikan acuan
 ### Modul 5: Lapor Harga Warga / Crowdsourcing (Fase B)
 * Form pelaporan harga warga di kios pasar tertentu.
 * Unggah foto bukti (nota/kios/papan harga).
-* **Keamanan & Privasi**: Penghapusan metadata EXIF dan lokasi presisi perangkat secara otomatis di backend; enkripsi hash IP untuk pencegahan spam (*rate limiting*).
+* **Keamanan & Privasi**: Penghapusan metadata EXIF dan lokasi presisi perangkat secara otomatis di browser sebelum upload; enkripsi hash IP untuk pencegahan spam (*rate limiting*).
 * Status moderasi: `PENDING`, `APPROVED`, `REJECTED`.
 
 ### Modul 6: Peta Harga Antar-Pasar (Fase B)
-* Peta interaktif (Leaflet) yang menampilkan titik-titik pasar tradisional sesuai wilayah/kota yang dipilih.
-* Visualisasi harga komoditas terpilih per pasar (lingkaran warna hijau = paling hemat/wajar, oranye = agak mahal, merah = harga tertinggi/mark-up).
+* Peta interaktif (Leaflet) yang menampilkan titik-titik pasar tradisional sesuai wilayah/kota yang dipilih (64 sentra pasar nasional).
+* Tabel peringkat pasar terurut dari paling hemat ke tertinggi dengan kolom berdampingan: `Harga Lapak`, `Rerata Wilayah`, dan `Selisih (%)`.
+* Mode Ringan (*Tabel Langsung*) untuk akses cepat dan rute navigasi langsung ke Google Maps.
 
-### Modul 7: Kalkulator Keranjang Belanja (Fase B)
-* Pengguna dapat memilih beberapa bahan belanjaan sekaligus (misal: 1 kg beras, 0.5 kg telur, 250 gr cabai).
-* Sistem mengalkulasi total perkiraan belanja di Pasar A vs Pasar B.
+### Modul 7: Kalkulator Keranjang Belanja & Bagikan Catatan (Fase B)
+* Pengguna dapat memilih beberapa bahan belanjaan sekaligus (misal: 5 kg beras, 1 kg telur, 250 gr cabai, 2 liter minyak).
+* Komparasi dinamis multi-wilayah: sistem otomatis menghitung total belanja di pasar-pasar terdaftar pada wilayah/provinsi aktif.
+* Rekomendasi pasar paling hemat dan potensi penghematan nominal.
+* **Fitur Berbagi WhatsApp**: Satu klik untuk menyalin format catatan belanja rapi ke clipboard dan membuka aplikasi WhatsApp.
 
 ### Modul 8: Portal Admin Moderasi & CRUD Dashboard Terpadu (Fase B)
-* **Tata Letak Sidebar SaaS**: Konsol kerja terpadu bagi administrator & petugas TPID Disperindag.
-* **Modul Moderasi Laporan Warga**: Peninjauan antrean laporan warga, inspeksi foto nota berlabel *EXIF Sanitized*, pendeteksian anomali statistik MAD, dan aksi persetujuan/penolakan.
+* **Tata Letak Sidebar SaaS**: Konsol kerja terpadu bagi administrator & tim pemantau pasar.
+* **Modul Moderasi Laporan Warga**: Peninjauan antrean laporan warga, inspeksi foto nota berlabel privasi, pendeteksian anomali statistik MAD, dan aksi persetujuan/penolakan.
 * **CRUD Master Komoditas Pangan**: Tambah, edit, aktifkan/nonaktifkan komoditas, penyesuaian harga acuan HAP/HET Bapanas, dan pengaturan ambang batas toleransi.
-* **CRUD Pasar Tradisional**: Tambah, edit, kelola titik koordinat peta GPS Leaflet, jam operasional bongkar muat, dan komoditas sentra unggulan pasar.
+* **CRUD Pasar Tradisional**: Tambah, edit, kelola titik koordinat peta GPS Leaflet, jam operasional bongkar muat, dan komoditas sentra unggulan pasar di 21 wilayah.
 * **Fast-Entry Entri Harga Resmi Harian**: Matriks input cepat harga survei resmi harian (06:00 WIB) per pasar untuk memperbarui data rata-rata kota yang langsung tampil di website publik.
 * **Ringkasan Kesehatan Data**: Monitoring kelengkapan input harga harian dan antrean moderasi.
-* **Profil Petugas & Manajemen Sesi**: Dropdown identitas akun, NIP, instansi Disperindag Kota Bogor, modal profil & keamanan kata sandi, dan mekanisme logout/keluar aman.
+* **Profil Petugas & Manajemen Sesi**: Dropdown identitas akun, modal profil & keamanan kata sandi, dan mekanisme logout/keluar aman.
 
 ### Modul 9: Asisten Pangan AI (Konsultan Belanja & Anggaran Dapur Interaktif)
 * **Persona & Peran**: "Asisten Pangan Cerdas HargaKu" — bot konsultasi belanja pangan ramah keluarga dan pedagang yang *grounded* pada dataset resmi Bapanas, PIHPS BI, dan koridor wilayah aktif (`selectedRegion`).
