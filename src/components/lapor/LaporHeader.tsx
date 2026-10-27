@@ -6,13 +6,7 @@ export function LaporHeader() {
   const { selectedRegion } = useRegion();
 
   return (
-    <div className="flex flex-col gap-2.5 pb-2">
-      <div className="flex items-center gap-2">
-        <span className="text-[11px] font-bold text-[#FF7714] uppercase tracking-wider">
-          Partisipasi Warga · {selectedRegion.name} ({selectedRegion.islandName})
-        </span>
-      </div>
-
+    <div className="flex flex-col gap-2 pb-2">
       <h1 className="text-[32px] sm:text-[40px] font-medium text-[#1B1A18] leading-[1.12] tracking-tight">
         Kirim Laporan Harga Lapak Pasar
       </h1>

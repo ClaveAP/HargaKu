@@ -27,7 +27,6 @@ interface Props {
   onSelectMarket: (id: string) => void;
   commodityName: string;
   commoditySlug: string;
-  visualIndicator: string;
 }
 
 export function PetaSpatialStage({
@@ -35,7 +34,6 @@ export function PetaSpatialStage({
   selectedMarketId,
   onSelectMarket,
   commoditySlug,
-  visualIndicator,
 }: Props) {
   const selectedMarket =
     markets.find((m) => m.marketId === selectedMarketId) || markets[0];
@@ -81,8 +79,8 @@ export function PetaSpatialStage({
           <span className="text-[11px] font-semibold text-[#8E8D86]">
             Indikator:
           </span>
-          <span className="text-[11px] font-bold text-[#1B1A18] bg-[#FAF9F5] px-2 py-0.5 rounded-full outline outline-1 outline-[#E5E3DE]">
-            {visualIndicator === 'price' ? 'Harga Terkini Lapak' : 'Ketersediaan Stok'}
+          <span className="text-[11px] font-bold text-[#15803D] bg-[#F4FDF4] px-2 py-0.5 rounded-full outline outline-1 outline-[#DCFCE7]">
+            Harga Terkini Lapak
           </span>
         </div>
       </div>
@@ -131,7 +129,7 @@ export function PetaSpatialStage({
                 </span>
               )}
               <span className="text-[12px] text-[#6E6D67]">
-                Stok: <strong className="text-[#1B1A18] font-semibold">{selectedMarket.stock}</strong>
+                Rerata: <strong className="text-[#1B1A18] font-semibold">{formatRupiah(selectedMarket.regionalAvgPrice ?? selectedMarket.price)}</strong>
               </span>
               <span className="text-[12px] text-[#6E6D67]">
                 · {selectedMarket.reportsCount} Laporan Warga

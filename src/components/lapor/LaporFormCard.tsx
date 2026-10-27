@@ -4,7 +4,6 @@ import { useState, useId } from 'react';
 import {
   CaretDown,
   UploadSimple,
-  ShieldCheck,
   Check,
   X,
   FileText,
@@ -248,17 +247,11 @@ export function LaporFormCard({
         </div>
       </div>
 
-      {/* Upload Bukti Foto (EXIF Sanitized) */}
+      {/* Upload Bukti Foto */}
       <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <label className="text-[12px] font-semibold text-[#1B1A18]">
-            Foto Bukti Nota / Timbangan <span className="font-normal text-[#8E8D86]">(Opsional)</span>
-          </label>
-          <span className="text-[11px] font-bold text-[#15803D] flex items-center gap-1">
-            <ShieldCheck size={14} weight="bold" />
-            <span>EXIF Sanitized</span>
-          </span>
-        </div>
+        <label className="text-[12px] font-semibold text-[#1B1A18]">
+          Foto Bukti Nota / Timbangan <span className="font-normal text-[#8E8D86]">(Opsional)</span>
+        </label>
 
         {photoFile ? (
           <div className="p-3 rounded-[12px] bg-[#FAF9F5] outline outline-1 outline-[#E5E3DE] flex items-center justify-between">

@@ -134,10 +134,6 @@ export function ClayMarketMapSection() {
         {/* Header Row */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="flex flex-col gap-4">
-            <div className="inline-flex items-center px-3.5 py-1.5 bg-white outline outline-1 outline-[#E5E3DE] rounded-full text-[12px] font-medium text-[#1B1A18] w-fit shadow-xs">
-              <span>Terminal Spasial Pasar · {selectedRegion.name}</span>
-            </div>
-
             <h2 className="text-[32px] sm:text-[40px] font-medium text-[#1B1A18] leading-[1.15] tracking-tight max-w-[640px] text-balance">
               Bandingkan sentra pangan terdekat sebelum berangkat belanja.
             </h2>

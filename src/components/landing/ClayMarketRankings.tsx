@@ -25,6 +25,9 @@ export function ClayMarketRankings({
   averagePrice,
   ranks,
 }: Props) {
+  // Cap at top 5 to prevent vertical layout stretching
+  const displayedRanks = ranks.slice(0, 5);
+
   return (
     <div className="w-full flex flex-col gap-3.5">
       <div className="w-full flex items-center justify-between">
@@ -37,8 +40,8 @@ export function ClayMarketRankings({
       </div>
 
       <div className="w-full flex flex-col bg-[#FAF9F5] outline outline-1 outline-[#E5E3DE] -outline-offset-1 rounded-[10px] overflow-hidden">
-        {ranks.map((item, idx) => {
-          const isLast = idx === ranks.length - 1;
+        {displayedRanks.map((item, idx) => {
+          const isLast = idx === displayedRanks.length - 1;
           const isPositive = item.diffPercent > 0;
           const isNegative = item.diffPercent < 0;
 
@@ -63,11 +66,11 @@ export function ClayMarketRankings({
                   {formatRupiah(item.price)}
                 </span>
                 <span
-                  className={`text-[11px] font-medium tabular-nums ${
+                  className={`text-[11px] font-semibold tabular-nums ${
                     isNegative
-                      ? 'text-[#1B1A18] font-semibold'
+                      ? 'text-[#15803D]'
                       : isPositive
-                      ? 'text-[#B45309]'
+                      ? 'text-[#DC2626]'
                       : 'text-[#6E6D67]'
                   }`}
                 >

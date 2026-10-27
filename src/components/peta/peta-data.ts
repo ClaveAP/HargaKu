@@ -9,9 +9,10 @@ export interface PetaMarketPrice {
   xPercent: number; // coordinate percentage on SVG map fallback
   yPercent: number;
   price: number;
+  regionalAvgPrice?: number;
   diffPercent: number; // deviation from city average
   status: 'cheaper' | 'average' | 'expensive';
-  stock: 'Melimpah' | 'Cukup' | 'Terbatas';
+  stock?: 'Melimpah' | 'Cukup' | 'Terbatas';
   reportsCount: number;
   lastUpdated: string;
   googleMapsUrl: string;
@@ -22,7 +23,7 @@ export interface PetaCommodityOption {
   name: string;
   unit: string;
   cityAvgPrice: number;
-  markets: Record<string, Omit<PetaMarketPrice, 'marketId' | 'name' | 'shortName' | 'district' | 'address' | 'latitude' | 'longitude' | 'xPercent' | 'yPercent' | 'googleMapsUrl'>>;
+  markets: Record<string, Omit<PetaMarketPrice, 'marketId' | 'name' | 'shortName' | 'district' | 'address' | 'latitude' | 'longitude' | 'xPercent' | 'yPercent' | 'googleMapsUrl' | 'regionalAvgPrice'>>;
 }
 
 export const PETA_MARKETS_INFO = [

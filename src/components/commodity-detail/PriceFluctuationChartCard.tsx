@@ -121,9 +121,11 @@ export function PriceFluctuationChartCard({ detail }: Props) {
                   style={{
                     height: `${Math.max(15, barHeight)}%`,
                     backgroundColor: isLast
-                      ? '#FF7714'
+                      ? isOverHap
+                        ? '#DC2626'
+                        : '#15803D'
                       : isOverHap
-                      ? '#D97706'
+                      ? '#F87171'
                       : '#D6D4CE',
                   }}
                   title={`${item.day}: Rp ${item.price.toLocaleString('id-ID')}`}

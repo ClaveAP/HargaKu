@@ -5,14 +5,14 @@ import { WarningCircle, ArrowRight } from '@phosphor-icons/react';
 
 export function PriceSurgeAlertBanner() {
   return (
-    <div className="w-full rounded-[16px] bg-[#FFF3ED] outline outline-1 outline-[#FCC9AB] p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xs">
+    <div className="w-full rounded-[16px] bg-[#FEF2F2] outline outline-1 outline-[#FECACA] p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xs">
       <div className="flex items-start sm:items-center gap-3.5">
-        <div className="flex items-center justify-center shrink-0 w-8 h-8 rounded-full bg-[#FF7714]/15 text-[#FF7714]">
+        <div className="flex items-center justify-center shrink-0 w-8 h-8 rounded-full bg-[#DC2626]/15 text-[#DC2626]">
           <WarningCircle size={20} weight="fill" />
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 flex-wrap">
-          <span className="inline-flex items-center px-2 py-0.5 rounded-[4px] bg-[#FF7714] text-white text-[11px] font-bold w-fit">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-[4px] bg-[#DC2626] text-white text-[11px] font-bold w-fit">
             Lonjakan Harga
           </span>
 
@@ -30,7 +30,7 @@ export function PriceSurgeAlertBanner() {
 
       <Link
         href="/komoditas/cabai-merah-keriting"
-        className="inline-flex items-center gap-1.5 text-[12px] font-bold text-[#FF7714] hover:text-[#B53D0A] transition-colors shrink-0"
+        className="inline-flex items-center gap-1.5 text-[12px] font-bold text-[#DC2626] hover:text-[#991B1B] transition-colors shrink-0"
       >
         <span>Bandingkan Pasar</span>
         <ArrowRight size={13} weight="bold" />

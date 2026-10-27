@@ -42,8 +42,8 @@ export function PetaMarketRankTable({
             <tr className="border-b border-[#E5E3DE] text-[11px] font-bold text-[#8E8D86] uppercase tracking-wider">
               <th className="py-2.5 pl-3.5 sm:pl-4 pr-4">Peringkat & Pasar</th>
               <th className="py-2.5 px-4 text-right">Harga Lapak / kg</th>
-              <th className="py-2.5 px-4 text-center">Selisih vs Rerata</th>
-              <th className="py-2.5 px-4 text-center">Stok</th>
+              <th className="py-2.5 px-4 text-right">Rerata Wilayah</th>
+              <th className="py-2.5 px-4 text-center">Selisih</th>
               <th className="py-2.5 px-4 text-right">Laporan Warga</th>
               <th className="py-2.5 pr-3.5 sm:pr-4 pl-4 text-right">Aksi</th>
             </tr>
@@ -96,10 +96,15 @@ export function PetaMarketRankTable({
                     {formatRupiah(m.price)}
                   </td>
 
+                  {/* Regional Average Price */}
+                  <td className="py-3.5 px-4 text-right font-medium text-[#6E6D67] tabular-nums text-[13px]">
+                    {formatRupiah(m.regionalAvgPrice ?? m.price)}
+                  </td>
+
                   {/* Deviation */}
                   <td className="py-3.5 px-4 text-center">
                     {m.diffPercent < 0 ? (
-                      <span className="inline-block px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#F4F3F0] text-[#1B1A18] outline outline-1 outline-[#E5E3DE] tabular-nums">
+                      <span className="inline-block px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#F4FDF4] text-[#15803D] outline outline-1 outline-[#DCFCE7] tabular-nums">
                         {m.diffPercent}%
                       </span>
                     ) : m.diffPercent === 0 ? (
@@ -111,13 +116,6 @@ export function PetaMarketRankTable({
                         +{m.diffPercent}%
                       </span>
                     )}
-                  </td>
-
-                  {/* Stock */}
-                  <td className="py-3.5 px-4 text-center">
-                    <span className="text-[12px] font-medium text-[#1B1A18]">
-                      {m.stock}
-                    </span>
                   </td>
 
                   {/* Reports Count */}

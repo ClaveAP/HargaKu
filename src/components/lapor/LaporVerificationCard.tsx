@@ -15,12 +15,6 @@ export function LaporVerificationCard() {
       {/* 3 Steps Pipeline Card */}
       <div className="bg-white rounded-[20px] outline outline-1 outline-[#E5E3DE] p-5 sm:p-6 shadow-xs flex flex-col gap-5">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-[#FF7714]" />
-            <span className="text-[11px] font-bold text-[#FF7714] uppercase tracking-wider">
-              Pipeline Verifikasi TPID
-            </span>
-          </div>
           <h2 className="text-[17px] font-bold text-[#1B1A18] tracking-tight">
             Bagaimana Laporanmu Diproses?
           </h2>

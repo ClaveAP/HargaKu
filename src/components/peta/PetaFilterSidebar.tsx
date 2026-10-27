@@ -7,8 +7,6 @@ interface Props {
   commodities: CommoditySummary[];
   selectedCommodityId: string;
   onCommodityChange: (id: string) => void;
-  visualIndicator: string;
-  onVisualIndicatorChange: (val: string) => void;
   isLightMode: boolean;
   onToggleLightMode: () => void;
 }
@@ -17,8 +15,6 @@ export function PetaFilterSidebar({
   commodities,
   selectedCommodityId,
   onCommodityChange,
-  visualIndicator,
-  onVisualIndicatorChange,
   isLightMode,
   onToggleLightMode,
 }: Props) {
@@ -45,28 +41,6 @@ export function PetaFilterSidebar({
                   {c.name}
                 </option>
               ))}
-            </select>
-            <CaretDown
-              size={13}
-              weight="bold"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8C8B85] pointer-events-none"
-            />
-          </div>
-        </div>
-
-        {/* Indikator Visual */}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-[12px] font-semibold text-[#1B1A18]">
-            Indikator Visual
-          </label>
-          <div className="relative">
-            <select
-              value={visualIndicator}
-              onChange={(e) => onVisualIndicatorChange(e.target.value)}
-              className="w-full appearance-none pl-3.5 pr-8 py-2.5 rounded-[10px] bg-white outline outline-1 outline-[#E5E3DE] text-[13px] text-[#1B1A18] font-medium shadow-xs focus:outline-[#1B1A18] cursor-pointer"
-            >
-              <option value="price">Harga Terkini Hari Ini</option>
-              <option value="stock">Estimasi Ketersediaan Stok</option>
             </select>
             <CaretDown
               size={13}

@@ -21,7 +21,6 @@ export function PetaContainer({ initialCommodities }: Props) {
     PETA_COMMODITIES[0].id
   );
   const [selectedMarketId, setSelectedMarketId] = useState<string>('');
-  const [visualIndicator, setVisualIndicator] = useState<string>('price');
   const [isLightMode, setIsLightMode] = useState<boolean>(false);
 
   // Dynamic markets for the selected region
@@ -80,9 +79,9 @@ export function PetaContainer({ initialCommodities }: Props) {
       xPercent: 50,
       yPercent: 50,
       price: computedPrice,
+      regionalAvgPrice: baseRegionalPrice,
       diffPercent,
       status,
-      stock: idx % 2 === 0 ? 'Melimpah' : 'Cukup',
       reportsCount: 6 + (idx * 3),
       lastUpdated: '06:00 WIB',
       googleMapsUrl: `https://maps.google.com/?q=${encodeURIComponent(`${info.name} ${info.city}`)}`,
@@ -102,8 +101,6 @@ export function PetaContainer({ initialCommodities }: Props) {
           commodities={initialCommodities}
           selectedCommodityId={selectedCommodityId}
           onCommodityChange={setSelectedCommodityId}
-          visualIndicator={visualIndicator}
-          onVisualIndicatorChange={setVisualIndicator}
           isLightMode={isLightMode}
           onToggleLightMode={() => setIsLightMode(!isLightMode)}
         />
@@ -119,7 +116,6 @@ export function PetaContainer({ initialCommodities }: Props) {
               onSelectMarket={setSelectedMarketId}
               commodityName={activeCommodity.name}
               commoditySlug={activeCommodity.id}
-              visualIndicator={visualIndicator}
             />
             <PetaMarketRankTable
               markets={marketsWithPrice}

@@ -15,10 +15,6 @@ export function ClayClosingCtaSection() {
       <div className="max-w-[1240px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
         {/* Left: Narrative & Action */}
         <div className="w-full lg:w-[54%] flex flex-col items-start gap-6">
-          <div className="inline-flex items-center px-3.5 py-1.5 bg-white outline outline-1 outline-[#E5E3DE] rounded-full text-[12px] font-medium text-[#1B1A18] shadow-xs">
-            <span>Partisipasi Konsumen &amp; Warga Cerdas</span>
-          </div>
-
           <h2 className="text-[32px] sm:text-[40px] lg:text-[44px] font-medium text-[#1B1A18] leading-[1.12] tracking-tight text-balance">
             Punya struk belanja atau info harga lapak pagi ini?
           </h2>

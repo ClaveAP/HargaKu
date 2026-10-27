@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { formatRupiah } from '@/lib/price-logic';
 
 export interface TakaranOption {
@@ -22,6 +22,11 @@ interface Props {
   averagePricePerKg: number;
 }
 
+function calculateDefaultPrice(avgPrice: number, multiplier: number): number {
+  if (!avgPrice || avgPrice <= 0) return 10000;
+  return Math.max(500, Math.round(avgPrice / multiplier / 500) * 500);
+}
+
 export function ClayCalculatorInstrument({
   commodityName,
   averagePricePerKg,
@@ -29,14 +34,29 @@ export function ClayCalculatorInstrument({
   const [selectedTakaran, setSelectedTakaran] = useState<TakaranOption>(
     TAKARAN_OPTIONS[1] // default 1/4 kg
   );
-  const [rawInputPrice, setRawInputPrice] = useState<number>(12000);
+  const [rawInputPrice, setRawInputPrice] = useState<number>(() =>
+    calculateDefaultPrice(averagePricePerKg, TAKARAN_OPTIONS[1].multiplier)
+  );
+
+  // Auto-calibrate input price when commodity changes
+  useEffect(() => {
+    setRawInputPrice(
+      calculateDefaultPrice(averagePricePerKg, selectedTakaran.multiplier)
+    );
+  }, [commodityName, averagePricePerKg, selectedTakaran.multiplier]);
+
+  const handleSelectTakaran = (opt: TakaranOption) => {
+    setSelectedTakaran(opt);
+    setRawInputPrice(calculateDefaultPrice(averagePricePerKg, opt.multiplier));
+  };
 
   const pricePerKg = rawInputPrice * selectedTakaran.multiplier;
   const deviationPercent =
-    ((pricePerKg - averagePricePerKg) / averagePricePerKg) * 100;
+    averagePricePerKg > 0
+      ? ((pricePerKg - averagePricePerKg) / averagePricePerKg) * 100
+      : 0;
 
   const isCheaper = deviationPercent < -1;
-  const isFair = deviationPercent >= -10 && deviationPercent <= 10;
   const isExpensive = deviationPercent > 10;
 
   return (
@@ -51,12 +71,12 @@ export function ClayCalculatorInstrument({
         </p>
       </div>
 
-      {/* Input Nominal Row */}
+      {/* Input Nominal Row (Clay Signature Aesthetic) */}
       <div className="flex flex-wrap items-center gap-4">
         <div className="w-[220px] flex items-center justify-between p-[10px_16px] bg-[#FAF9F5] outline outline-[1.5px] outline-[#1B1A18] -outline-offset-[0.75px] rounded-[8px]">
           <input
             type="number"
-            min={1000}
+            min={500}
             step={500}
             value={rawInputPrice}
             onChange={(e) => setRawInputPrice(Number(e.target.value) || 0)}
@@ -69,7 +89,7 @@ export function ClayCalculatorInstrument({
         <span className="text-[13px] text-[#6E6D67]">untuk takaran:</span>
       </div>
 
-      {/* Takaran Chips */}
+      {/* Takaran Chips (Clay Palette) */}
       <div className="flex flex-wrap gap-2">
         {TAKARAN_OPTIONS.map((opt) => {
           const isActive = selectedTakaran.id === opt.id;
@@ -77,7 +97,7 @@ export function ClayCalculatorInstrument({
             <button
               key={opt.id}
               type="button"
-              onClick={() => setSelectedTakaran(opt)}
+              onClick={() => handleSelectTakaran(opt)}
               className={`px-3 py-1.5 rounded-[8px] text-[12px] transition-all cursor-pointer ${
                 isActive
                   ? 'bg-[#FFF3ED] text-[#FF7714] outline outline-[1.5px] outline-[#FF7714] -outline-offset-[0.75px] font-semibold shadow-xs'

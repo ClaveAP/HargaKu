@@ -72,9 +72,9 @@ export function CommodityLedgerTable({ commodities }: Props) {
                     <span
                       className={`font-semibold tabular-nums text-[12px] ${
                         isRising
-                          ? 'text-[#B45309]'
+                          ? 'text-[#DC2626]'
                           : isDropping
-                          ? 'text-[#1B1A18]'
+                          ? 'text-[#15803D]'
                           : 'text-[#6E6D67]'
                       }`}
                     >

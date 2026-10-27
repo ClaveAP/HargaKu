@@ -84,10 +84,6 @@ export function ClayCommodityTableSection() {
         {/* Header Row */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="flex flex-col gap-4">
-            <div className="inline-flex items-center px-3.5 py-1.5 bg-white outline outline-1 outline-[#E5E3DE] rounded-full text-[12px] font-medium text-[#1B1A18] w-fit shadow-xs">
-              <span>Buku Transparansi Komoditas</span>
-            </div>
-
             <h2 className="text-[32px] sm:text-[40px] font-medium text-[#1B1A18] leading-[1.15] tracking-tight max-w-[640px] text-balance">
               Pantauan harga komoditas pokok hari ini.
             </h2>
@@ -181,10 +177,18 @@ export function ClayCommodityTableSection() {
                     </div>
 
                     <div className="col-span-1">
-                      <div className="inline-flex items-center gap-1 text-[12px] font-medium tabular-nums text-[#1B1A18]">
+                      <div
+                        className={`inline-flex items-center gap-1 text-[12px] font-semibold tabular-nums ${
+                          c.trendType === 'down'
+                            ? 'text-[#15803D]'
+                            : c.trendType === 'up'
+                            ? 'text-[#DC2626]'
+                            : 'text-[#6E6D67]'
+                        }`}
+                      >
                         {c.trendType === 'down' && <TrendDown size={13} weight="bold" />}
-                        {c.trendType === 'up' && <TrendUp size={13} weight="bold" className="text-[#B45309]" />}
-                        {c.trendType === 'stable' && <Minus size={13} weight="bold" className="text-[#8C8B85]" />}
+                        {c.trendType === 'up' && <TrendUp size={13} weight="bold" />}
+                        {c.trendType === 'stable' && <Minus size={13} weight="bold" />}
                         <span>{c.trend}</span>
                       </div>
                     </div>

@@ -72,9 +72,9 @@ export function TactileCommodityCard({ commodity }: Props) {
           <span
             className={`font-bold tabular-nums ${
               isRising
-                ? 'text-[#B45309]'
+                ? 'text-[#DC2626]'
                 : isDropping
-                ? 'text-[#1B1A18]'
+                ? 'text-[#15803D]'
                 : 'text-[#6E6D67]'
             }`}
           >
@@ -105,9 +105,9 @@ export function TactileCommodityCard({ commodity }: Props) {
                   height: `${heightPercent}%`,
                   backgroundColor: isLast
                     ? isRising
-                      ? '#FF7714'
+                      ? '#DC2626'
                       : isDropping
-                      ? '#EEF773'
+                      ? '#15803D'
                       : '#1B1A18'
                     : '#D6D4CE',
                 }}

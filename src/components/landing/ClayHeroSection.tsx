@@ -10,7 +10,7 @@ import {
   Scales,
   ChartBar,
 } from '@phosphor-icons/react';
-import { COMMODITY_PRESETS, CommodityPreset } from './hero-data';
+import { COMMODITY_PRESETS } from './hero-data';
 import { ClayCalculatorInstrument } from './ClayCalculatorInstrument';
 import { ClayMarketRankings } from './ClayMarketRankings';
 import { formatRupiah } from '@/lib/price-logic';
@@ -19,7 +19,7 @@ import { useLiveCatalog } from '@/lib/store/use-live-catalog';
 
 export function ClayHeroSection() {
   const { selectedRegion } = useRegion();
-  const { presets: livePresets } = useLiveCatalog();
+  const { presets: livePresets } = useLiveCatalog(selectedRegion.id);
   const presets = livePresets.length > 0 ? livePresets : COMMODITY_PRESETS;
 
   const [selectedPresetId, setSelectedPresetId] = useState<string>(
@@ -31,6 +31,16 @@ export function ClayHeroSection() {
 
   const activePreset =
     presets.find((p) => p.id === selectedPresetId) || presets[0] || COMMODITY_PRESETS[0];
+
+  const highestRankPrice =
+    activePreset.ranks && activePreset.ranks.length > 0
+      ? activePreset.ranks[activePreset.ranks.length - 1].price
+      : activePreset.averagePrice;
+  const lowestRankPrice =
+    activePreset.ranks && activePreset.ranks.length > 0
+      ? activePreset.ranks[0].price
+      : activePreset.averagePrice;
+  const potentialSavings = Math.max(0, highestRankPrice - lowestRankPrice);
 
   return (
     <section
@@ -54,7 +64,7 @@ export function ClayHeroSection() {
 
           {/* Subtitle */}
           <p className="text-[15px] sm:text-[16px] text-[#6E6D67] leading-[1.6] max-w-[540px]">
-            Platform acuan pangan nasional terkalibrasi daerah. Cek tren harga riil dari rumah sebelum berangkat belanja, dan deteksi potensi mark-up pedagang saat bertransaksi di {selectedRegion.name}.
+            Platform acuan pangan nasional terkalibrasi daerah. Cek tren harga riil dari rumah sebelum berangkat belanja, dan pastikan Anda mendapatkan harga terbaik saat bertransaksi di {selectedRegion.name}.
           </p>
 
           {/* Dual CTAs */}
@@ -110,7 +120,7 @@ export function ClayHeroSection() {
           </div>
         </div>
 
-        {/* Right Column: Live Interactive Instrument */}
+        {/* Right Column: Live Interactive Instrument (Clay Foundations Aesthetic) */}
         <div className="w-full lg:w-[50%] xl:w-[48%] flex flex-col">
           <div className="w-full bg-white outline outline-1 outline-[#E5E3DE] -outline-offset-1 rounded-[24px] shadow-[0_12px_40px_rgba(0,0,0,0.06)] overflow-hidden">
             {/* Top Bar: Commodity Chips */}
@@ -180,6 +190,7 @@ export function ClayHeroSection() {
               {activeTab === 'kalkulator' ? (
                 <div className="flex flex-col gap-4">
                   <ClayCalculatorInstrument
+                    key={activePreset.id}
                     commodityName={activePreset.name}
                     averagePricePerKg={activePreset.averagePrice}
                   />
@@ -214,7 +225,7 @@ export function ClayHeroSection() {
                       </strong>
                     </span>
                     <span className="px-2 py-0.5 rounded-[5px] bg-[#EEF773] text-[#1B1A18] font-semibold tabular-nums text-[11px] outline outline-1 outline-[#1B1A18]/20">
-                      Hemat {formatRupiah(activePreset.ranks[activePreset.ranks.length - 1].price - activePreset.ranks[0].price)}/kg
+                      Hemat {formatRupiah(potentialSavings)}/kg
                     </span>
                   </div>
                 </div>
